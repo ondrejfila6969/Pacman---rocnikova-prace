@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+  "outDir": "./res/js", // Kde se nachází zkompilované js soubory
+  "rootDir": "./res/ts", // Kde se nachází ts soubory
+  "target": "ES2022",
+  "module": "ESNext",
+  "esModuleInterop": true,                            
+  "forceConsistentCasingInFileNames": true,
+  "strict": false,       
+  "skipLibCheck": true                         
+  }
+}
