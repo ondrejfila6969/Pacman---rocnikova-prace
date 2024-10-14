@@ -52,7 +52,7 @@ const loadData = async (): Promise<void> => {
 loadData();
 
 window.addEventListener("load", () => {
-    console.log(currentMap);
+  console.log(currentMap);
   const createBorder = (
     posX: number,
     posY: number,
