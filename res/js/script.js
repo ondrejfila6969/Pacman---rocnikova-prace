@@ -27,9 +27,11 @@ console.log(canvas.height);
  */
 const oneBlockWidth = Math.floor(canvas.width / numberOfColumns);
 const oneBlockHeight = Math.floor(canvas.height / numberOfRows);
+/*
 console.log("Výška: " + oneBlockHeight);
 console.log("Šířka: " + oneBlockWidth);
-let currentMap;
+*/
+var currentMap;
 /**
  * Načte data z JSON souboru a uloží je do currentMapy
  */
@@ -38,13 +40,14 @@ const loadData = async () => {
     const data = await file.json();
     currentMap = data[0].map; // Zatím pouze 1. mapu
 };
-loadData();
-window.addEventListener("load", () => {
-    console.log(currentMap);
-    const createBorder = (posX, posY, oneBlockWidth, oneBlockHeight, oneBlockColor) => {
-        ctx.fillStyle = oneBlockColor;
-        ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
-    };
+/**
+ * Funkce pro vykreslení jednoho "bloku" mapy
+*/
+const createBorder = (posX, posY, oneBlockWidth, oneBlockHeight, oneBlockColor) => {
+    ctx.fillStyle = oneBlockColor;
+    ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+};
+const renderMap = () => {
     for (let i = 0; i < currentMap.length; i++) {
         for (let j = 0; j < currentMap[i].length; j++) {
             if (currentMap[i][j] == 1) {
@@ -57,4 +60,8 @@ window.addEventListener("load", () => {
             }
         }
     }
-});
+};
+loadData();
+window.onload = () => {
+    renderMap();
+};
