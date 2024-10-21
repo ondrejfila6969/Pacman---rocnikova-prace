@@ -40,6 +40,7 @@ console.log("Výška: " + oneBlockHeight);
 console.log("Šířka: " + oneBlockWidth);
 */
 
+// Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
 var currentMap: number[][];
 
 /**
@@ -125,6 +126,7 @@ const renderFood = (): void => {
 };
 loadData();
 
+/* Jakmile se stránka načte, vyrenderuje se mapa společně s jídlem */
 window.onload = () => {
   renderMap();
   renderFood();

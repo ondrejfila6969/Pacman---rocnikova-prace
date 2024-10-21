@@ -31,6 +31,7 @@ const oneBlockHeight = Math.floor(canvasHeight / numberOfRows);
 console.log("Výška: " + oneBlockHeight);
 console.log("Šířka: " + oneBlockWidth);
 */
+// Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
 var currentMap;
 /**
  * Načte data z JSON souboru a uloží je do currentMapy
@@ -84,6 +85,7 @@ const renderFood = () => {
     }
 };
 loadData();
+/* Jakmile se stránka načte, vyrenderuje se mapa společně s jídlem */
 window.onload = () => {
     renderMap();
     renderFood();
