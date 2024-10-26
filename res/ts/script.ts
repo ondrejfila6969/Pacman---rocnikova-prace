@@ -9,6 +9,11 @@ document.body.appendChild(canvas);
 const canvasWidth: number = 500;
 const canvasHeight: number = 500;
 
+const numberOfRows: number = 23;
+const numberOfColumns: number = 21;
+
+const FPS = 60; 
+
 /**
  * Nastavení rozměrů
  */
@@ -17,14 +22,6 @@ const resizeCanvas = (): void => {
   canvas.height = canvasHeight;
 };
 
-const numberOfRows: number = 23;
-const numberOfColumns: number = 21;
-
-resizeCanvas();
-/*
-console.log(canvas.width);
-console.log(canvas.height); 
-*/
 
 /**
  * Výpočet rozměrů "jednoho bloku", protože mapa je uložená v poli, tak jedno číslo bude symbolizovat čtverec/obdélník
@@ -35,13 +32,11 @@ console.log(canvas.height);
 const oneBlockWidth: number = Math.floor(canvasWidth / numberOfColumns);
 const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
 
-/* 
-console.log("Výška: " + oneBlockHeight);
-console.log("Šířka: " + oneBlockWidth);
-*/
-
-// Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
-var currentMap: number[][];
+/**
+ * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
+ * Do proměnné currentMap jsem musel uložit prázdná pole, aby to inicializovalo délku 1. a 2. dimenze - jinak to v konzoli vypisovalo chybu
+ */
+var currentMap: number[][] = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
 /**
  * Načte data z JSON souboru a uloží je do currentMapy
@@ -68,8 +63,8 @@ const createMap = (
 
 /**
  * Funkce pro vykreslení jednoho "jídla" xd, poté funkce renderFood projede celým cyklem mapu a kde se nachází číslo 2 se provede tato funkce
- * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využijeme elipsu
- * Argumenty v ctx.ellipse(): souřadniceX, souřadniceY, průměrSouřadniceX, průměrSouřadniceY, rotace, počáteční úhel, koncový úhel
+ * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využpsu
+ * Argumenty v ctx.ellipse(): souřadniceX, souřadniceY, průijeme eliměrSouřadniceX, průměrSouřadniceY, rotace, počáteční úhel, koncový úhel
  * Rotace - o jaký úhel elipsu natočím, v tomto případě to nepotřebuji vůbec, takže 0
  * Úhly jsou zapsané v radiánech (2 * Math.PI = 360 stupňů) :) Meths
  */
@@ -93,6 +88,7 @@ const createFood = (
   ctx.fillStyle = foodColor;
   ctx.fill();
 };
+
 const renderMap = (): void => {
   for (let i = 0; i < currentMap.length; i++) {
     for (let j = 0; j < currentMap[i].length; j++) {
@@ -124,10 +120,20 @@ const renderFood = (): void => {
     }
   }
 };
-loadData();
 
-/* Jakmile se stránka načte, vyrenderuje se mapa společně s jídlem */
-window.onload = () => {
-  renderMap();
-  renderFood();
-};
+/**
+ * Herní smyčka
+ * setInterval(() => {}, čas)
+ * Jako čas tam mám 1000 / FPS nastavených na 60. Jinými slovy, ten interval se provádí každých 16,67 milisekund => 60 krát za sekundu :)
+ */
+const gameLoop = () => {
+  resizeCanvas();
+  setInterval(() => {
+    loadData();
+    renderMap();
+    renderFood();
+  }, 1000 / FPS);
+}
+
+// window.requestAnimationFrame() = vyžádá první snímek animace => herní smyčku
+window.requestAnimationFrame(gameLoop);
