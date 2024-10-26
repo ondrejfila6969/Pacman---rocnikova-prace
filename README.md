@@ -8,7 +8,7 @@
 <p>Logika pro vykreslení je v podstatě stejná jako u mapy</p>
 <p>Takhle momentálně vypadá mapa: </p>
 
-<img src="https://github.com/user-attachments/assets/9811f803-afd5-4e8f-82e3-7ff54e8c08fb" alt="mapa" width="300" height="300" style="display: inline-block;">
+<img src="https://github.com/user-attachments/assets/9811f803-afd5-4e8f-82e3-7ff54e8c08fb" alt="mapa" width="300" height="300">
 
 <h2>26.10.2024</h2>
 <p>Přidání herní smyčky, která se provádí podle FPS viz. dokumentace kódu</p>
