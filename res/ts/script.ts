@@ -1,5 +1,5 @@
 const canvas: HTMLCanvasElement = document.createElement("canvas");
-const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 
 /**
  * Přidá canvas do HTML
@@ -57,13 +57,16 @@ const createMap = (
   oneBlockHeight: number,
   oneBlockColor: string
 ) => {
-  ctx.fillStyle = oneBlockColor;
-  ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+  // ctx is possibly null - k tomu slouží tahle podmínka nejen tady, ale i v createFood
+  if(ctx !== null) {
+    ctx.fillStyle = oneBlockColor;
+    ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+  }
 };
 
 /**
  * Funkce pro vykreslení jednoho "jídla" xd, poté funkce renderFood projede celým cyklem mapu a kde se nachází číslo 2 se provede tato funkce
- * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využpsu
+ * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využiju elipsu
  * Argumenty v ctx.ellipse(): souřadniceX, souřadniceY, průijeme eliměrSouřadniceX, průměrSouřadniceY, rotace, počáteční úhel, koncový úhel
  * Rotace - o jaký úhel elipsu natočím, v tomto případě to nepotřebuji vůbec, takže 0
  * Úhly jsou zapsané v radiánech (2 * Math.PI = 360 stupňů) :) Meths
@@ -75,18 +78,20 @@ const createFood = (
   foodRadiusY: number,
   foodColor: string
 ) => {
-  ctx.beginPath();
-  ctx.ellipse(
-    posX + oneBlockWidth / 2,
-    posY + oneBlockHeight / 2,
-    foodRadiusX,
-    foodRadiusY,
-    0,
-    0,
-    2 * Math.PI
-  );
-  ctx.fillStyle = foodColor;
-  ctx.fill();
+  if(ctx !== null) {
+    ctx.beginPath();
+    ctx.ellipse(
+      posX + oneBlockWidth / 2,
+      posY + oneBlockHeight / 2,
+      foodRadiusX,
+      foodRadiusY,
+      0,
+      0,
+      2 * Math.PI
+    );
+    ctx.fillStyle = foodColor;
+    ctx.fill();
+  }
 };
 
 const renderMap = (): void => {
@@ -112,8 +117,8 @@ const renderFood = (): void => {
         createFood(
           j * oneBlockWidth,
           i * oneBlockHeight,
-          oneBlockWidth / 8,
-          oneBlockHeight / 8,
+          oneBlockWidth / 10,
+          oneBlockHeight / 10,
           "#FFFFFF"
         );
       }

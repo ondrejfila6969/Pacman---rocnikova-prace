@@ -1,3 +1,4 @@
+"use strict";
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 /**
@@ -40,21 +41,26 @@ const loadData = async () => {
  * Funkce pro vykreslení jednoho "bloku" mapy, poté funkce renderMap projede celým cyklem mapu a kde se nachází číslo 1 se provede tato funkce
  */
 const createMap = (posX, posY, oneBlockWidth, oneBlockHeight, oneBlockColor) => {
-    ctx.fillStyle = oneBlockColor;
-    ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+    // ctx is possibly null - k tomu slouží tahle podmínka nejen tady, ale i v createFood
+    if (ctx !== null) {
+        ctx.fillStyle = oneBlockColor;
+        ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+    }
 };
 /**
  * Funkce pro vykreslení jednoho "jídla" xd, poté funkce renderFood projede celým cyklem mapu a kde se nachází číslo 2 se provede tato funkce
- * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využpsu
+ * Vzhledem k tomu, že mapa není dokonalý čtverec, tak ani jídlo nebude vykreslené jako dokonalý kruh, využiju elipsu
  * Argumenty v ctx.ellipse(): souřadniceX, souřadniceY, průijeme eliměrSouřadniceX, průměrSouřadniceY, rotace, počáteční úhel, koncový úhel
  * Rotace - o jaký úhel elipsu natočím, v tomto případě to nepotřebuji vůbec, takže 0
  * Úhly jsou zapsané v radiánech (2 * Math.PI = 360 stupňů) :) Meths
  */
 const createFood = (posX, posY, foodRadiusX, foodRadiusY, foodColor) => {
-    ctx.beginPath();
-    ctx.ellipse(posX + oneBlockWidth / 2, posY + oneBlockHeight / 2, foodRadiusX, foodRadiusY, 0, 0, 2 * Math.PI);
-    ctx.fillStyle = foodColor;
-    ctx.fill();
+    if (ctx !== null) {
+        ctx.beginPath();
+        ctx.ellipse(posX + oneBlockWidth / 2, posY + oneBlockHeight / 2, foodRadiusX, foodRadiusY, 0, 0, 2 * Math.PI);
+        ctx.fillStyle = foodColor;
+        ctx.fill();
+    }
 };
 const renderMap = () => {
     for (let i = 0; i < currentMap.length; i++) {
@@ -74,7 +80,7 @@ const renderFood = () => {
     for (let i = 0; i < currentMap.length; i++) {
         for (let j = 0; j < currentMap[i].length; j++) {
             if (currentMap[i][j] === 2) {
-                createFood(j * oneBlockWidth, i * oneBlockHeight, oneBlockWidth / 8, oneBlockHeight / 8, "#FFFFFF");
+                createFood(j * oneBlockWidth, i * oneBlockHeight, oneBlockWidth / 10, oneBlockHeight / 10, "#FFFFFF");
             }
         }
     }
