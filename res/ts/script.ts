@@ -36,7 +36,7 @@ const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
  * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
  * Do proměnné currentMap jsem musel uložit prázdná pole, aby to inicializovalo délku 1. a 2. dimenze - jinak to v konzoli vypisovalo chybu
  */
-var currentMap: number[][] = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+var currentMap: number[][] = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 
 /**
  * Načte data z JSON souboru a uloží je do currentMapy
@@ -56,7 +56,7 @@ const createMap = (
   oneBlockWidth: number,
   oneBlockHeight: number,
   oneBlockColor: string
-) => {
+): void => {
   // ctx is possibly null - k tomu slouží tahle podmínka nejen tady, ale i v createFood
   if(ctx !== null) {
     ctx.fillStyle = oneBlockColor;
