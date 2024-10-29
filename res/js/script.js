@@ -1,6 +1,6 @@
-"use strict";
+import { pacman } from "./pacman/pacman.js";
 const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
+export const ctx = canvas.getContext("2d");
 /**
  * Přidá canvas do HTML
  */
@@ -22,8 +22,8 @@ const resizeCanvas = () => {
  * Rozměry nejsou stejné, protože máme více sloupců než řádků
  * Samozřejmě se výsledek musí zaokrouhlit pomocí fce Math.floor(), protože bez zaokrouhlení tam je asi 20 desetinných míst
  */
-const oneBlockWidth = Math.floor(canvasWidth / numberOfColumns);
-const oneBlockHeight = Math.floor(canvasHeight / numberOfRows);
+export const oneBlockWidth = Math.floor(canvasWidth / numberOfColumns);
+export const oneBlockHeight = Math.floor(canvasHeight / numberOfRows);
 /**
  * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
  * Do proměnné currentMap jsem musel uložit prázdná pole, aby to inicializovalo délku 1. a 2. dimenze - jinak to v konzoli vypisovalo chybu
@@ -85,17 +85,22 @@ const renderFood = () => {
         }
     }
 };
+const pacmanTools = () => {
+    pacman.drawPacman();
+    pacman.drawEdgePoints();
+};
 /**
  * Herní smyčka
  * setInterval(() => {}, čas)
  * Jako čas tam mám 1000 / FPS nastavených na 60. Jinými slovy, ten interval se provádí každých 16,67 milisekund => 60 krát za sekundu :)
  */
 const gameLoop = () => {
-    resizeCanvas();
     setInterval(() => {
+        resizeCanvas();
         loadData();
         renderMap();
         renderFood();
+        pacmanTools();
     }, 1000 / FPS);
 };
 // window.requestAnimationFrame() = vyžádá první snímek animace => herní smyčku

@@ -1,5 +1,8 @@
+import { pacman } from "./pacman/pacman.js";
+
+
 const canvas: HTMLCanvasElement = document.createElement("canvas");
-const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+export const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 
 /**
  * Přidá canvas do HTML
@@ -29,8 +32,8 @@ const resizeCanvas = (): void => {
  * Samozřejmě se výsledek musí zaokrouhlit pomocí fce Math.floor(), protože bez zaokrouhlení tam je asi 20 desetinných míst
  */
 
-const oneBlockWidth: number = Math.floor(canvasWidth / numberOfColumns);
-const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
+export const oneBlockWidth: number = Math.floor(canvasWidth / numberOfColumns);
+export const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
 
 /**
  * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
@@ -126,17 +129,24 @@ const renderFood = (): void => {
   }
 };
 
+/* Všechny procesy, co se týkají pacmana */
+const pacmanTools = (): void => {
+  pacman.drawPacman();
+  pacman.drawEdgePoints();
+}
+
 /**
  * Herní smyčka
  * setInterval(() => {}, čas)
  * Jako čas tam mám 1000 / FPS nastavených na 60. Jinými slovy, ten interval se provádí každých 16,67 milisekund => 60 krát za sekundu :)
  */
 const gameLoop = () => {
-  resizeCanvas();
   setInterval(() => {
+    resizeCanvas();
     loadData();
     renderMap();
     renderFood();
+    pacmanTools();
   }, 1000 / FPS);
 }
 
