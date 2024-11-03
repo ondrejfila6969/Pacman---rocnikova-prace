@@ -18,3 +18,7 @@
 <p>Dále byly vytvořeny koncové body (levý horní roh, pravý horní roh, levý dolní roh, pravý dolní roh) + ještě střed pacmana</p>
 <p>Bude se to určitě do budoucna hodit kvůli pohybu, takhle momentálně vypadá Pacman s vyznačenými body: </p>
 <img src="https://github.com/user-attachments/assets/96bfe026-df95-4fca-a49d-869e0c48b648" alt="pacman" width="150" height="150">
+
+<h2>3.11. 2024</h2>
+<p>Obyčejný pohyb pomocí W, A, S, D nebo šipek </p>
+<p>Zatím nebere v potaz kolize se zdí</p>
