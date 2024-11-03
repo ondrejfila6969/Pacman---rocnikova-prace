@@ -2,10 +2,16 @@ import { oneBlockHeight, oneBlockWidth, ctx } from "../script.js"; // pokud nep≈
 class Pacman {
     posX;
     posY;
+    distance;
+    currentDirection;
+    desiredDirection;
     size;
     constructor(posX, posY) {
         this.posX = posX;
         this.posY = posY;
+        this.currentDirection = "right";
+        this.desiredDirection = null;
+        this.distance = 2;
         this.size = {
             width: oneBlockWidth,
             height: oneBlockHeight
@@ -68,6 +74,44 @@ class Pacman {
             ctx.fill();
             ctx.closePath();
         }
+    }
+    movementProcess() {
+        this.movePacman();
+    }
+    movePacman() {
+        switch (this.currentDirection) {
+            case "up":
+                this.posY -= this.distance;
+                break;
+            case "left":
+                this.posX -= this.distance;
+                break;
+            case "down":
+                this.posY += this.distance;
+                break;
+            case "right":
+                this.posX += this.distance;
+                break;
+        }
+    }
+    stopPacman() {
+        switch (this.currentDirection) {
+            case "up":
+                this.posY += this.distance;
+                break;
+            case "left":
+                this.posX += this.distance;
+                break;
+            case "down":
+                this.posY -= this.distance;
+                break;
+            case "right":
+                this.posX -= this.distance;
+                break;
+        }
+    }
+    setDirection(direction) {
+        this.currentDirection = direction;
     }
 }
 export let pacman;

@@ -132,7 +132,8 @@ const renderFood = (): void => {
 /* Všechny procesy, co se týkají pacmana */
 const pacmanTools = (): void => {
   pacman.drawPacman();
-  pacman.drawEdgePoints();
+  // pacman.drawEdgePoints();
+  pacman.movementProcess();
 }
 
 /**
@@ -152,3 +153,28 @@ const gameLoop = () => {
 
 // window.requestAnimationFrame() = vyžádá první snímek animace => herní smyčku
 window.requestAnimationFrame(gameLoop);
+
+
+document.addEventListener("keydown", (e) => {
+  let key: number = e.keyCode;
+
+  // W nebo šipka nahorů
+  if(key === 87 || key === 38) {
+    pacman.setDirection("up");
+  }
+
+  // A nebo šipka doleva
+  if(key === 65 || key === 37) {
+    pacman.setDirection("left");
+  }
+
+  // S nebo šipka dolů
+  if(key === 83 || key === 40) {
+    pacman.setDirection("down");
+  }
+
+  // D nebo šipka doprava
+  if(key === 68 || key === 39) {
+    pacman.setDirection("right");
+  }
+})
