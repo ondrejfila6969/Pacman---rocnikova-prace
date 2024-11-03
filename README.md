@@ -13,3 +13,8 @@
 <h2>26.10.2024</h2>
 <p>Přidání herní smyčky, která se provádí podle FPS viz. dokumentace kódu</p>
 
+<h2>29. 10. 2024</h2>
+<p>Vytvoření Pacmana, coby objektu + vykreslení do mapy.</p>
+<p>Dále byly vytvořeny koncové body (levý horní roh, pravý horní roh, levý dolní roh, pravý dolní roh) + ještě střed pacmana</p>
+<p>Bude se to určitě do budoucna hodit kvůli pohybu, takhle momentálně vypadá Pacman s vyznačenými body: </p>
+<img src="https://github.com/user-attachments/assets/96bfe026-df95-4fca-a49d-869e0c48b648" alt="pacman" width="150" height="150">
