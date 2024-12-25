@@ -1,145 +1,304 @@
-import { oneBlockHeight, oneBlockWidth, ctx } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
+import { oneBlockHeight, oneBlockWidth, ctx, currentMap } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 
 class Pacman {
-    private posX: number;
-    private posY: number;
-    private distance: number;
-    private currentDirection: string;
-    public desiredDirection: string | null;
-    protected size: {width: number, height: number};
+  private posX: number;
+  private posY: number;
+  private distance: number;
+  private currentDirection: string;
+  public desiredDirection: string | null;
+  protected size: { width: number; height: number };
 
-    constructor(posX: number, posY: number) {
-        this.posX = posX;
-        this.posY = posY;
-        this.currentDirection = "right";
+  constructor(posX: number, posY: number) {
+    this.posX = posX;
+    this.posY = posY;
+    this.currentDirection = "right";
+    this.desiredDirection = null;
+    this.distance = 2;
+    this.size = {
+      width: oneBlockWidth,
+      height: oneBlockHeight,
+    };
+  }
+
+  public drawPacman(): void {
+    function createPacman(
+      color: string,
+      posX: number,
+      posY: number,
+      width: number,
+      height: number,
+      rotation: number,
+      startAngle: number,
+      endAngle: number,
+      counterclockwise?: boolean
+    ) {
+      /**
+       * posX, posY - souřadnice
+       * width, height - šířka, výška
+       * rotation - úhel rotace elipsy (v radiánech)
+       * startAngle, endAngle - počáteční a koncový úhel (v radiánech)
+       * counterclockwise - určuje směr kreslení proti směru hodinových ručiček, pokud je true (ve funkci je tento parametr volitelný - ?)
+       */
+      if (ctx !== null) {
+        ctx.fillStyle = color; // nastavení barvy
+        ctx.beginPath(); // začne novou cestu
+        ctx.ellipse(
+          posX,
+          posY,
+          width,
+          height,
+          rotation,
+          startAngle,
+          endAngle,
+          counterclockwise
+        );
+        ctx.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
+        ctx.fill(); // vyplní elipsu barvou
+        ctx.closePath(); // ukončí současnou cestu
+      }
+    }
+    if (this.currentDirection === "left" || this.currentDirection === "right") {
+      /* Tělo */
+      createPacman(
+        "yellow",
+        this.posX,
+        this.posY,
+        this.size.width / 2 - 0.6,
+        this.size.height / 2 - 0.6,
+        this.currentDirection === "right" ? 0 : Math.PI, // Zkrácení zápisu, ternárním operátorem nemusím vytvářet 4 podmínky, ale stačí 2 a jestli se pacman dívá doleva nebo doprava, to řeší rotace
+        Math.PI / 5,
+        (9 * Math.PI) / 5
+      );
+      /* Pusa */
+      createPacman(
+        "black",
+        this.posX,
+        this.posY,
+        this.size.width / 2,
+        this.size.height / 2,
+        this.currentDirection === "right" ? 0 : Math.PI,
+        Math.PI / 5,
+        (9 * Math.PI) / 5,
+        true
+      );
+    }
+
+    if (this.currentDirection === "up" || this.currentDirection === "down") {
+      /* Tělo */
+      createPacman(
+        "yellow",
+        this.posX,
+        this.posY,
+        this.size.width / 2 - 0.6,
+        this.size.height / 2 - 0.6,
+        this.currentDirection === "down" ? 0 : Math.PI,
+        (3 * Math.PI) / 10,
+        (7 * Math.PI) / 10,
+        true
+      );
+      /* Pusa */
+      createPacman(
+        "black",
+        this.posX,
+        this.posY,
+        this.size.width / 2,
+        this.size.height / 2,
+        this.currentDirection === "down" ? 0 : Math.PI,
+        (3 * Math.PI) / 10,
+        (7 * Math.PI) / 10
+      );
+    }
+  }
+
+  public drawEdgePoints(): void {
+    if (ctx !== null) {
+      // ctx.arc(poziceX, poziceY, průměr, počáteční úhel, koncový úhel) - vykresluji kruhy, takže 0 až 360
+
+      /* Prostřední bod */
+      ctx.beginPath();
+      ctx.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
+      ctx.fillStyle = "red";
+      ctx.fill();
+      ctx.closePath();
+
+      /* Bod vlevo nahoře (opět jsem tomu dal menší offset) */
+      ctx.beginPath();
+      ctx.arc(
+        this.posX - this.size.width / 2 + 0.6,
+        this.posY - this.size.height / 2 + 0.6,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "lime";
+      ctx.fill();
+      ctx.closePath();
+
+      /* Bod vpravo nahoře */
+      ctx.beginPath();
+      ctx.arc(
+        this.posX + this.size.width / 2 - 0.6,
+        this.posY - this.size.height / 2 + 0.6,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "lime";
+      ctx.fill();
+      ctx.closePath();
+
+      /* Bod vlevo dole */
+      ctx.beginPath();
+      ctx.arc(
+        this.posX - this.size.width / 2 + 0.6,
+        this.posY + this.size.height / 2 - 0.6,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "lime";
+      ctx.fill();
+      ctx.closePath();
+
+      /* Bod vpravo dole */
+      ctx.beginPath();
+      ctx.arc(
+        this.posX + this.size.width / 2 - 0.6,
+        this.posY + this.size.height / 2 - 0.6,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "lime";
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+
+  public movement() {
+    this.tryNewDirection();
+    this.movePacman();
+    if (this.wallCollision()) {
+      this.stopPacman();
+      this.desiredDirection = null;
+    }
+  }
+
+  private movePacman(): void {
+    switch (this.currentDirection) {
+      case "up":
+        this.posY -= this.distance;
+        break;
+      case "left":
+        this.posX -= this.distance;
+        break;
+      case "down":
+        this.posY += this.distance;
+        break;
+      case "right":
+        this.posX += this.distance;
+        break;
+    }
+  }
+
+  private stopPacman(): void {
+    switch (this.currentDirection) {
+      case "up":
+        this.posY += this.distance;
+        break;
+      case "left":
+        this.posX += this.distance;
+        break;
+      case "down":
+        this.posY -= this.distance;
+        break;
+      case "right":
+        this.posX -= this.distance;
+        break;
+    }
+  }
+
+  public setDirection(direction: string): void {
+    this.desiredDirection = direction;
+  }
+
+  /**
+   * Problém s pohybem Pacmana byl ten, že když stiknete klávesu, tak se v mnoha případech stane, že změní směr ihned
+   * Což ovšem většinou vede ke kolizi se zdí, tuto problematiku řeší metoda tryNewDirection()
+   */
+  private tryNewDirection(): void {
+    if (this.desiredDirection) {
+      const previousDirection = this.currentDirection;
+      this.currentDirection = this.desiredDirection;
+      this.movePacman();
+      if (this.wallCollision()) {
+        this.stopPacman();
+        this.currentDirection = previousDirection;
+      } else {
         this.desiredDirection = null;
-        this.distance = 2;
-        this.size = {
-            width: oneBlockWidth,
-            height: oneBlockHeight
-        }
+      }
     }
+  }
+  private wallCollision(): boolean {
+    return (
+      currentMap[Math.floor(this.getTopLeftPoint().posY / oneBlockHeight)][
+        Math.floor(this.getTopLeftPoint().posX / oneBlockWidth)
+      ] == 1 ||
+      currentMap[Math.floor(this.getTopRightPoint().posY / oneBlockHeight)][
+        Math.floor(this.getTopRightPoint().posX / oneBlockWidth)
+      ] == 1 ||
+      currentMap[Math.floor(this.getBottomLeftPoint().posY / oneBlockHeight)][
+        Math.floor(this.getBottomLeftPoint().posX / oneBlockWidth)
+      ] == 1 ||
+      currentMap[Math.floor(this.getBottomRightPoint().posY / oneBlockHeight)][
+        Math.floor(this.getBottomRightPoint().posX / oneBlockWidth)
+      ] == 1 ||
+      Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 ||
+      Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21
+    );
+  }
 
-    public drawPacman(): void {
-        function createPacman(color: string, posX: number, posY: number, width: number, height: number, rotation: number, startAngle: number, endAngle: number, counterclockwise ?: boolean ) {
-            /** 
-             * posX, posY - souřadnice
-             * width, height - šířka, výška
-             * rotation - úhel rotace elipsy (v radiánech)
-             * startAngle, endAngle - počáteční a koncový úhel (v radiánech)
-             * counterclockwise - určuje směr kreslení proti směru hodinových ručiček, pokud je true (ve funkci je tento parametr volitelný - ?)
-            */
-            if(ctx !== null) {
-                ctx.fillStyle = color; // nastavení barvy
-                ctx.beginPath(); // začne novou cestu
-                ctx.ellipse(
-                    posX,
-                    posY,
-                    width,
-                    height,
-                    rotation,
-                    startAngle,
-                    endAngle,
-                    counterclockwise
-                )
-                ctx.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
-                ctx.fill(); // vyplní elipsu barvou
-                ctx.closePath(); // ukončí současnou cestu
-            }
-        }
-        // Tato část vykreslí tělo pacmana (0.6 je offset, Math.PI / 5 = 36 stupňů, 9 * Math.PI / 5 = 324 stupňů (360 - 36 :)) )
-        createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, 0, Math.PI / 5, (9 * Math.PI) / 5);
-        // Tahle vykreslí pusu
-        createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, 0, Math.PI / 5, (9 * Math.PI) / 5, true);
-    }
+  /**
+   * Tyto 4 metody slouží pro získání souřadnic jednotlivých rohů
+   * Podle těchto rohů se budou kontrolovat kolize
+   */
+  public getTopLeftPoint(): { readonly posX: number; readonly posY: number } {
+    return {
+      posX: this.posX - this.size.width / 2 + 1,
+      posY: this.posY - this.size.height / 2 + 1,
+    };
+  }
 
-    public drawEdgePoints(): void {
-        if(ctx !== null) {
-            // ctx.arc(poziceX, poziceY, průměr, počáteční úhel, koncový úhel) - vykresluji kruhy, takže 0 až 360
+  public getTopRightPoint(): { readonly posX: number; readonly posY: number } {
+    return {
+      posX: this.posX + this.size.width / 2 - 1,
+      posY: this.posY - this.size.height / 2 + 1,
+    };
+  }
 
-            /* Prostřední bod */
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "red";
-            ctx.fill();
-            ctx.closePath();
+  public getBottomLeftPoint(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
+    return {
+      posX: this.posX - this.size.width / 2 + 1,
+      posY: this.posY + this.size.height / 2 - 1,
+    };
+  }
 
-            /* Bod vlevo nahoře (opět jsem tomu dal menší offset) */
-            ctx.beginPath();
-            ctx.arc(this.posX - this.size.width / 2 + 0.6, this.posY - this.size.height / 2 + 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-
-            /* Bod vpravo nahoře */
-            ctx.beginPath();
-            ctx.arc(this.posX + this.size.width / 2 - 0.6, this.posY - this.size.height / 2 + 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-
-            /* Bod vlevo dole */
-            ctx.beginPath();
-            ctx.arc(this.posX - this.size.width / 2 + 0.6, this.posY + this.size.height / 2 - 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-
-            /* Bod vpravo dole */
-            ctx.beginPath();
-            ctx.arc(this.posX + this.size.width / 2 - 0.6, this.posY + this.size.height / 2 - 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
-
-    public movementProcess() {
-        this.movePacman();
-    }
-
-    private movePacman(): void {
-        switch(this.currentDirection) {
-            case "up":
-                this.posY -= this.distance;
-                break;
-            case "left":
-                this.posX -= this.distance;
-                break;
-            case "down":
-                this.posY += this.distance;
-                break;
-            case "right":
-                this.posX += this.distance;
-                break;
-        }
-    }
-
-    private stopPacman(): void {
-        switch(this.currentDirection) {
-            case "up":
-                this.posY += this.distance;
-                break;
-            case "left":
-                this.posX += this.distance;
-                break;
-            case "down":
-                this.posY -= this.distance;
-                break;
-            case "right":
-                this.posX -= this.distance;
-                break;
-        }
-    }
-
-    public setDirection(direction: string): void {
-        this.currentDirection = direction;
-    }
-
+  public getBottomRightPoint(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
+    return {
+      posX: this.posX + this.size.width / 2 - 1,
+      posY: this.posY + this.size.height / 2 - 1,
+    };
+  }
 }
 
 export let pacman: Pacman;
 // Uncaught ReferenceError: Cannot access 'oneBlockWidth' before initialization (musí se stránka nejdříve načíst a potom mohu inicializovat pacmana, je to debilní řešení, ale stackoverflow poradilo ...)
 window.addEventListener("load", () => {
-    pacman = new Pacman(1.5 * oneBlockWidth, 1.5 * oneBlockHeight);
-})
+  pacman = new Pacman(1.5 * oneBlockWidth, 1.5 * oneBlockHeight);
+});
