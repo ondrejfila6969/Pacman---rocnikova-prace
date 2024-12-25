@@ -261,6 +261,8 @@ class Pacman {
   /**
    * Tyto 4 metody slouží pro získání souřadnic jednotlivých rohů
    * Podle těchto rohů se budou kontrolovat kolize
+   * Readonly modifier slouží k tomu, že tyto souřadnice jsou třeba pouze pro "čtení", nikoliv pro změnu
+   * Číslo 1 slouží jako offset
    */
   public getTopLeftPoint(): { readonly posX: number; readonly posY: number } {
     return {
