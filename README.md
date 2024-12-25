@@ -22,3 +22,8 @@
 <h2>3.11. 2024</h2>
 <p>Obyčejný pohyb pomocí W, A, S, D nebo šipek </p>
 <p>Zatím nebere v potaz kolize se zdí</p>
+
+<h2>25.12. 2024</h2>
+<p>Po dlouhé přestávce pokračuji v práci (Ani během svátků si nedám odpočinek :)</p>
+<p>Pacman se momentálně dokáže plynule pohybovat po mapě, vyřešená logika ohledně narážení do zdi při stiknutí klávesy pro změnu směru</p>
+<p>Zítra již Pacman bude moct jíst jídlo a sbírat skore</p>
