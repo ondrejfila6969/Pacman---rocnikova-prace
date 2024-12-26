@@ -31,4 +31,4 @@
 <h2>26.12. 2024</h2>
 <p>Pacman nyní dokáže sbírat skore, logika je dost podobná kolizím se zdí</p>
 <p>Herní smyčka je vylepšená + přidání h2 tagu, ve kterém se ukládá stav</p>
-<img src="https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491" alt="mapa2" width="300", height="300"/>
+<img src="https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491" alt="mapa2" width="700", height="300"/>
