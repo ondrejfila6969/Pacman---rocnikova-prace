@@ -27,3 +27,8 @@
 <p>Po dlouhé přestávce pokračuji v práci (Ani během svátků si nedopřeji odpočinek :)</p>
 <p>Pacman se momentálně dokáže plynule pohybovat po mapě, vyřešená logika ohledně narážení do zdi při stiknutí klávesy pro změnu směru</p>
 <p>Zítra již Pacman bude moct jíst jídlo a sbírat skore</p>
+
+<h2>26.12. 2024</h2>
+<p>Pacman nyní dokáže sbírat skore, logika je dost podobná kolizím se zdí</p>
+<p>Herní smyčka je vylepšená + přidání h2 tagu, ve kterém se ukládá stav</p>
+<img src="https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491" alt="mapa2" width="300", height="300"/>
