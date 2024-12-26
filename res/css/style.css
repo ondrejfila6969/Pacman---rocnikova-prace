@@ -4,10 +4,17 @@
     margin: 0;
 }
 
+@font-face {
+    font-family: gameFont;
+    src: url("../font/gameFont.otf");
+}
+
 body {
     width: 100%;
     height: 100%;
     background-color: black;
+    font-family: gameFont, Arial, sans-serif;
+    color: white;
 }
 
 canvas {
@@ -16,4 +23,8 @@ canvas {
     right: 35%;
     width: 500px;
     height: 500px;
+}
+
+#pacmanScore {
+    font-size: 20px;
 }

@@ -1,4 +1,10 @@
-import { oneBlockHeight, oneBlockWidth, ctx, currentMap } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
+import {
+  oneBlockHeight,
+  oneBlockWidth,
+  ctx,
+  currentMap,
+  pacmanScore,
+} from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 
 class Pacman {
   private posX: number;
@@ -7,6 +13,7 @@ class Pacman {
   private currentDirection: string;
   public desiredDirection: string | null;
   protected size: { width: number; height: number };
+  private score: number;
 
   constructor(posX: number, posY: number) {
     this.posX = posX;
@@ -18,6 +25,7 @@ class Pacman {
       width: oneBlockWidth,
       height: oneBlockHeight,
     };
+    this.score = 0;
   }
 
   public drawPacman(): void {
@@ -172,6 +180,55 @@ class Pacman {
       ctx.fillStyle = "lime";
       ctx.fill();
       ctx.closePath();
+
+      /**
+       * Body, které budou sloužit pro sbírání jídla
+       */
+
+      ctx.beginPath();
+      ctx.arc(
+        this.posX + this.size.width / 2 - 15,
+        this.posY,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "orange";
+      ctx.fill();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(
+        this.posX - this.size.width / 2 + 15,
+        this.posY,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "orange";
+      ctx.fill();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(
+        this.posX,
+        this.posY - this.size.height / 2 + 15,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "orange";
+      ctx.fill();
+      ctx.closePath();
+      ctx.beginPath();
+      ctx.arc(
+        this.posX,
+        this.posY + this.size.height / 2 - 15,
+        2,
+        0,
+        2 * Math.PI
+      );
+      ctx.fillStyle = "orange";
+      ctx.fill();
+      ctx.closePath();
     }
   }
 
@@ -258,6 +315,63 @@ class Pacman {
     );
   }
 
+  public eatFood(): void {
+    let foodEaten: boolean = false;
+    if (this.currentDirection === "right") {
+      if (
+        currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+        ] === 2
+      ) {
+        currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+        ] = 0;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "left") {
+      if (
+        currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+        ] === 2
+      ) {
+        currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+        ] = 0;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "up") {
+      if (
+        currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+        ] === 2
+      ) {
+        currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+        ] = 0;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "down") {
+      if (
+        currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+        ] === 2
+      ) {
+        currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+        ] = 0;
+        foodEaten = true;
+      }
+    }
+
+    if (foodEaten) {
+      this.score++;
+      if (pacmanScore !== null) pacmanScore.innerText = `Score: ${this.score}`;
+    }
+  }
+
   /**
    * Tyto 4 metody slouží pro získání souřadnic jednotlivých rohů
    * Podle těchto rohů se budou kontrolovat kolize
@@ -295,6 +409,44 @@ class Pacman {
     return {
       posX: this.posX + this.size.width / 2 - 1,
       posY: this.posY + this.size.height / 2 - 1,
+    };
+  }
+
+  /**
+   * Tyto 4 metody slouží pro získání souřadnic bodů, pomocí kterých pacman sbírá skore
+   * Číslo 15 je offset, readonly je tam ze stejného důvodu jako u rohů
+   */
+  private eatRightDirection(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
+    return {
+      posX: this.posX + this.size.width / 2 - 15,
+      posY: this.posY,
+    };
+  }
+
+  private eatLeftDirection(): { readonly posX: number; readonly posY: number } {
+    return {
+      posX: this.posX - this.size.width / 2 + 15,
+      posY: this.posY,
+    };
+  }
+
+  private eatTopDirection(): { readonly posX: number; readonly posY: number } {
+    return {
+      posX: this.posX,
+      posY: this.posY - this.size.height / 2 + 15,
+    };
+  }
+
+  private eatBottomDirection(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
+    return {
+      posX: this.posX,
+      posY: this.posY + this.size.height / 2 - 15,
     };
   }
 }
