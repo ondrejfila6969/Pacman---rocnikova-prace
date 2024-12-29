@@ -5,27 +5,12 @@ import {
   currentMap,
   pacmanScore,
 } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
+import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
 
-class Pacman {
-  private posX: number;
-  private posY: number;
-  private distance: number;
-  private currentDirection: string;
-  public desiredDirection: string | null;
-  protected size: { width: number; height: number };
-  private score: number;
+class Pacman extends PacmanTemplate {
 
   constructor(posX: number, posY: number) {
-    this.posX = posX;
-    this.posY = posY;
-    this.currentDirection = "right";
-    this.desiredDirection = null;
-    this.distance = 2;
-    this.size = {
-      width: oneBlockWidth,
-      height: oneBlockHeight,
-    };
-    this.score = 0;
+    super(posX, posY);
   }
 
   public drawPacman(): void {
@@ -232,7 +217,7 @@ class Pacman {
     }
   }
 
-  public movement() {
+  public movement(): void {
     this.tryNewDirection();
     this.movePacman();
     if (this.wallCollision()) {
@@ -275,7 +260,7 @@ class Pacman {
     }
   }
 
-  public setDirection(direction: string): void {
+  public setDesiredDirection(direction: string): void {
     this.desiredDirection = direction;
   }
 
@@ -283,7 +268,7 @@ class Pacman {
    * Problém s pohybem Pacmana byl ten, že když stiknete klávesu, tak se v mnoha případech stane, že změní směr ihned
    * Což ovšem většinou vede ke kolizi se zdí, tuto problematiku řeší metoda tryNewDirection()
    */
-  private tryNewDirection(): void {
+  protected tryNewDirection(): void {
     if (this.desiredDirection) {
       const previousDirection = this.currentDirection;
       this.currentDirection = this.desiredDirection;
@@ -296,7 +281,7 @@ class Pacman {
       }
     }
   }
-  private wallCollision(): boolean {
+  protected wallCollision(): boolean {
     return (
       currentMap[Math.floor(this.getTopLeftPoint().posY / oneBlockHeight)][
         Math.floor(this.getTopLeftPoint().posX / oneBlockWidth)
@@ -416,7 +401,7 @@ class Pacman {
    * Tyto 4 metody slouží pro získání souřadnic bodů, pomocí kterých pacman sbírá skore
    * Číslo 15 je offset, readonly je tam ze stejného důvodu jako u rohů
    */
-  private eatRightDirection(): {
+  protected eatRightDirection(): {
     readonly posX: number;
     readonly posY: number;
   } {
@@ -426,21 +411,21 @@ class Pacman {
     };
   }
 
-  private eatLeftDirection(): { readonly posX: number; readonly posY: number } {
+  protected eatLeftDirection(): { readonly posX: number; readonly posY: number } {
     return {
       posX: this.posX - this.size.width / 2 + 15,
       posY: this.posY,
     };
   }
 
-  private eatTopDirection(): { readonly posX: number; readonly posY: number } {
+  protected eatTopDirection(): { readonly posX: number; readonly posY: number } {
     return {
       posX: this.posX,
       posY: this.posY - this.size.height / 2 + 15,
     };
   }
 
-  private eatBottomDirection(): {
+  protected eatBottomDirection(): {
     readonly posX: number;
     readonly posY: number;
   } {

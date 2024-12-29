@@ -195,22 +195,22 @@ window.addEventListener("load", () => {
 
     // W nebo šipka nahorů
     if (key === 87 || key === 38) {
-      pacman.setDirection("up");
+      pacman.setDesiredDirection("up");
     }
 
     // A nebo šipka doleva
     if (key === 65 || key === 37) {
-      pacman.setDirection("left");
+      pacman.setDesiredDirection("left");
     }
 
     // S nebo šipka dolů
     if (key === 83 || key === 40) {
-      pacman.setDirection("down");
+      pacman.setDesiredDirection("down");
     }
 
     // D nebo šipka doprava
     if (key === 68 || key === 39) {
-      pacman.setDirection("right");
+      pacman.setDesiredDirection("right");
     }
   });
 });
