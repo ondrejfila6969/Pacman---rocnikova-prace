@@ -1,38 +1,59 @@
-<h2>14.10.2024</h2>
-<p>Základní mapa je uložená ve formě JSON souboru a vyrenderovaná v canvasu</p>
-<p>Hned na začátku jsem přidal inicializační soubor tsconfig.json (tsc --init), obrovskou výhodou je, že jakmile budu mít více typescriptových souborů, tak automaticky můžu kompilovat všechny najednou</p>
-<p>tsc -w (watchmode)</p>
+# Ročníková práce
 
-<h2>21.10.2024</h2>
-<p>Jídlo pro Pacmana je vytvořené společně s mapou, pomocí ctx.ellipse()</p>
-<p>Logika pro vykreslení je v podstatě stejná jako u mapy</p>
-<p>Takhle momentálně vypadá mapa: </p>
+## 🗓️ 14.10.2024
+- Základní mapa je uložená ve formě JSON souboru a vyrenderovaná v canvasu.
+- Přidal jsem inicializační soubor `tsconfig.json` (pomocí `tsc --init`). Obrovskou výhodou je, že jakmile budu mít více TypeScriptových souborů, můžu je automaticky kompilovat všechny najednou.
+- Spuštění v režimu sledování: `tsc -w`.
 
-<img src="https://github.com/user-attachments/assets/9811f803-afd5-4e8f-82e3-7ff54e8c08fb" alt="mapa" width="300" height="300">
+---
 
-<h2>26.10.2024</h2>
-<p>Přidání herní smyčky, která se provádí podle FPS viz. dokumentace kódu</p>
+## 🗓️ 21.10.2024
+- Jídlo pro Pacmana je vytvořeno společně s mapou, pomocí `ctx.ellipse()`.
+- Logika pro vykreslení je v podstatě stejná jako u mapy.
 
-<h2>29. 10. 2024</h2>
-<p>Vytvoření Pacmana, coby objektu + vykreslení do mapy.</p>
-<p>Dále byly vytvořeny koncové body (levý horní roh, pravý horní roh, levý dolní roh, pravý dolní roh) + ještě střed pacmana</p>
-<p>Bude se to určitě do budoucna hodit kvůli pohybu, takhle momentálně vypadá Pacman s vyznačenými body: </p>
-<img src="https://github.com/user-attachments/assets/96bfe026-df95-4fca-a49d-869e0c48b648" alt="pacman" width="150" height="150">
+Takhle momentálně vypadá mapa:
 
-<h2>3.11. 2024</h2>
-<p>Obyčejný pohyb pomocí W, A, S, D nebo šipek </p>
-<p>Zatím nebere v potaz kolize se zdí</p>
+![Mapa](https://github.com/user-attachments/assets/9811f803-afd5-4e8f-82e3-7ff54e8c08fb)
 
-<h2>25.12. 2024</h2>
-<p>Po dlouhé přestávce pokračuji v práci (Ani během svátků si nedopřeji odpočinek :)</p>
-<p>Pacman se momentálně dokáže plynule pohybovat po mapě, vyřešená logika ohledně narážení do zdi při stiknutí klávesy pro změnu směru</p>
-<p>Zítra již Pacman bude moct jíst jídlo a sbírat skore</p>
+---
 
-<h2>26.12. 2024</h2>
-<p>Pacman nyní dokáže sbírat skore, logika je dost podobná kolizím se zdí</p>
-<p>Herní smyčka je vylepšená + přidání h2 tagu, ve kterém se ukládá stav</p>
-<img src="https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491" alt="mapa2" width="700", height="300"/>
+## 🗓️ 26.10.2024
+- Přidání herní smyčky, která se provádí podle FPS (frames per second). Viz dokumentace kódu pro podrobnosti.
 
-<h2>29.12. 2024</h2>
-<p>Lepší orgnaizace kodu, vytvoření abstraktní classy pro classu Pacman</p>
-<p>Abstraktní classa slouží jako taková šablona, co by daná třída měla obsahovat, zároveň díky tomu nemusím mít zahlcený constructor v třídě Pacman</p>
+---
+
+## 🗓️ 29.10.2024
+- Vytvoření Pacmana jako objektu a jeho vykreslení do mapy.
+- Vytvořeny koncové body: levý horní roh, pravý horní roh, levý dolní roh, pravý dolní roh a střed Pacmana, které se budou hodit pro pohyb v budoucnu.
+
+Takhle momentálně vypadá Pacman s vyznačenými body:
+
+![Pacman](https://github.com/user-attachments/assets/96bfe026-df95-4fca-a49d-869e0c48b648)
+
+---
+
+## 🗓️ 03.11.2024
+- Obyčejný pohyb pomocí W, A, S, D nebo šipek.
+- Zatím nebere v potaz kolize se zdí.
+
+---
+
+## 🗓️ 25.12.2024
+- Po dlouhé přestávce pokračuji v práci (ani během svátků si nedopřeji odpočinek! 😊).
+- Pacman se momentálně dokáže plynule pohybovat po mapě, vyřešená logika ohledně narážení do zdi při stiknutí klávesy pro změnu směru.
+- Zítra již Pacman bude moct jíst jídlo a sbírat skóre.
+
+---
+
+## 🗓️ 26.12.2024
+- Pacman nyní dokáže sbírat skóre, logika je dost podobná kolizím se zdí.
+- Herní smyčka je vylepšená a přidání `h2` tagu pro ukládání stavu hry.
+
+![Vylepšená mapa](https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491)
+
+---
+
+## 🗓️ 29.12.2024
+- Lepší organizace kódu, vytvoření abstraktní třídy pro třídu Pacman.
+- Abstraktní třída slouží jako šablona, co by daná třída měla obsahovat, a zároveň díky tomu nemusím mít zahlcený konstruktor v třídě Pacman.
+
