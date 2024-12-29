@@ -32,3 +32,7 @@
 <p>Pacman nyní dokáže sbírat skore, logika je dost podobná kolizím se zdí</p>
 <p>Herní smyčka je vylepšená + přidání h2 tagu, ve kterém se ukládá stav</p>
 <img src="https://github.com/user-attachments/assets/16c2e7aa-0e8a-4dd6-8645-eb0a38bf7491" alt="mapa2" width="700", height="300"/>
+
+<h2>29.12. 2024</h2>
+<p>Lepší orgnaizace kodu, vytvoření abstraktní classy pro classu Pacman</p>
+<p>Abstraktní classa slouží jako taková šablona, co by daná třída měla obsahovat, zároveň díky tomu nemusím mít zahlcený constructor v třídě Pacman</p>
