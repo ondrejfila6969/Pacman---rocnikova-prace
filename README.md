@@ -57,3 +57,10 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Lepší organizace kódu, vytvoření abstraktní třídy pro třídu Pacman.
 - Abstraktní třída slouží jako šablona, co by daná třída měla obsahovat, a zároveň díky tomu nemusím mít zahlcený konstruktor v třídě Pacman.
 
+---
+
+## 🗓️ 4.1.2025
+- Vytvoření třídy Ghost + vykreslení 4 základních duchů, které jsou v originální hře (Inky, Blinky, Pinky, Clyde)
+  
+![Ghosti](https://github.com/user-attachments/assets/b389c00b-69ef-4b2c-afdd-8878387348dd)
+
