@@ -1,5 +1,5 @@
 import { pacman } from "./pacman/pacman.js";
-
+import { pinky, inky, blinky, clyde } from "./ghost/ghost.js";
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 export const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 export const pacmanScore: HTMLElement | null =
@@ -164,6 +164,13 @@ window.addEventListener("load", () => {
     pacman.eatFood();
   };
 
+const ghostTools = (): void => {
+  pinky.drawGhost();
+  inky.drawGhost();
+  blinky.drawGhost();
+  clyde.drawGhost();
+}
+
   const clearCanvas = (): void => {
     if (ctx !== null) return ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   };
@@ -184,6 +191,7 @@ window.addEventListener("load", () => {
       clearCanvas();
       pacmanTools();
       render();
+      ghostTools();
     }, 1000 / FPS);
   };
 

@@ -1,4 +1,5 @@
 import { pacman } from "./pacman/pacman.js";
+import { pinky, inky, blinky, clyde } from "./ghost/ghost.js";
 const canvas = document.createElement("canvas");
 export const ctx = canvas.getContext("2d");
 export const pacmanScore = document.getElementById("pacmanScore");
@@ -119,6 +120,12 @@ window.addEventListener("load", () => {
         pacman.movement();
         pacman.eatFood();
     };
+    const ghostTools = () => {
+        pinky.drawGhost();
+        inky.drawGhost();
+        blinky.drawGhost();
+        clyde.drawGhost();
+    };
     const clearCanvas = () => {
         if (ctx !== null)
             return ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -138,6 +145,7 @@ window.addEventListener("load", () => {
             clearCanvas();
             pacmanTools();
             render();
+            ghostTools();
         }, 1000 / FPS);
     };
     // window.requestAnimationFrame() = vyžádá první snímek animace => herní smyčku
@@ -146,19 +154,19 @@ window.addEventListener("load", () => {
         let key = e.keyCode;
         // W nebo šipka nahorů
         if (key === 87 || key === 38) {
-            pacman.setDirection("up");
+            pacman.setDesiredDirection("up");
         }
         // A nebo šipka doleva
         if (key === 65 || key === 37) {
-            pacman.setDirection("left");
+            pacman.setDesiredDirection("left");
         }
         // S nebo šipka dolů
         if (key === 83 || key === 40) {
-            pacman.setDirection("down");
+            pacman.setDesiredDirection("down");
         }
         // D nebo šipka doprava
         if (key === 68 || key === 39) {
-            pacman.setDirection("right");
+            pacman.setDesiredDirection("right");
         }
     });
 });

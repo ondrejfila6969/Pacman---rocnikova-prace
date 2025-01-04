@@ -1,23 +1,8 @@
 import { oneBlockHeight, oneBlockWidth, ctx, currentMap, pacmanScore, } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
-class Pacman {
-    posX;
-    posY;
-    distance;
-    currentDirection;
-    desiredDirection;
-    size;
-    score;
+import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
+class Pacman extends PacmanTemplate {
     constructor(posX, posY) {
-        this.posX = posX;
-        this.posY = posY;
-        this.currentDirection = "right";
-        this.desiredDirection = null;
-        this.distance = 2;
-        this.size = {
-            width: oneBlockWidth,
-            height: oneBlockHeight,
-        };
-        this.score = 0;
+        super(posX, posY);
     }
     drawPacman() {
         function createPacman(color, posX, posY, width, height, rotation, startAngle, endAngle, counterclockwise) {
@@ -149,7 +134,7 @@ class Pacman {
                 break;
         }
     }
-    setDirection(direction) {
+    setDesiredDirection(direction) {
         this.desiredDirection = direction;
     }
     /**
