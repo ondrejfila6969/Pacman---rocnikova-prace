@@ -165,10 +165,11 @@ window.addEventListener("load", () => {
   };
 
 const ghostTools = (): void => {
-  pinky.drawGhost();
-  inky.drawGhost();
-  blinky.drawGhost();
-  clyde.drawGhost();
+  [pinky, inky, blinky, clyde].forEach((ghost) => {
+    ghost.drawGhost();
+    ghost.drawEdgePoints();
+    ghost.ghostMovement();
+  })
 }
 
   const clearCanvas = (): void => {

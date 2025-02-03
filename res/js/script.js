@@ -121,10 +121,11 @@ window.addEventListener("load", () => {
         pacman.eatFood();
     };
     const ghostTools = () => {
-        pinky.drawGhost();
-        inky.drawGhost();
-        blinky.drawGhost();
-        clyde.drawGhost();
+        [pinky, inky, blinky, clyde].forEach((ghost) => {
+            ghost.drawGhost();
+            ghost.drawEdgePoints();
+            ghost.ghostMovement();
+        });
     };
     const clearCanvas = () => {
         if (ctx !== null)
