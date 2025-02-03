@@ -123,7 +123,7 @@ window.addEventListener("load", () => {
     const ghostTools = () => {
         [pinky, inky, blinky, clyde].forEach((ghost) => {
             ghost.drawGhost();
-            ghost.drawEdgePoints();
+            // ghost.drawEdgePoints();
             ghost.ghostMovement();
         });
     };
