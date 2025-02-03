@@ -64,3 +64,10 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
   
 ![Ghosti](https://github.com/user-attachments/assets/b389c00b-69ef-4b2c-afdd-8878387348dd)
 
+## 🗓️ 3.2.2025
+- Příprava na pohyb ducha, zatím to funguje tak, že duch se posouvá doprava, dokud nenarazí na zeď
+- Metoda na zachycení kolize se zdí funguje na způsob toho, že získám index na mapě daného rohu a porovnávám, jestli se nachází na poli s číslem 1 nebo ne
+
+![before](https://github.com/user-attachments/assets/633af69a-8df5-4d33-8f6d-621606b5e7b3)
+![after](https://github.com/user-attachments/assets/9e4e2b15-d3fb-4be4-96f2-c93f4f0830e8)
+- Na druhém obrázku se duchové samozřejmě překrývají, jsou tam všichni 4, nikdo nezmizel :)
