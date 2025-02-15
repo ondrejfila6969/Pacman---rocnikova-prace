@@ -434,6 +434,16 @@ class Pacman extends PacmanTemplate {
       posY: this.posY + this.size.height / 2 - 15,
     };
   }
+
+  public getPacmanPositions(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
+    return {
+      posX: this.posX,
+      posY: this.posY
+    }
+  }
 }
 
 export let pacman: Pacman;

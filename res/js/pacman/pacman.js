@@ -253,6 +253,12 @@ class Pacman extends PacmanTemplate {
             posY: this.posY + this.size.height / 2 - 15,
         };
     }
+    getPacmanPositions() {
+        return {
+            posX: this.posX,
+            posY: this.posY
+        };
+    }
 }
 export let pacman;
 // Uncaught ReferenceError: Cannot access 'oneBlockWidth' before initialization (musí se stránka nejdříve načíst a potom mohu inicializovat pacmana, je to debilní řešení, ale stackoverflow poradilo ...)

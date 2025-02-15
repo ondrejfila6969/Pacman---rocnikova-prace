@@ -1,4 +1,5 @@
 import { ctx, oneBlockHeight, oneBlockWidth, currentMap } from "../script.js";
+import { pacman } from "../pacman/pacman.js";
 class Ghost {
     posX;
     posY;
@@ -40,9 +41,17 @@ class Ghost {
         }
     }
     ghostMovement() {
-        this.moveGhost();
-        if (this.wallCollision()) {
-            this.stopGhost();
+        if (this.isPacmanNear()) {
+            console.log(1); // test
+        }
+        else {
+            if (this.wallCollision()) {
+                this.stopGhost();
+                this.randomDirection();
+            }
+            else {
+                this.moveGhost();
+            }
         }
     }
     moveGhost() {
@@ -77,6 +86,17 @@ class Ghost {
                 break;
         }
     }
+    /**
+     * Jestli se pacman nachází poblíž, nebo ne se provádí podle výpočtu z analytické geometrie
+     (Vzdálenost 2 bodů v rovině ofc)
+     */
+    isPacmanNear() {
+        const pacmanX = pacman.getPacmanPositions().posX;
+        const pacmanY = pacman.getPacmanPositions().posY;
+        const distanceBetweenPacmanAndGhost = Math.floor(Math.sqrt(Math.pow(pacmanX - this.posX, 2) + Math.pow(pacmanY - this.posY, 2)));
+        return (distanceBetweenPacmanAndGhost < 5 * oneBlockWidth ||
+            distanceBetweenPacmanAndGhost < 5 * oneBlockHeight);
+    }
     wallCollision() {
         const topLeftPoint = {
             posX: Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth),
@@ -103,6 +123,38 @@ class Ghost {
              */
             Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth) < 0 ||
             Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21);
+    }
+    getAvailableDirections() {
+        const { posX, posY } = this.ghostGetMiddlePoints();
+        const ghostX = Math.floor(posX / oneBlockWidth);
+        const ghostY = Math.floor(posY / oneBlockHeight);
+        let ghostDirections = [];
+        /**
+         * Kontroluje, zda hodnota sousední buňky je různá od 1 (to znamená, že tam není zeď, ale normální cesta)
+         * Pokud tam není zeď, naplní pole dostupným směrem + to také kontroluje, zda souřadnice není mimo mapu
+         */
+        if (ghostY > 0 && currentMap[ghostY - 1][ghostX] !== 1) {
+            ghostDirections.push("up");
+        }
+        if (ghostY < currentMap.length - 1 &&
+            currentMap[ghostY + 1][ghostX] !== 1) {
+            ghostDirections.push("down");
+        }
+        if (ghostX > 0 && currentMap[ghostY][ghostX - 1] !== 1) {
+            ghostDirections.push("left");
+        }
+        if (ghostX < currentMap[0].length - 1 &&
+            currentMap[ghostY][ghostX + 1] !== 1) {
+            ghostDirections.push("right");
+        }
+        return ghostDirections;
+    }
+    randomDirection() {
+        const availableDirections = this.getAvailableDirections(); // získám dostupné směry z metody getAvailableDirections()
+        if (availableDirections.length > 0) { // pokud to pole není prázdné, náhodně vybere nový směr
+            this.currentDirection =
+                availableDirections[Math.floor(Math.random() * availableDirections.length)];
+        }
     }
     /* Metody pro získání souřadnic rohů */
     /**
@@ -132,33 +184,11 @@ class Ghost {
             posY: this.posY + oneBlockHeight - 1,
         };
     }
-    drawEdgePoints() {
-        if (ctx !== null) {
-            // Bod vlevo nahoře
-            ctx.beginPath();
-            ctx.arc(this.posX + 1, this.posY + 1, 3, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            // Bod vpravo nahoře
-            ctx.beginPath();
-            ctx.arc(this.posX + oneBlockWidth - 1, this.posY + 1, 3, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            // Bod vlevo dole
-            ctx.beginPath();
-            ctx.arc(this.posX + 1, this.posY + oneBlockHeight - 1, 3, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            // Bod vpravo dole
-            ctx.beginPath();
-            ctx.arc(this.posX + oneBlockWidth - 1, this.posY + oneBlockHeight - 1, 3, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-        }
+    ghostGetMiddlePoints() {
+        return {
+            posX: this.posX + oneBlockWidth / 2,
+            posY: this.posY + oneBlockWidth / 2,
+        };
     }
 }
 export let blinky;
