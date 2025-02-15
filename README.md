@@ -76,5 +76,6 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Přidaný výpočet pro vzdálenost pacmana od ducha  => Pythagorova věta (pravoúhlý trojúhelník), jakmile se pacman objeví poblíž ducha v rozmezí 5 bloků, začne na něj útočit / pronásledovat ho, ale to ještě není
 - Přidané 2 metody získávající souřadnice jejich středů pro tento výpočet
 - Duchové náhodně mění směr, je-li pacman daleko od nich (to je zatím účel)
+  
 ![img3](https://github.com/user-attachments/assets/675b323e-f978-4103-a411-00d68c5d6f96)
   
