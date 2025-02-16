@@ -78,4 +78,8 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Duchové náhodně mění směr, je-li pacman daleko od nich (to je zatím účel)
   
 ![img3](https://github.com/user-attachments/assets/675b323e-f978-4103-a411-00d68c5d6f96)
+
+## 🗓️ 16.2.2025
+- Malý update
+- Lepší organizace kódu, vytvoření abstraktní třídy pro třídu Ghost, stejně jako v minulosti pro třídu Pacman + zformátování
   
