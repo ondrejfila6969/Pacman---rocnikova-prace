@@ -1,44 +1,15 @@
 import { ctx, oneBlockHeight, oneBlockWidth, currentMap } from "../script.js";
 import { pacman } from "../pacman/pacman.js";
+import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 
-class Ghost {
-  private posX: number;
-  private posY: number;
-  private size: {
-    width: number;
-    height: number;
-  };
-  private image: HTMLImageElement;
-  private imagePaths: string[];
-  private imageIndex: number;
-  private imageLoaded: boolean | null = null; // to tady bohužel musí být, protože se metoda pro vykreslování ghosta provádí dřív, než se obrázek načte
-  private distance: number; // vzdálenost, o kterou se duch pohybuje
-  public currentDirection: string;
+class Ghost extends GhostTemplate {
 
-  constructor(posX: number, posY: number, imageIndex: number) {
-    this.posX = posX;
-    this.posY = posY;
-    this.imageIndex = imageIndex;
-    this.size = {
-      width: oneBlockWidth,
-      height: oneBlockHeight,
-    };
-
-    this.image = new Image();
-    this.imagePaths = [
-      // cesty k obrázkům jsou uloženy zde
-      "../../res/assets/ghosts/blinky.png",
-      "../../res/assets/ghosts/clyde.png",
-      "../../res/assets/ghosts/inky.png",
-      "../../res/assets/ghosts/pinky.png",
-    ];
-
-    this.image.src = this.imagePaths[this.imageIndex];
-    this.image.onload = () => {
-      this.imageLoaded = true;
-    };
-    this.currentDirection = "right";
-    this.distance = 1.7;
+  constructor(
+    protected posX: number,
+    protected posY: number,
+    imageIndex: number
+  ) {
+    super(posX, posY, imageIndex);
   }
 
   public drawGhost(): void {
@@ -68,7 +39,7 @@ class Ghost {
     }
   }
 
-  private moveGhost(): void {
+  protected moveGhost(): void {
     switch (this.currentDirection) {
       case "right":
         this.posX += this.distance;
@@ -85,7 +56,7 @@ class Ghost {
     }
   }
 
-  private stopGhost(): void {
+  protected stopGhost(): void {
     switch (this.currentDirection) {
       case "right":
         this.posX -= this.distance;
@@ -106,7 +77,7 @@ class Ghost {
    * Jestli se pacman nachází poblíž, nebo ne se provádí podle výpočtu z analytické geometrie
    (Vzdálenost 2 bodů v rovině ofc)
    */
-  private isPacmanNear(): boolean {
+  protected isPacmanNear(): boolean {
     const pacmanX = pacman.getPacmanPositions().posX;
     const pacmanY = pacman.getPacmanPositions().posY;
 
@@ -121,7 +92,7 @@ class Ghost {
     );
   }
 
-  private wallCollision(): boolean {
+  protected wallCollision(): boolean {
     const topLeftPoint: { readonly posX: number; readonly posY: number } = {
       posX: Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth),
       posY: Math.floor(this.ghostGetTopLeftPoint().posY / oneBlockHeight),
@@ -198,7 +169,7 @@ class Ghost {
   /**
    * Číslo 1 představuje menší offset
    */
-  private ghostGetTopLeftPoint(): {
+  protected ghostGetTopLeftPoint(): {
     readonly posX: number;
     readonly posY: number;
   } {
@@ -208,7 +179,7 @@ class Ghost {
     };
   }
 
-  private ghostGetTopRightPoint(): {
+  protected ghostGetTopRightPoint(): {
     readonly posX: number;
     readonly posY: number;
   } {
@@ -218,7 +189,7 @@ class Ghost {
     };
   }
 
-  private ghostGetBottomLeftPoint(): {
+  protected ghostGetBottomLeftPoint(): {
     readonly posX: number;
     readonly posY: number;
   } {
@@ -228,7 +199,7 @@ class Ghost {
     };
   }
 
-  private ghostGetBottomRightPoint(): {
+  protected ghostGetBottomRightPoint(): {
     readonly posX: number;
     readonly posY: number;
   } {
@@ -238,7 +209,7 @@ class Ghost {
     };
   }
 
-  public ghostGetMiddlePoints(): {
+  protected ghostGetMiddlePoints(): {
     readonly posX: number;
     readonly posY: number;
   } {
