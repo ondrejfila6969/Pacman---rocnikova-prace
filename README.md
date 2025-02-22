@@ -88,4 +88,5 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Pacman se nyní může teleportovat - teleport bude nejspíš pouze na této první mapě
 - Menší úprava mapy
 - Změna rozměrů canvasu tak, aby rozměry jednoho bloku byl dokonalý čtverec 24x24, ale díky CSS to nejde poznat
+- Zítra už se bude pracovat na algoritmu pro vyhledání nejideálnější cesty k Pacmanovi + chycení Pacmana => životy
   
