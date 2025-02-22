@@ -89,4 +89,6 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Menší úprava mapy
 - Změna rozměrů canvasu tak, aby rozměry jednoho bloku byl dokonalý čtverec 24x24, ale díky CSS to nejde poznat
 - Zítra už se bude pracovat na algoritmu pro vyhledání nejideálnější cesty k Pacmanovi + chycení Pacmana => životy
+  + ještě bych zapomněl, vylepšená metoda moveGhost, která řeší i zastavení ducha najednou
+
   
