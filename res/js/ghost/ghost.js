@@ -1,37 +1,13 @@
 import { ctx, oneBlockHeight, oneBlockWidth, currentMap } from "../script.js";
 import { pacman } from "../pacman/pacman.js";
-class Ghost {
+import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
+class Ghost extends GhostTemplate {
     posX;
     posY;
-    size;
-    image;
-    imagePaths;
-    imageIndex;
-    imageLoaded = null; // to tady bohužel musí být, protože se metoda pro vykreslování ghosta provádí dřív, než se obrázek načte
-    distance; // vzdálenost, o kterou se duch pohybuje
-    currentDirection;
     constructor(posX, posY, imageIndex) {
+        super(posX, posY, imageIndex);
         this.posX = posX;
         this.posY = posY;
-        this.imageIndex = imageIndex;
-        this.size = {
-            width: oneBlockWidth,
-            height: oneBlockHeight,
-        };
-        this.image = new Image();
-        this.imagePaths = [
-            // cesty k obrázkům jsou uloženy zde
-            "../../res/assets/ghosts/blinky.png",
-            "../../res/assets/ghosts/clyde.png",
-            "../../res/assets/ghosts/inky.png",
-            "../../res/assets/ghosts/pinky.png",
-        ];
-        this.image.src = this.imagePaths[this.imageIndex];
-        this.image.onload = () => {
-            this.imageLoaded = true;
-        };
-        this.currentDirection = "right";
-        this.distance = 1.7;
     }
     drawGhost() {
         if (this.imageLoaded) {
@@ -45,16 +21,12 @@ class Ghost {
             console.log(1); // test
         }
         else {
-            if (this.wallCollision()) {
-                this.stopGhost();
-                this.randomDirection();
-            }
-            else {
-                this.moveGhost();
-            }
+            this.moveGhost();
         }
     }
     moveGhost() {
+        const previousPosX = this.posX;
+        const previousPosY = this.posY;
         switch (this.currentDirection) {
             case "right":
                 this.posX += this.distance;
@@ -69,21 +41,13 @@ class Ghost {
                 this.posY += this.distance;
                 break;
         }
-    }
-    stopGhost() {
-        switch (this.currentDirection) {
-            case "right":
-                this.posX -= this.distance;
-                break;
-            case "left":
-                this.posX += this.distance;
-                break;
-            case "up":
-                this.posY += this.distance;
-                break;
-            case "down":
-                this.posY -= this.distance;
-                break;
+        /**
+         * Pokud duch narazí do zdi, vrátí se zpět na své původní souřadnice a náhodně změní směr, což znamená zjednodušení kodu
+         */
+        if (this.wallCollision()) {
+            this.posX = previousPosX;
+            this.posY = previousPosY;
+            this.randomDirection();
         }
     }
     /**
@@ -151,7 +115,26 @@ class Ghost {
     }
     randomDirection() {
         const availableDirections = this.getAvailableDirections(); // získám dostupné směry z metody getAvailableDirections()
-        if (availableDirections.length > 0) { // pokud to pole není prázdné, náhodně vybere nový směr
+        /**
+         * V tomto objektu jsou uložené opačné směry pro ten současný směr, je to kvůli tomu, aby si duch vybral jiný směr, má-li tu možnost
+         */
+        const oppositeDirections = {
+            up: "down",
+            down: "up",
+            left: "right",
+            right: "left",
+        };
+        /**
+         * Pole availableDirections profiltruji, aby neobsahovalo opačný směr a uložím do nové proměnné
+         */
+        const filteredDirections = availableDirections.filter((dir) => dir !== oppositeDirections[this.currentDirection]);
+        if (filteredDirections.length > 0) {
+            // Pokud profiltrované pole není prázdné, vybereme náhodný směr z daného pole
+            this.currentDirection =
+                filteredDirections[Math.floor(Math.random() * filteredDirections.length)];
+        }
+        else if (availableDirections.length > 0) {
+            // Jinak zvolíme směr ze všech dostupných směrů - i těch opačných k tomu současnému
             this.currentDirection =
                 availableDirections[Math.floor(Math.random() * availableDirections.length)];
         }

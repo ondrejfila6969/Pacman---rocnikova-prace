@@ -36,64 +36,6 @@ class Pacman extends PacmanTemplate {
             createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "down" ? 0 : Math.PI, (3 * Math.PI) / 10, (7 * Math.PI) / 10);
         }
     }
-    drawEdgePoints() {
-        if (ctx !== null) {
-            // ctx.arc(poziceX, poziceY, průměr, počáteční úhel, koncový úhel) - vykresluji kruhy, takže 0 až 360
-            /* Prostřední bod */
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "red";
-            ctx.fill();
-            ctx.closePath();
-            /* Bod vlevo nahoře (opět jsem tomu dal menší offset) */
-            ctx.beginPath();
-            ctx.arc(this.posX - this.size.width / 2 + 0.6, this.posY - this.size.height / 2 + 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            /* Bod vpravo nahoře */
-            ctx.beginPath();
-            ctx.arc(this.posX + this.size.width / 2 - 0.6, this.posY - this.size.height / 2 + 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            /* Bod vlevo dole */
-            ctx.beginPath();
-            ctx.arc(this.posX - this.size.width / 2 + 0.6, this.posY + this.size.height / 2 - 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            /* Bod vpravo dole */
-            ctx.beginPath();
-            ctx.arc(this.posX + this.size.width / 2 - 0.6, this.posY + this.size.height / 2 - 0.6, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-            ctx.closePath();
-            /**
-             * Body, které budou sloužit pro sbírání jídla
-             */
-            ctx.beginPath();
-            ctx.arc(this.posX + this.size.width / 2 - 15, this.posY, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "orange";
-            ctx.fill();
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.arc(this.posX - this.size.width / 2 + 15, this.posY, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "orange";
-            ctx.fill();
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY - this.size.height / 2 + 15, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "orange";
-            ctx.fill();
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY + this.size.height / 2 - 15, 2, 0, 2 * Math.PI);
-            ctx.fillStyle = "orange";
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
     movement() {
         this.tryNewDirection();
         this.movePacman();
@@ -156,12 +98,23 @@ class Pacman extends PacmanTemplate {
         }
     }
     wallCollision() {
+        this.teleportPacman();
         return (currentMap[Math.floor(this.getTopLeftPoint().posY / oneBlockHeight)][Math.floor(this.getTopLeftPoint().posX / oneBlockWidth)] == 1 ||
             currentMap[Math.floor(this.getTopRightPoint().posY / oneBlockHeight)][Math.floor(this.getTopRightPoint().posX / oneBlockWidth)] == 1 ||
             currentMap[Math.floor(this.getBottomLeftPoint().posY / oneBlockHeight)][Math.floor(this.getBottomLeftPoint().posX / oneBlockWidth)] == 1 ||
             currentMap[Math.floor(this.getBottomRightPoint().posY / oneBlockHeight)][Math.floor(this.getBottomRightPoint().posX / oneBlockWidth)] == 1 ||
             Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 ||
             Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21);
+    }
+    teleportPacman() {
+        if (Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 && this.currentDirection === "left") {
+            this.posX = 20 * oneBlockWidth;
+            this.drawPacman();
+        }
+        if (Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 && this.currentDirection === "right") {
+            this.posX = 1 * oneBlockWidth;
+            this.drawPacman();
+        }
     }
     eatFood() {
         let foodEaten = false;

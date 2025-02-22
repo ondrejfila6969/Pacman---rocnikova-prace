@@ -7,8 +7,8 @@ export const pacmanScore = document.getElementById("pacmanScore");
  * Přidá canvas do HTML
  */
 document.body.appendChild(canvas);
-const canvasWidth = 500;
-const canvasHeight = 500;
+const canvasWidth = 504;
+const canvasHeight = 552;
 const numberOfRows = 23;
 const numberOfColumns = 21;
 const FPS = 60;
@@ -19,13 +19,10 @@ const resizeCanvas = () => {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 };
-/**
- * Výpočet rozměrů "jednoho bloku", protože mapa je uložená v poli, tak jedno číslo bude symbolizovat čtverec/obdélník
- * Rozměry nejsou stejné, protože máme více sloupců než řádků
- * Samozřejmě se výsledek musí zaokrouhlit pomocí fce Math.floor(), protože bez zaokrouhlení tam je asi 20 desetinných míst
- */
-export const oneBlockWidth = Math.floor(canvasWidth / numberOfColumns);
-export const oneBlockHeight = Math.floor(canvasHeight / numberOfRows);
+export const oneBlockWidth = canvasWidth / numberOfColumns;
+export const oneBlockHeight = canvasHeight / numberOfRows;
+console.log(oneBlockWidth);
+console.log(oneBlockHeight);
 /**
  * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor
  * Do proměnné currentMap jsem musel uložit prázdná pole, aby to inicializovalo délku 1. a 2. dimenze - jinak to v konzoli vypisovalo chybu

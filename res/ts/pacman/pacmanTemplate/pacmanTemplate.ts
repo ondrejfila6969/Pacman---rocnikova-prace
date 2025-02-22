@@ -24,7 +24,6 @@ export abstract class PacmanTemplate {
   }
 
   abstract drawPacman(): void;
-  abstract drawEdgePoints(): void;
   abstract movement(): void;
   abstract setDesiredDirection(direction: string): void;
   abstract eatFood(): void;

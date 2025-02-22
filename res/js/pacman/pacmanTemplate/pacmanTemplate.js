@@ -12,7 +12,7 @@ export class PacmanTemplate {
         this.posY = posY;
         this.size = {
             width: oneBlockWidth,
-            height: oneBlockHeight
+            height: oneBlockHeight,
         };
         this.distance = 2;
         this.currentDirection = "right";

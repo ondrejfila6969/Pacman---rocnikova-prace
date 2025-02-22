@@ -10,8 +10,8 @@ export const pacmanScore: HTMLElement | null =
  */
 document.body.appendChild(canvas);
 
-const canvasWidth: number = 500;
-const canvasHeight: number = 500;
+const canvasWidth: number = 504;
+const canvasHeight: number = 552;
 
 const numberOfRows: number = 23;
 const numberOfColumns: number = 21;
@@ -26,14 +26,11 @@ const resizeCanvas = (): void => {
   canvas.height = canvasHeight;
 };
 
-/**
- * Výpočet rozměrů "jednoho bloku", protože mapa je uložená v poli, tak jedno číslo bude symbolizovat čtverec/obdélník
- * Rozměry nejsou stejné, protože máme více sloupců než řádků
- * Samozřejmě se výsledek musí zaokrouhlit pomocí fce Math.floor(), protože bez zaokrouhlení tam je asi 20 desetinných míst
- */
+export const oneBlockWidth: number = canvasWidth / numberOfColumns;
+export const oneBlockHeight: number = canvasHeight / numberOfRows;
 
-export const oneBlockWidth: number = Math.floor(canvasWidth / numberOfColumns);
-export const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
+console.log(oneBlockWidth);
+console.log(oneBlockHeight);
 
 /**
  * Mapa je uložena v 2D poli, její obsah se nahrává přes JSON soubor

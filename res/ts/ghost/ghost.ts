@@ -3,7 +3,6 @@ import { pacman } from "../pacman/pacman.js";
 import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 
 class Ghost extends GhostTemplate {
-
   constructor(
     protected posX: number,
     protected posY: number,
@@ -30,16 +29,14 @@ class Ghost extends GhostTemplate {
     if (this.isPacmanNear()) {
       console.log(1); // test
     } else {
-      if (this.wallCollision()) {
-        this.stopGhost();
-        this.randomDirection();
-      } else {
-        this.moveGhost();
-      }
+      this.moveGhost();
     }
   }
 
   protected moveGhost(): void {
+    const previousPosX = this.posX;
+    const previousPosY = this.posY;
+
     switch (this.currentDirection) {
       case "right":
         this.posX += this.distance;
@@ -54,22 +51,14 @@ class Ghost extends GhostTemplate {
         this.posY += this.distance;
         break;
     }
-  }
 
-  protected stopGhost(): void {
-    switch (this.currentDirection) {
-      case "right":
-        this.posX -= this.distance;
-        break;
-      case "left":
-        this.posX += this.distance;
-        break;
-      case "up":
-        this.posY += this.distance;
-        break;
-      case "down":
-        this.posY -= this.distance;
-        break;
+    /**
+     * Pokud duch narazí do zdi, vrátí se zpět na své původní souřadnice a náhodně změní směr, což znamená zjednodušení kodu
+     */
+    if(this.wallCollision()) {
+      this.posX = previousPosX;
+      this.posY = previousPosY;
+      this.randomDirection();
     }
   }
 
@@ -157,7 +146,31 @@ class Ghost extends GhostTemplate {
   public randomDirection(): void {
     const availableDirections = this.getAvailableDirections(); // získám dostupné směry z metody getAvailableDirections()
 
-    if (availableDirections.length > 0) { // pokud to pole není prázdné, náhodně vybere nový směr
+    /**
+     * V tomto objektu jsou uložené opačné směry pro ten současný směr, je to kvůli tomu, aby si duch vybral jiný směr, má-li tu možnost
+     */
+    const oppositeDirections: Record<string, string> = {
+      up: "down",
+      down: "up",
+      left: "right",
+      right: "left",
+    };
+
+    /**
+     * Pole availableDirections profiltruji, aby neobsahovalo opačný směr a uložím do nové proměnné
+     */
+    const filteredDirections = availableDirections.filter(
+      (dir) => dir !== oppositeDirections[this.currentDirection]
+    );
+
+    if (filteredDirections.length > 0) {
+      // Pokud profiltrované pole není prázdné, vybereme náhodný směr z daného pole
+      this.currentDirection =
+        filteredDirections[
+          Math.floor(Math.random() * filteredDirections.length)
+        ];
+    } else if (availableDirections.length > 0) {
+      // Jinak zvolíme směr ze všech dostupných směrů - i těch opačných k tomu současnému
       this.currentDirection =
         availableDirections[
           Math.floor(Math.random() * availableDirections.length)

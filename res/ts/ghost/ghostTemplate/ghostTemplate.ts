@@ -43,7 +43,6 @@ export abstract class GhostTemplate {
   abstract ghostMovement(): void;
   abstract drawGhost(): void;
   protected abstract moveGhost(): void;
-  protected abstract stopGhost(): void;
   protected abstract isPacmanNear(): boolean;
   protected abstract wallCollision(): boolean;
   protected abstract ghostGetTopRightPoint(): {

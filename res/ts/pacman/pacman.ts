@@ -103,120 +103,6 @@ class Pacman extends PacmanTemplate {
     }
   }
 
-  public drawEdgePoints(): void {
-    if (ctx !== null) {
-      // ctx.arc(poziceX, poziceY, průměr, počáteční úhel, koncový úhel) - vykresluji kruhy, takže 0 až 360
-
-      /* Prostřední bod */
-      ctx.beginPath();
-      ctx.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
-      ctx.fillStyle = "red";
-      ctx.fill();
-      ctx.closePath();
-
-      /* Bod vlevo nahoře (opět jsem tomu dal menší offset) */
-      ctx.beginPath();
-      ctx.arc(
-        this.posX - this.size.width / 2 + 0.6,
-        this.posY - this.size.height / 2 + 0.6,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "lime";
-      ctx.fill();
-      ctx.closePath();
-
-      /* Bod vpravo nahoře */
-      ctx.beginPath();
-      ctx.arc(
-        this.posX + this.size.width / 2 - 0.6,
-        this.posY - this.size.height / 2 + 0.6,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "lime";
-      ctx.fill();
-      ctx.closePath();
-
-      /* Bod vlevo dole */
-      ctx.beginPath();
-      ctx.arc(
-        this.posX - this.size.width / 2 + 0.6,
-        this.posY + this.size.height / 2 - 0.6,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "lime";
-      ctx.fill();
-      ctx.closePath();
-
-      /* Bod vpravo dole */
-      ctx.beginPath();
-      ctx.arc(
-        this.posX + this.size.width / 2 - 0.6,
-        this.posY + this.size.height / 2 - 0.6,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "lime";
-      ctx.fill();
-      ctx.closePath();
-
-      /**
-       * Body, které budou sloužit pro sbírání jídla
-       */
-
-      ctx.beginPath();
-      ctx.arc(
-        this.posX + this.size.width / 2 - 15,
-        this.posY,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "orange";
-      ctx.fill();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(
-        this.posX - this.size.width / 2 + 15,
-        this.posY,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "orange";
-      ctx.fill();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(
-        this.posX,
-        this.posY - this.size.height / 2 + 15,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "orange";
-      ctx.fill();
-      ctx.closePath();
-      ctx.beginPath();
-      ctx.arc(
-        this.posX,
-        this.posY + this.size.height / 2 - 15,
-        2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fillStyle = "orange";
-      ctx.fill();
-      ctx.closePath();
-    }
-  }
-
   public movement(): void {
     this.tryNewDirection();
     this.movePacman();
@@ -281,7 +167,9 @@ class Pacman extends PacmanTemplate {
       }
     }
   }
+
   protected wallCollision(): boolean {
+    this.teleportPacman();
     return (
       currentMap[Math.floor(this.getTopLeftPoint().posY / oneBlockHeight)][
         Math.floor(this.getTopLeftPoint().posX / oneBlockWidth)
@@ -298,7 +186,24 @@ class Pacman extends PacmanTemplate {
       Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 ||
       Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21
     );
+    
   }
+
+  private teleportPacman(): void {
+    if(
+      Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 && this.currentDirection === "left"
+    ) {
+      this.posX = 20 * oneBlockWidth;
+      this.drawPacman();
+    }
+    if(
+      Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 && this.currentDirection === "right"
+    ) {
+      this.posX = 1 * oneBlockWidth;
+      this.drawPacman();
+    }
+  }
+
 
   public eatFood(): void {
     let foodEaten: boolean = false;
