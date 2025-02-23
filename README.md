@@ -82,4 +82,13 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 ## 🗓️ 16.2.2025
 - Malý update
 - Lepší organizace kódu, vytvoření abstraktní třídy pro třídu Ghost, stejně jako v minulosti pro třídu Pacman + zformátování
+
+## 🗓️ 22.2.2025
+- Zlepšení náhodného pohybu, duchové se odteď pohybují spíše jiným směrem, než opačným (když se pohybují doprava, tak například zvolí nahoru nebo dolu), důkazem toho je, že duchové se nyní pohybují ve své základně v kruhu
+- Pacman se nyní může teleportovat - teleport bude nejspíš pouze na této první mapě
+- Menší úprava mapy
+- Změna rozměrů canvasu tak, aby rozměry jednoho bloku byl dokonalý čtverec 24x24, ale díky CSS to nejde poznat
+- Zítra už se bude pracovat na algoritmu pro vyhledání nejideálnější cesty k Pacmanovi + chycení Pacmana => životy
+- Mále bych ještě zapomněl, vylepšená metoda moveGhost, která řeší i zastavení ducha najednou
+
   
