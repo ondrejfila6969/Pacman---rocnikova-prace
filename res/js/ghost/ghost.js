@@ -20,7 +20,7 @@ class Ghost extends GhostTemplate {
         }
     }
     /**
-     * METODA PRO POHYB DUCHŮ
+     * METODY PRO POHYB DUCHŮ
      */
     ghostMovement() {
         // Kontrola, jestli je duch zarovnaný jak na ose X, tak na ose Y
@@ -179,7 +179,7 @@ class Ghost extends GhostTemplate {
             Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21);
     }
     /**
-     * SESTAVENÍ GRAFU PRO ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY
+     * SESTAVENÍ GRAFU PRO A* ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY K CÍLI
      */
     buildGraph() {
         const graph = [];

@@ -10,6 +10,7 @@ class Ghost extends GhostTemplate {
   ) {
     super(posX, posY, imageIndex);
   }
+
   /**
    * METODA PRO VYKRESLENÍ DUCHA
    */
@@ -27,9 +28,11 @@ class Ghost extends GhostTemplate {
       }
     }
   }
+
   /**
-   * METODA PRO POHYB DUCHŮ
+   * METODY PRO POHYB DUCHŮ
    */
+
   public ghostMovement(): void {
     // Kontrola, jestli je duch zarovnaný jak na ose X, tak na ose Y
     const isAlignedX = this.posX % oneBlockWidth < this.distance;
@@ -120,6 +123,7 @@ class Ghost extends GhostTemplate {
   /**
    * METODA PRO ZÍSKÁNÍ DOSTUPNÝCH SMĚRŮ + METODA PRO NÁHODNÝ VÝBĚR
    */
+
   public getAvailableDirections(): string[] {
     const { posX, posY } = this.ghostGetMiddlePoints();
     const ghostX = Math.floor(posX / oneBlockWidth);
@@ -190,6 +194,7 @@ class Ghost extends GhostTemplate {
   /**
    * KONTROLA KOLIZE SE ZDÍ
    */
+
   protected wallCollision(): boolean {
     const topLeftPoint: { readonly posX: number; readonly posY: number } = {
       posX: Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth),
@@ -219,9 +224,11 @@ class Ghost extends GhostTemplate {
       Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21
     );
   }
+
   /**
-   * SESTAVENÍ GRAFU PRO ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY
+   * SESTAVENÍ GRAFU PRO A* ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY K CÍLI
    */
+
   private buildGraph(): number[][] {
     const graph: number[][] = [];
     const rows = currentMap.length;
@@ -351,7 +358,6 @@ class Ghost extends GhostTemplate {
         }
       }
     }
-
     /**
      * Předchystáno pro frightened mode, kdy bude duch utíkat od pacmana, bude hledat nejvzdálenější bod od pacmana a k němu se pohybovat
      */
@@ -404,6 +410,7 @@ class Ghost extends GhostTemplate {
    * METODY PRO ZÍSKÁNÍ SOUŘADNIC BODŮ (1 = offset)
    * Menší úprava u souřadnic, kde se posouvám o oneBlockWidth nebo oneBlockHeight, vynásobením 0.9 se duchové mohou plně pohybovat po mapě
    */
+
   protected ghostGetTopLeftPoint(): {
     readonly posX: number;
     readonly posY: number;
