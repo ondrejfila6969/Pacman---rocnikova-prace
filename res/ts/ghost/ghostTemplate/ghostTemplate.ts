@@ -13,6 +13,7 @@ export abstract class GhostTemplate {
   protected imageLoaded: boolean | null = null; // to tady bohužel musí být, protože se metoda pro vykreslování ghosta provádí dřív, než se obrázek načte
   protected distance: number; // vzdálenost, o kterou se duch pohybuje
   public currentDirection: string;
+  public mode: string; // budou 2 mody duchů - chase nebo frightened
 
   constructor(posX: number, posY: number, imageIndex: number) {
     this.posX = posX;
@@ -38,6 +39,7 @@ export abstract class GhostTemplate {
     };
     this.currentDirection = "right";
     this.distance = 1.7;
+    this.mode = "chase"; // defaultně bude pronásledovat pacmana, nebo se náhodně pohybovat na mapě
   }
 
   abstract ghostMovement(): void;
