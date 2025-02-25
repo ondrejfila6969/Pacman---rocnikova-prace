@@ -104,8 +104,11 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 ## 🗓️ 25.2.2025
 - Přidání 4 originálních map do hry (celkem jich je 5)
 - Přidání způsob spawnování duchů pro příslušnou mapu (např. na druhé mapě bude mít počáteční souřadnice jiné než na třetí mapě atd...)
-  
-![mapa1](https://github.com/user-attachments/assets/25cf06b2-6f2b-4e9e-ae6b-abb2128e590a)
-![mapa2](https://github.com/user-attachments/assets/d71cd027-e113-4a2a-ac09-1c05aa3a56cf)
-![mapa3](https://github.com/user-attachments/assets/242ee48d-77b6-4ddf-a537-34a538694abb)
-![mapa4](https://github.com/user-attachments/assets/8d7d2747-1438-4ea1-a3f2-fe941f820391)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/25cf06b2-6f2b-4e9e-ae6b-abb2128e590a" width="200">
+  <img src="https://github.com/user-attachments/assets/d71cd027-e113-4a2a-ac09-1c05aa3a56cf" width="200">
+  <br>
+  <img src="https://github.com/user-attachments/assets/242ee48d-77b6-4ddf-a537-34a538694abb" width="200">
+  <img src="https://github.com/user-attachments/assets/8d7d2747-1438-4ea1-a3f2-fe941f820391" width="200">
+</p>
