@@ -91,4 +91,13 @@ Takhle momentálně vypadá Pacman s vyznačenými body:
 - Zítra už se bude pracovat na algoritmu pro vyhledání nejideálnější cesty k Pacmanovi + chycení Pacmana => životy
 - Mále bych ještě zapomněl, vylepšená metoda moveGhost, která řeší i zastavení ducha najednou
 
-  
+## 🗓️ 23.2.2025
+- Vytvořen algoritmus pro hledání nejideálnější cesty k Pacmanovi, nazývá se A* algoritmus a vychází z Dijkstrova algoritmu
+- Dijkstrův algoritmus se například používá v oblasti počítačových sítí v routovacím protokolu OSPF, kde se neřeší vzdálenost, ale také "kvalita / výhodnost" té trasy
+- To stejné platí i v tomto případě, A* algoritmus narozdíl od Dijkstrova algoritmu používá Heuristickou funkci, nebo také Manhattanovu vzdálenost, která odhaduje zbývající vzdálenost k cílovému bodu a která je užitečná v 2D grafech
+- Zároveň je to také užitečné pro dynamické pronásledování Pacmana
+- Menší úprava v metodách získávající souřadnice jednotlivých rohů - vynásobením 0.9 u daných souřadnic došlo k tomu, že duchové se můžou pohybovat náhodně po celé mapě, předtím to bylo možné pouze v základně
+
+P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to řeknu snad jedině tohle: 
+![bug-feature](https://github.com/user-attachments/assets/b85c41a8-6612-46d0-9dcc-32f3926dcddf)
+
