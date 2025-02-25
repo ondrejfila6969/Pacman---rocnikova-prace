@@ -106,9 +106,9 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Přidání způsob spawnování duchů pro příslušnou mapu (např. na druhé mapě bude mít počáteční souřadnice jiné než na třetí mapě atd...)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/25cf06b2-6f2b-4e9e-ae6b-abb2128e590a" width="200">
-  <img src="https://github.com/user-attachments/assets/d71cd027-e113-4a2a-ac09-1c05aa3a56cf" width="200">
+  <img src="https://github.com/user-attachments/assets/25cf06b2-6f2b-4e9e-ae6b-abb2128e590a" width="300" height="300">
+  <img src="https://github.com/user-attachments/assets/d71cd027-e113-4a2a-ac09-1c05aa3a56cf" width="300" height="300">
   <br>
-  <img src="https://github.com/user-attachments/assets/242ee48d-77b6-4ddf-a537-34a538694abb" width="200">
-  <img src="https://github.com/user-attachments/assets/8d7d2747-1438-4ea1-a3f2-fe941f820391" width="200">
+  <img src="https://github.com/user-attachments/assets/242ee48d-77b6-4ddf-a537-34a538694abb" width="300" height="300">
+  <img src="https://github.com/user-attachments/assets/8d7d2747-1438-4ea1-a3f2-fe941f820391" width="300" height="300">
 </p>
