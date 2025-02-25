@@ -4,6 +4,7 @@ export abstract class PacmanTemplate {
   protected posX: number;
   protected posY: number;
 
+  currentLevel: number;
   currentDirection: string;
   desiredDirection: string | null;
   score: number;
@@ -21,6 +22,7 @@ export abstract class PacmanTemplate {
     this.currentDirection = "right";
     this.desiredDirection = null;
     this.score = 0;
+    this.currentLevel = 2;
   }
 
   abstract drawPacman(): void;

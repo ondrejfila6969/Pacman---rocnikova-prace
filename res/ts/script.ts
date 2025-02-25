@@ -1,5 +1,5 @@
 import { pacman } from "./pacman/pacman.js";
-import { pinky, inky, blinky, clyde } from "./ghost/ghost.js";
+import { blinky, pinky, inky, clyde, loadGhostPositions } from "./ghost/ghost.js";
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 export const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
 export const pacmanScore: HTMLElement | null =
@@ -68,11 +68,12 @@ export var currentMap: number[][] = [
 const loadData = async (): Promise<void> => {
   const file: Response = await fetch("../res/data/data.json");
   const data = await file.json();
-  currentMap = data[0].map; // Zatím pouze 1. mapu
+  currentMap = data[pacman.currentLevel - 1].currentLevel; // Zatím pouze 1. mapu
 };
 
 window.addEventListener("load", () => {
   loadData();
+  loadGhostPositions();
 
   /**
    * Funkce pro vykreslení jednoho "bloku" mapy, poté funkce renderMap projede celým cyklem mapu a kde se nachází číslo 1 se provede tato funkce

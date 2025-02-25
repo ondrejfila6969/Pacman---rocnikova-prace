@@ -1,0 +1,32 @@
+[
+    {
+        "inky": {"posX": 9, "posY": 10},
+        "pinky": {"posX": 9, "posY": 11},
+        "blinky": {"posX": 11, "posY": 10},
+        "clyde": {"posX": 11, "posY": 11}
+    },
+    {
+        "inky": {"posX": 13, "posY": 8},
+        "pinky": {"posX": 17, "posY": 14},
+        "blinky": {"posX": 9, "posY": 14},
+        "clyde": {"posX": 4, "posY": 20}
+    },
+    {
+        "inky": {"posX": 19, "posY": 17},
+        "pinky": {"posX": 9, "posY": 5},
+        "blinky": {"posX": 11, "posY": 12},
+        "clyde": {"posX": 6, "posY": 21}
+    },
+    {
+        "inky": {"posX": 11, "posY": 11},
+        "pinky": {"posX": 1, "posY": 21},
+        "blinky": {"posX": 13, "posY": 17},
+        "clyde": {"posX": 19, "posY": 6}
+    },
+    {
+        "inky": {"posX": 19, "posY": 1},
+        "pinky": {"posX": 19, "posY": 17},
+        "blinky": {"posX": 7, "posY": 3},
+        "clyde": {"posX": 8, "posY": 21}
+    }
+]

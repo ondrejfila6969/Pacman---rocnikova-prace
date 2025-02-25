@@ -2,6 +2,7 @@ import { oneBlockHeight, oneBlockWidth } from "../../script.js";
 export class PacmanTemplate {
     posX;
     posY;
+    currentLevel;
     currentDirection;
     desiredDirection;
     score;
@@ -18,5 +19,6 @@ export class PacmanTemplate {
         this.currentDirection = "right";
         this.desiredDirection = null;
         this.score = 0;
+        this.currentLevel = 2;
     }
 }

@@ -29,7 +29,6 @@ class Ghost extends GhostTemplate {
         if (isAlignedX && isAlignedY) {
             // Pokud ano, tak se provede následující:
             if (this.isPacmanNear()) {
-                console.log(1);
                 this.moveTowards();
             }
             else {
@@ -366,13 +365,13 @@ class Ghost extends GhostTemplate {
         };
     }
 }
-export let blinky;
-export let clyde;
-export let inky;
-export let pinky;
-window.addEventListener("load", () => {
-    pinky = new Ghost(9 * oneBlockWidth, 10 * oneBlockHeight, 3);
-    clyde = new Ghost(9 * oneBlockWidth, 11 * oneBlockHeight, 1);
-    inky = new Ghost(11 * oneBlockWidth, 10 * oneBlockHeight, 2);
-    blinky = new Ghost(11 * oneBlockWidth, 11 * oneBlockHeight, 0);
-});
+let pinky, clyde, blinky, inky;
+const loadGhostPositions = async () => {
+    const file = await fetch("../res/data/ghostPositions.json");
+    const data = await file.json();
+    blinky = new Ghost(Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight), 0);
+    pinky = new Ghost(Number(data[pacman.currentLevel - 1].pinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].pinky.posY * oneBlockHeight), 3);
+    inky = new Ghost(Number(data[pacman.currentLevel - 1].inky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].inky.posY * oneBlockHeight), 2);
+    clyde = new Ghost(Number(data[pacman.currentLevel - 1].clyde.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].clyde.posY * oneBlockHeight), 1);
+};
+export { loadGhostPositions, blinky, pinky, inky, clyde };
