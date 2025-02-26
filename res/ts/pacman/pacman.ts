@@ -4,6 +4,7 @@ import {
   ctx,
   currentMap,
   pacmanScore,
+  pacmanLives
 } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
 
@@ -146,10 +147,24 @@ class Pacman extends PacmanTemplate {
     }
   }
 
+  public resetPositions(): void { // nastaví pacmanovy souřadnice zpět do levého horního rohu a bude mít defaultní směr doprava
+    this.currentDirection = "right";
+    this.posX = 1.5 * oneBlockWidth;
+    this.posY = 1.5 * oneBlockHeight;
+  }
+
   public setDesiredDirection(direction: string): void {
     this.desiredDirection = direction;
   }
 
+  /**
+   * SPRÁVA ŽIVOTŮ
+   */
+  public loseLife(): void {
+    this.lives--;
+    // console.log(this.lives);
+    if (pacmanLives) pacmanLives.innerText = `Lives: ${this.lives}`;
+  }
   /**
    * Problém s pohybem Pacmana byl ten, že když stiknete klávesu, tak se v mnoha případech stane, že změní směr ihned
    * Což ovšem většinou vede ke kolizi se zdí, tuto problematiku řeší metoda tryNewDirection()

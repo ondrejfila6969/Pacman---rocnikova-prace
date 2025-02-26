@@ -3,6 +3,8 @@ import { blinky, pinky, inky, clyde, loadGhostPositions } from "./ghost/ghost.js
 const canvas = document.createElement("canvas");
 export const ctx = canvas.getContext("2d");
 export const pacmanScore = document.getElementById("pacmanScore");
+export const pacmanCurrentLevel = document.getElementById("pacmanCurrentLevel");
+export const pacmanLives = document.getElementById("pacmanLives");
 /**
  * Přidá canvas do HTML
  */
@@ -123,6 +125,7 @@ window.addEventListener("load", () => {
             ghost.drawGhost();
             // ghost.drawEdgePoints();
             ghost.ghostMovement();
+            ghost.isPacmanCatched();
         });
     };
     const clearCanvas = () => {

@@ -3,12 +3,17 @@ import { pacman } from "../pacman/pacman.js";
 import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 
 class Ghost extends GhostTemplate {
+  private startPosX: number;
+  private startPosY: number;
+
   constructor(
     protected posX: number,
     protected posY: number,
     imageIndex: number
   ) {
     super(posX, posY, imageIndex);
+    this.startPosX = posX;
+    this.startPosY = posY;
   }
 
   /**
@@ -48,6 +53,11 @@ class Ghost extends GhostTemplate {
     }
 
     this.moveGhost();
+    if(this.isPacmanCatched()) {
+      pacman.loseLife();
+      pacman.resetPositions();
+      this.resetPositionsAndInitialize();
+    }
   }
 
   protected moveGhost(): void {
@@ -116,6 +126,28 @@ class Ghost extends GhostTemplate {
     return (
       distanceBetweenPacmanAndGhost < 5 * oneBlockWidth ||
       distanceBetweenPacmanAndGhost < 5 * oneBlockHeight
+    );
+  }
+
+  /**
+   * METODA, KTERÁ KONTROLUJE, JESTLI DUCH CHYTIL PACMANA
+   */
+  public isPacmanCatched(): boolean {
+    const pacmanTopLeft = pacman.getTopLeftPoint();
+    const pacmanBottomRight = pacman.getBottomRightPoint();
+
+    const ghostTopLeft = this.ghostGetTopLeftPoint();
+    const ghostBottomLeft = this.ghostGetBottomLeftPoint();
+    const ghostBottomRight = this.ghostGetBottomRightPoint();
+    return (
+      (Math.floor(this.posX / oneBlockWidth) ===
+        Math.floor(pacman.getPacmanPositions().posX / oneBlockWidth) &&
+        Math.floor(this.posY / oneBlockHeight) ===
+          Math.floor(pacman.getPacmanPositions().posY / oneBlockHeight)) ||
+      (pacmanBottomRight.posX > ghostTopLeft.posX &&
+        pacmanTopLeft.posX < ghostBottomRight.posX &&
+        pacmanBottomRight.posY > ghostTopLeft.posY &&
+        pacmanTopLeft.posY < ghostBottomLeft.posY)
     );
   }
 
@@ -222,6 +254,18 @@ class Ghost extends GhostTemplate {
       Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth) < 0 ||
       Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21
     );
+  }
+
+  public initializeMovement(): void {
+    this.randomDirection();
+  }
+
+  public async resetPositionsAndInitialize(): Promise<void> {
+    await loadGhostPositions();
+
+    [pinky, inky, clyde, blinky].forEach((ghost) => {
+      ghost.initializeMovement();
+    });
   }
 
   /**
@@ -461,17 +505,32 @@ class Ghost extends GhostTemplate {
   }
 }
 
-
 let pinky: Ghost, clyde: Ghost, blinky: Ghost, inky: Ghost;
 
 const loadGhostPositions = async (): Promise<void> => {
-    const file: Response = await fetch("../res/data/ghostPositions.json");
-    const data = await file.json();
+  const file: Response = await fetch("../res/data/ghostPositions.json");
+  const data = await file.json();
 
-    blinky = new Ghost(Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight), 0);
-    pinky = new Ghost(Number(data[pacman.currentLevel - 1].pinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].pinky.posY * oneBlockHeight), 3);
-    inky = new Ghost(Number(data[pacman.currentLevel - 1].inky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].inky.posY * oneBlockHeight), 2);
-    clyde = new Ghost(Number(data[pacman.currentLevel - 1].clyde.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].clyde.posY * oneBlockHeight), 1);
-}
+  blinky = new Ghost(
+    Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth),
+    Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight),
+    0
+  );
+  pinky = new Ghost(
+    Number(data[pacman.currentLevel - 1].pinky.posX * oneBlockWidth),
+    Number(data[pacman.currentLevel - 1].pinky.posY * oneBlockHeight),
+    3
+  );
+  inky = new Ghost(
+    Number(data[pacman.currentLevel - 1].inky.posX * oneBlockWidth),
+    Number(data[pacman.currentLevel - 1].inky.posY * oneBlockHeight),
+    2
+  );
+  clyde = new Ghost(
+    Number(data[pacman.currentLevel - 1].clyde.posX * oneBlockWidth),
+    Number(data[pacman.currentLevel - 1].clyde.posY * oneBlockHeight),
+    1
+  );
+};
 
-export {loadGhostPositions, blinky, pinky, inky, clyde};
+export { loadGhostPositions, blinky, pinky, inky, clyde };

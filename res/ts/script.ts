@@ -2,8 +2,9 @@ import { pacman } from "./pacman/pacman.js";
 import { blinky, pinky, inky, clyde, loadGhostPositions } from "./ghost/ghost.js";
 const canvas: HTMLCanvasElement = document.createElement("canvas");
 export const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-export const pacmanScore: HTMLElement | null =
-  document.getElementById("pacmanScore");
+export const pacmanScore: HTMLElement | null = document.getElementById("pacmanScore");
+export const pacmanCurrentLevel: HTMLElement | null = document.getElementById("pacmanCurrentLevel");
+export const pacmanLives: HTMLElement | null = document.getElementById("pacmanLives");
 
 /**
  * Přidá canvas do HTML
@@ -167,6 +168,7 @@ const ghostTools = (): void => {
     ghost.drawGhost();
     // ghost.drawEdgePoints();
     ghost.ghostMovement();
+    ghost.isPacmanCatched();
   })
 }
 

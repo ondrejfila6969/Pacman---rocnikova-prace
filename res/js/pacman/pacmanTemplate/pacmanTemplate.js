@@ -8,6 +8,7 @@ export class PacmanTemplate {
     score;
     distance;
     size;
+    lives;
     constructor(posX, posY) {
         this.posX = posX;
         this.posY = posY;
@@ -19,6 +20,7 @@ export class PacmanTemplate {
         this.currentDirection = "right";
         this.desiredDirection = null;
         this.score = 0;
-        this.currentLevel = 2;
+        this.currentLevel = 1;
+        this.lives = 10;
     }
 }

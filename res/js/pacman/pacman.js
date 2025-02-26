@@ -1,4 +1,4 @@
-import { oneBlockHeight, oneBlockWidth, ctx, currentMap, pacmanScore, } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
+import { oneBlockHeight, oneBlockWidth, ctx, currentMap, pacmanScore, pacmanLives } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
 class Pacman extends PacmanTemplate {
     constructor(posX, posY) {
@@ -76,8 +76,22 @@ class Pacman extends PacmanTemplate {
                 break;
         }
     }
+    resetPositions() {
+        this.currentDirection = "right";
+        this.posX = 1.5 * oneBlockWidth;
+        this.posY = 1.5 * oneBlockHeight;
+    }
     setDesiredDirection(direction) {
         this.desiredDirection = direction;
+    }
+    /**
+     * SPRÁVA ŽIVOTŮ
+     */
+    loseLife() {
+        this.lives--;
+        // console.log(this.lives);
+        if (pacmanLives)
+            pacmanLives.innerText = `Lives: ${this.lives}`;
     }
     /**
      * Problém s pohybem Pacmana byl ten, že když stiknete klávesu, tak se v mnoha případech stane, že změní směr ihned

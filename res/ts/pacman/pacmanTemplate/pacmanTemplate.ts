@@ -1,4 +1,4 @@
-import { oneBlockHeight, oneBlockWidth } from "../../script.js";
+import { oneBlockHeight, oneBlockWidth} from "../../script.js";
 
 export abstract class PacmanTemplate {
   protected posX: number;
@@ -10,6 +10,7 @@ export abstract class PacmanTemplate {
   score: number;
   distance: number;
   size: { width: number; height: number };
+  lives: number;
 
   constructor(posX: number, posY: number) {
     this.posX = posX;
@@ -22,7 +23,8 @@ export abstract class PacmanTemplate {
     this.currentDirection = "right";
     this.desiredDirection = null;
     this.score = 0;
-    this.currentLevel = 2;
+    this.currentLevel = 1;
+    this.lives = 10
   }
 
   abstract drawPacman(): void;

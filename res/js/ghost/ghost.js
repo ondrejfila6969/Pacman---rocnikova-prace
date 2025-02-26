@@ -4,10 +4,14 @@ import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 class Ghost extends GhostTemplate {
     posX;
     posY;
+    startPosX;
+    startPosY;
     constructor(posX, posY, imageIndex) {
         super(posX, posY, imageIndex);
         this.posX = posX;
         this.posY = posY;
+        this.startPosX = posX;
+        this.startPosY = posY;
     }
     /**
      * METODA PRO VYKRESLENÍ DUCHA
@@ -36,6 +40,11 @@ class Ghost extends GhostTemplate {
             }
         }
         this.moveGhost();
+        if (this.isPacmanCatched()) {
+            pacman.loseLife();
+            pacman.resetPositions();
+            this.resetPositionsAndInitialize();
+        }
     }
     moveGhost() {
         const previousPosX = this.posX;
@@ -92,6 +101,24 @@ class Ghost extends GhostTemplate {
         const distanceBetweenPacmanAndGhost = Math.floor(Math.sqrt(Math.pow(pacmanX - this.posX, 2) + Math.pow(pacmanY - this.posY, 2)));
         return (distanceBetweenPacmanAndGhost < 5 * oneBlockWidth ||
             distanceBetweenPacmanAndGhost < 5 * oneBlockHeight);
+    }
+    /**
+     * METODA, KTERÁ KONTROLUJE, JESTLI DUCH CHYTIL PACMANA
+     */
+    isPacmanCatched() {
+        const pacmanTopLeft = pacman.getTopLeftPoint();
+        const pacmanBottomRight = pacman.getBottomRightPoint();
+        const ghostTopLeft = this.ghostGetTopLeftPoint();
+        const ghostBottomLeft = this.ghostGetBottomLeftPoint();
+        const ghostBottomRight = this.ghostGetBottomRightPoint();
+        return ((Math.floor(this.posX / oneBlockWidth) ===
+            Math.floor(pacman.getPacmanPositions().posX / oneBlockWidth) &&
+            Math.floor(this.posY / oneBlockHeight) ===
+                Math.floor(pacman.getPacmanPositions().posY / oneBlockHeight)) ||
+            (pacmanBottomRight.posX > ghostTopLeft.posX &&
+                pacmanTopLeft.posX < ghostBottomRight.posX &&
+                pacmanBottomRight.posY > ghostTopLeft.posY &&
+                pacmanTopLeft.posY < ghostBottomLeft.posY));
     }
     /**
      * METODA PRO ZÍSKÁNÍ DOSTUPNÝCH SMĚRŮ + METODA PRO NÁHODNÝ VÝBĚR
@@ -176,6 +203,15 @@ class Ghost extends GhostTemplate {
              */
             Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth) < 0 ||
             Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21);
+    }
+    initializeMovement() {
+        this.randomDirection();
+    }
+    async resetPositionsAndInitialize() {
+        await loadGhostPositions();
+        [pinky, inky, clyde, blinky].forEach((ghost) => {
+            ghost.initializeMovement();
+        });
     }
     /**
      * SESTAVENÍ GRAFU PRO A* ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY K CÍLI
