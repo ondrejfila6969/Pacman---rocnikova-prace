@@ -4,6 +4,7 @@ import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 class Ghost extends GhostTemplate {
     posX;
     posY;
+    chaseTimeout;
     startPosX;
     startPosY;
     constructor(posX, posY, imageIndex) {
@@ -12,6 +13,39 @@ class Ghost extends GhostTemplate {
         this.posY = posY;
         this.startPosX = posX;
         this.startPosY = posY;
+    }
+    /**
+     * MODY PRO DUCHA
+     */
+    setFrightenedMode() {
+        if (this.mode === "frightened")
+            return;
+        this.imageIndex = 4;
+        this.image.src = this.imagePaths[this.imageIndex];
+        this.mode = "frightened";
+        this.distance = 1;
+        console.log(this.mode);
+        if (this.chaseTimeout) {
+            clearTimeout(this.chaseTimeout);
+        }
+        this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
+    }
+    setChaseMode() {
+        if (this.mode === "chase")
+            return;
+        if (this === blinky)
+            this.imageIndex = 0;
+        if (this === inky)
+            this.imageIndex = 2;
+        if (this === clyde)
+            this.imageIndex = 1;
+        if (this === pinky)
+            this.imageIndex = 3;
+        this.image.src = this.imagePaths[this.imageIndex];
+        this.mode = "chase";
+        this.distance = 1.7;
+        console.log(this.mode);
+        this.drawGhost();
     }
     /**
      * METODA PRO VYKRESLENÍ DUCHA
@@ -40,10 +74,23 @@ class Ghost extends GhostTemplate {
             }
         }
         this.moveGhost();
+        this.handleCollisionWithPacman();
+    }
+    /**
+     * KOLIZE S DUCHEM (SCÉNÁŘE)
+     */
+    handleCollisionWithPacman() {
         if (this.isPacmanCatched()) {
-            pacman.loseLife();
-            pacman.resetPositions();
-            this.resetPositionsAndInitialize();
+            if (this.mode === "frightened") {
+                this.resetToStartPosition();
+            }
+            else if (this.mode === "chase") {
+                pacman.loseLife();
+                if (pacman.lives !== 0) {
+                    pacman.resetPositions();
+                    this.resetPositionsAndInitialize();
+                }
+            }
         }
     }
     moveGhost() {
@@ -212,6 +259,11 @@ class Ghost extends GhostTemplate {
         [pinky, inky, clyde, blinky].forEach((ghost) => {
             ghost.initializeMovement();
         });
+    }
+    resetToStartPosition() {
+        this.posX = this.startPosX;
+        this.posY = this.startPosY;
+        this.setChaseMode();
     }
     /**
      * SESTAVENÍ GRAFU PRO A* ALGORITMUS NA VÝPOČET NEJIDEÁLNĚJŠÍ CESTY K CÍLI

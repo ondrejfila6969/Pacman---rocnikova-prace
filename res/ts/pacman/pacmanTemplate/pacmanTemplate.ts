@@ -11,6 +11,7 @@ export abstract class PacmanTemplate {
   distance: number;
   size: { width: number; height: number };
   lives: number;
+  startMovement: boolean;
 
   constructor(posX: number, posY: number) {
     this.posX = posX;
@@ -25,6 +26,7 @@ export abstract class PacmanTemplate {
     this.score = 0;
     this.currentLevel = 1;
     this.lives = 10
+    this.startMovement = false;
   }
 
   abstract drawPacman(): void;

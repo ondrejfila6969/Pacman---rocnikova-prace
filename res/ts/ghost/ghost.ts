@@ -3,6 +3,7 @@ import { pacman } from "../pacman/pacman.js";
 import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 
 class Ghost extends GhostTemplate {
+  private chaseTimeout?: ReturnType<typeof setTimeout>;
   private startPosX: number;
   private startPosY: number;
 
@@ -14,6 +15,39 @@ class Ghost extends GhostTemplate {
     super(posX, posY, imageIndex);
     this.startPosX = posX;
     this.startPosY = posY;
+  }
+  /**
+   * MODY PRO DUCHA
+   */
+  public setFrightenedMode(): void {
+    if (this.mode === "frightened") return;
+    this.imageIndex = 4;
+    this.image.src = this.imagePaths[this.imageIndex];
+    this.mode = "frightened";
+    this.distance = 1;
+    console.log(this.mode);
+
+    if (this.chaseTimeout) {
+      clearTimeout(this.chaseTimeout);
+    }
+
+    this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
+  }
+
+  public setChaseMode(): void {
+    if (this.mode === "chase") return;
+
+    if (this === blinky) this.imageIndex = 0;
+    if (this === inky) this.imageIndex = 2;
+    if (this === clyde) this.imageIndex = 1;
+    if (this === pinky) this.imageIndex = 3;
+
+    this.image.src = this.imagePaths[this.imageIndex];
+    this.mode = "chase";
+    this.distance = 1.7;
+    console.log(this.mode);
+
+    this.drawGhost();
   }
 
   /**
@@ -53,10 +87,22 @@ class Ghost extends GhostTemplate {
     }
 
     this.moveGhost();
-    if(this.isPacmanCatched()) {
-      pacman.loseLife();
-      pacman.resetPositions();
-      this.resetPositionsAndInitialize();
+    this.handleCollisionWithPacman();
+  }
+  /**
+   * KOLIZE S DUCHEM (SCÉNÁŘE)  
+   */
+  private handleCollisionWithPacman(): void {
+    if (this.isPacmanCatched()) {
+      if (this.mode === "frightened") {
+        this.resetToStartPosition();
+      } else if (this.mode === "chase") {
+        pacman.loseLife();
+        if (pacman.lives !== 0) {
+          pacman.resetPositions();
+          this.resetPositionsAndInitialize();
+        }
+      }
     }
   }
 
@@ -266,6 +312,13 @@ class Ghost extends GhostTemplate {
     [pinky, inky, clyde, blinky].forEach((ghost) => {
       ghost.initializeMovement();
     });
+  }
+
+  private resetToStartPosition(): void {
+    this.posX = this.startPosX;
+    this.posY = this.startPosY;
+
+    this.setChaseMode();
   }
 
   /**

@@ -1,5 +1,6 @@
 import { oneBlockHeight, oneBlockWidth, ctx, currentMap, pacmanScore, pacmanLives } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
+import { blinky, inky, pinky, clyde } from "../ghost/ghost.js";
 class Pacman extends PacmanTemplate {
     constructor(posX, posY) {
         super(posX, posY);
@@ -159,6 +160,43 @@ class Pacman extends PacmanTemplate {
         if (foodEaten) {
             this.score++;
             if (pacmanScore !== null)
+                pacmanScore.innerText = `Score: ${this.score}`;
+        }
+    }
+    switchGhostsIntoFrightenedMode() {
+        const changeGhosts = () => {
+            [blinky, pinky, inky, clyde].forEach((ghost) => {
+                ghost.setFrightenedMode();
+            });
+        };
+        let abilityEaten = false;
+        if (this.currentDirection === "right" &&
+            currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][Math.floor(this.eatRightDirection().posX / oneBlockWidth)] === 4) {
+            currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][Math.floor(this.eatRightDirection().posX / oneBlockWidth)] = 5;
+            abilityEaten = true;
+            changeGhosts();
+        }
+        if (this.currentDirection === "left" &&
+            currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][Math.floor(this.eatLeftDirection().posX / oneBlockWidth)] === 4) {
+            currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][Math.floor(this.eatLeftDirection().posX / oneBlockWidth)] = 5;
+            abilityEaten = true;
+            changeGhosts();
+        }
+        if (this.currentDirection === "up" &&
+            currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][Math.floor(this.eatTopDirection().posX / oneBlockWidth)] === 4) {
+            currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][Math.floor(this.eatTopDirection().posX / oneBlockWidth)] = 5;
+            abilityEaten = true;
+            changeGhosts();
+        }
+        if (this.currentDirection === "down" &&
+            currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][Math.floor(this.eatBottomDirection().posX / oneBlockWidth)] === 4) {
+            currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][Math.floor(this.eatBottomDirection().posX / oneBlockWidth)] = 5;
+            abilityEaten = true;
+            changeGhosts();
+        }
+        if (abilityEaten) {
+            this.score += 50; // Test
+            if (pacmanScore)
                 pacmanScore.innerText = `Score: ${this.score}`;
         }
     }

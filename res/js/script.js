@@ -104,26 +104,52 @@ window.addEventListener("load", () => {
             }
         }
     };
+    let vulnerableGhostIcon = new Image();
     const renderFood = () => {
+        let foods = 0;
+        let specialAbility = 0;
         for (let i = 0; i < currentMap.length; i++) {
             for (let j = 0; j < currentMap[i].length; j++) {
                 if (currentMap[i][j] === 2) {
+                    foods++;
                     createFood(j * oneBlockWidth, i * oneBlockHeight, oneBlockWidth / 10, oneBlockHeight / 10, "#FFFFFF");
+                }
+                else if (currentMap[i][j] === 4) {
+                    specialAbility++;
+                    vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
+                    if (ctx) {
+                        ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
+                    }
                 }
             }
         }
     };
     /* Všechny procesy, co se týkají pacmana */
     const pacmanTools = () => {
-        pacman.drawPacman();
-        // pacman.drawEdgePoints();
-        pacman.movement();
-        pacman.eatFood();
+        if (pacman) {
+            pacman.drawPacman();
+            // pacman.drawEdgePoints();
+            if (!pacman.startMovement) {
+                setTimeout(() => {
+                    pacman.startMovement = true;
+                }, 2000);
+            }
+            if (pacman.startMovement) {
+                pacman.movement();
+                pacman.eatFood();
+                pacman.switchGhostsIntoFrightenedMode();
+            }
+        }
     };
     const ghostTools = () => {
-        [pinky, inky, blinky, clyde].forEach((ghost) => {
+        [blinky, pinky, inky, clyde].forEach((ghost) => {
+            if (ghost.mode === "chase") {
+                ghost.setChaseMode();
+            }
+            else if (ghost.mode === "frightened") {
+                ghost.setFrightenedMode();
+            }
             ghost.drawGhost();
-            // ghost.drawEdgePoints();
             ghost.ghostMovement();
             ghost.isPacmanCatched();
         });

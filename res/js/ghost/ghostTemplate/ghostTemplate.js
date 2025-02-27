@@ -25,6 +25,7 @@ export class GhostTemplate {
             "../../res/assets/ghosts/clyde.png",
             "../../res/assets/ghosts/inky.png",
             "../../res/assets/ghosts/pinky.png",
+            "../../res/assets/ghosts/vulnerable.png"
         ];
         this.image.src = this.imagePaths[this.imageIndex];
         this.image.onload = () => {

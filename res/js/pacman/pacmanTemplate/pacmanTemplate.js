@@ -9,6 +9,7 @@ export class PacmanTemplate {
     distance;
     size;
     lives;
+    startMovement;
     constructor(posX, posY) {
         this.posX = posX;
         this.posY = posY;
@@ -22,5 +23,6 @@ export class PacmanTemplate {
         this.score = 0;
         this.currentLevel = 1;
         this.lives = 10;
+        this.startMovement = false;
     }
 }
