@@ -112,3 +112,8 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
   <img src="https://github.com/user-attachments/assets/242ee48d-77b6-4ddf-a537-34a538694abb" width="300" height="300">
   <img src="https://github.com/user-attachments/assets/8d7d2747-1438-4ea1-a3f2-fe941f820391" width="300" height="300">
 </p>
+
+## 🗓️ 26.2.2025
+- Duchové nyní dokážou pacmana chytit, uberou mu život, přidání HTML elementu pro zobrazení životů pacmana
+- Zítra bude na pořadu dne stylování v CSS + dodělání toho, že uživatel nebude moct hrát, bude-li mít 0 životů
+  
