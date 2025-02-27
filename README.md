@@ -119,7 +119,7 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 
 ## 🗓️ 27.2.2025
 - Pacman dokáže po požití speciální schopnosti chytat duchy po dobu 5 sekund
-- Využití logiky A* algoritmu, který jsem implementovat v poslední době, kdy byla přidán i scénář pro duchy ve frightened modu
+- Využití logiky A* algoritmu, který jsem implementovat v poslední době, kdy byl přidán i scénář pro duchy ve frightened modu
 - Chytí-li ducha, tak ten daný duch se vrátí zpět na své počáteční souřadnice
 - CSS zatím odloženo
 ![frightenedDuchove](https://github.com/user-attachments/assets/8849f95d-6d69-4a13-a215-b084a68c244e)
