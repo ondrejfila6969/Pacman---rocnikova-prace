@@ -130,6 +130,6 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Opravení pohybu pacmana, když jste drželi dlouze například šipku nahoru, tak se pacman pohybovat rychleji a rychleji (Nyní držení klávesy nemá na rychlost efekt)
 - Změna struktury kodu do jednotlivých podsložek pro lepší organizaci
 - Předchystané HTML, později bude následovat CSS
-<img src="https://github.com/user-attachments/assets/cccad2d3-6434-4bc8-9f05-b4ab1cf45177" alt="structure" width="200" height="350">
+<img src="https://github.com/user-attachments/assets/cccad2d3-6434-4bc8-9f05-b4ab1cf45177" alt="structure" width="200" height="450">
 
 
