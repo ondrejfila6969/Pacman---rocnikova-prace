@@ -124,3 +124,11 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - CSS zatím odloženo
 ![frightenedDuchove](https://github.com/user-attachments/assets/8849f95d-6d69-4a13-a215-b084a68c244e)
 
+## 🗓️ 1.3.2025
+- Necelé 2 měsíce do odevzdání
+- Přidání teleportu pro duchy, dokáží se teleportovat stejně jako pacman
+- Opravení pohybu pacmana, když jste drželi dlouze například šipku nahoru, tak se pacman pohybovat rychleji a rychleji (Nyní držení klávesy nemá na rychlost efekt)
+- Změna struktury kodu do jednotlivých podsložek pro lepší organizaci
+- Předchystané HTML, později bude následovat CSS
+![structure](https://github.com/user-attachments/assets/cccad2d3-6434-4bc8-9f05-b4ab1cf45177)
+
