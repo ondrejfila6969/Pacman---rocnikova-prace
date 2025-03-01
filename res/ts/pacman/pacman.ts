@@ -1,13 +1,21 @@
+import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
 import {
   oneBlockHeight,
   oneBlockWidth,
-  ctx,
   currentMap,
+} from "../gameSettings/map/map.js";
+import { ctx } from "../gameSettings/canvas/canvas.js";
+import {
   pacmanScore,
-  pacmanLives
-} from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
-import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
-import { blinky, inky, pinky, clyde } from "../ghost/ghost.js";
+  pacmanLives,
+  pacmanCurrentLevel,
+} from "../gameSettings/pacmanSettings/pacmanSettings.js";
+import {
+  inky,
+  blinky,
+  pinky,
+  clyde,
+} from "../gameSettings/ghostSettings/ghostSettings.js";
 
 class Pacman extends PacmanTemplate {
 
@@ -156,6 +164,14 @@ class Pacman extends PacmanTemplate {
 
   public setDesiredDirection(direction: string): void {
     this.desiredDirection = direction;
+  }
+
+  public levelUp(): boolean {
+    this.startMovement = false;
+    this.currentLevel++;
+    if (pacmanCurrentLevel)
+      pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+    return true;
   }
 
   /**

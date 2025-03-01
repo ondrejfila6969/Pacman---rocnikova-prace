@@ -1,8 +1,20 @@
-import { ctx, oneBlockHeight, oneBlockWidth, currentMap } from "../script.js";
-import { pacman } from "../pacman/pacman.js";
 import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
+import {
+  oneBlockHeight,
+  oneBlockWidth,
+  currentMap,
+} from "../gameSettings/map/map.js";
+import { ctx } from "../gameSettings/canvas/canvas.js";
+import { pacman } from "../pacman/pacman.js";
+import {
+  blinky,
+  inky,
+  pinky,
+  clyde,
+  loadGhostPositions,
+} from "../gameSettings/ghostSettings/ghostSettings.js";
 
-class Ghost extends GhostTemplate {
+export class Ghost extends GhostTemplate {
   private chaseTimeout?: ReturnType<typeof setTimeout>;
   private startPosX: number;
   private startPosY: number;
@@ -273,6 +285,7 @@ class Ghost extends GhostTemplate {
    */
 
   protected wallCollision(): boolean {
+    this.teleportGhost();
     const topLeftPoint: { readonly posX: number; readonly posY: number } = {
       posX: Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth),
       posY: Math.floor(this.ghostGetTopLeftPoint().posY / oneBlockHeight),
@@ -293,13 +306,26 @@ class Ghost extends GhostTemplate {
       currentMap[topLeftPoint.posY][topLeftPoint.posX] == 1 ||
       currentMap[topRightPoint.posY][topRightPoint.posX] == 1 ||
       currentMap[bottomLeftPoint.posY][bottomLeftPoint.posX] == 1 ||
-      currentMap[bottomRightPoint.posY][bottomRightPoint.posX] == 1 ||
-      /**
-       * Tyhle poslední 2 řádky platí zatím pouze pro první mapu, map bude nejspíš 5-10, je to kvůli těm východům na obou stranách, zatím nebudu dělat, aby duchové se tímto průchodem mohli dostat na 2. stranu
-       */
-      Math.floor(this.ghostGetTopLeftPoint().posX / oneBlockWidth) < 0 ||
-      Math.floor(this.ghostGetTopRightPoint().posX / oneBlockWidth) >= 21
+      currentMap[bottomRightPoint.posY][bottomRightPoint.posX] == 1
     );
+  }
+  public teleportGhost() {
+    if (
+      Math.floor(this.ghostGetMiddlePoints().posX / oneBlockWidth) < 1 && this.currentDirection == "left"
+    ) {
+      this.currentDirection = "left"
+      this.posX = 20 * oneBlockWidth;
+      this.drawGhost();
+      this.moveGhost();
+    }
+    if (
+      Math.floor(this.ghostGetMiddlePoints().posX / oneBlockWidth) >= 20 && this.currentDirection == "right"
+    ) {
+      this.currentDirection = "right"
+      this.posX = 1 * oneBlockWidth;
+      this.drawGhost();
+      this.moveGhost();
+    }
   }
 
   public initializeMovement(): void {
@@ -558,32 +584,3 @@ class Ghost extends GhostTemplate {
   }
 }
 
-let pinky: Ghost, clyde: Ghost, blinky: Ghost, inky: Ghost;
-
-const loadGhostPositions = async (): Promise<void> => {
-  const file: Response = await fetch("../res/data/ghostPositions.json");
-  const data = await file.json();
-
-  blinky = new Ghost(
-    Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth),
-    Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight),
-    0
-  );
-  pinky = new Ghost(
-    Number(data[pacman.currentLevel - 1].pinky.posX * oneBlockWidth),
-    Number(data[pacman.currentLevel - 1].pinky.posY * oneBlockHeight),
-    3
-  );
-  inky = new Ghost(
-    Number(data[pacman.currentLevel - 1].inky.posX * oneBlockWidth),
-    Number(data[pacman.currentLevel - 1].inky.posY * oneBlockHeight),
-    2
-  );
-  clyde = new Ghost(
-    Number(data[pacman.currentLevel - 1].clyde.posX * oneBlockWidth),
-    Number(data[pacman.currentLevel - 1].clyde.posY * oneBlockHeight),
-    1
-  );
-};
-
-export { loadGhostPositions, blinky, pinky, inky, clyde };

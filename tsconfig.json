@@ -4,7 +4,7 @@
   "rootDir": "./res/ts", // Kde se nachází ts soubory
   "target": "ES2022",
   "module": "ESNext",
-  "esModuleInterop": true,                         
+  "esModuleInterop": true,                      
   "strict": true,
   },
 }

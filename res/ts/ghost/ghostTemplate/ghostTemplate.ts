@@ -1,4 +1,4 @@
-import { oneBlockHeight, oneBlockWidth } from "../../script.js";
+import { oneBlockHeight, oneBlockWidth } from "../../gameSettings/map/map.js";
 
 export abstract class GhostTemplate {
   protected posX: number;

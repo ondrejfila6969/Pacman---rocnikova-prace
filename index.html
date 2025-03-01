@@ -8,9 +8,33 @@
     <link rel="stylesheet" href="./res/css/style.css">
 </head>
 <body>
-    <h2 id="pacmanCurrentLevel">Current level: 1</h1>
-    <h3 id="pacmanScore">Score: 0</h2>
-    <h4 id="pacmanLives">Lives: 10</h3>
+    <div id="menu">
+        <div>
+          <h1>Pac-Man</h1>
+          <div class="menu-option" id="start-button">Start Game</div>
+          <div class="menu-option" id="intructions">Instructions</div>
+          <div class="menu-option" id="exit-button">Exit</div>
+        </div>
+      </div>
+      <div id="game" style="display: none">
+        <h2 id="pacmanCurrentLevel">Current level: 1</h1>
+        <h3 id="pacmanScore">Score: 0</h2>
+        <h4 id="pacmanLives">Lives: 3</h3>
+      </div>
+      <div id="win" style="display: none;">
+        <div class="container">
+          <h1 class="win-title">🎉You win🎉</h1>
+            <button id="play-again" class="result-button">Play again</button>
+            <button id="win-return-menu" class="result-button">Back to menu</button>
+        </div>
+      </div>
+      <div id="loss" style="display: none;">
+        <div class="container">
+          <h1 class="loss-title">💀Game over💀</h1>
+            <button id="try-again" class="result-button">Try again</button>
+            <button id="loss-return-menu" class="result-button">Back to menu</button>
+        </div>
+      </div>
     <script type="module" src="./res/js/script.js"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
-import { oneBlockHeight, oneBlockWidth, ctx, currentMap, pacmanScore, pacmanLives } from "../script.js"; // pokud nepřipíšu příponu souboru, ze kterého importuji, začne mi v konzoli vyskakovat chyba, že daný soubor nelze nalézt
 import { PacmanTemplate } from "./pacmanTemplate/pacmanTemplate.js";
-import { blinky, inky, pinky, clyde } from "../ghost/ghost.js";
+import { oneBlockHeight, oneBlockWidth, currentMap, } from "../gameSettings/map/map.js";
+import { ctx } from "../gameSettings/canvas/canvas.js";
+import { pacmanScore, pacmanLives, pacmanCurrentLevel, } from "../gameSettings/pacmanSettings/pacmanSettings.js";
+import { inky, blinky, pinky, clyde, } from "../gameSettings/ghostSettings/ghostSettings.js";
 class Pacman extends PacmanTemplate {
     constructor(posX, posY) {
         super(posX, posY);
@@ -84,6 +86,13 @@ class Pacman extends PacmanTemplate {
     }
     setDesiredDirection(direction) {
         this.desiredDirection = direction;
+    }
+    levelUp() {
+        this.startMovement = false;
+        this.currentLevel++;
+        if (pacmanCurrentLevel)
+            pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+        return true;
     }
     /**
      * SPRÁVA ŽIVOTŮ

@@ -1,0 +1,82 @@
+import { ctx } from "../canvas/canvas.js";
+import { resetPacmanAndGhosts } from "../gameSettings.js";
+import { oneBlockHeight, oneBlockWidth, currentMap, loadData, } from "../map/map.js";
+import { pacman } from "../../pacman/pacman.js";
+import { pacmanCurrentLevel } from "../pacmanSettings/pacmanSettings.js";
+import { game, win, loss, menu } from "../../script.js";
+const getRandomNumber = (min, max) => Math.random() * (max - min) + min;
+let red = getRandomNumber(0, 255);
+let green = getRandomNumber(0, 255);
+let blue = getRandomNumber(0, 255);
+let r = getRandomNumber(0, 255);
+let g = getRandomNumber(0, 255);
+let b = getRandomNumber(0, 255);
+const oneBlockColor = `rgb(${red}, ${green}, ${blue})`;
+const foodColor = `rgb(${r}, ${g}, ${b})`;
+const createBorder = (posX, posY, oneBlockWidth, oneBlockHeight, oneBlockColor) => {
+    if (ctx) {
+        ctx.fillStyle = oneBlockColor;
+        ctx.fillRect(posX, posY, oneBlockWidth, oneBlockHeight);
+    }
+};
+const createFood = (posX, posY, foodRadiusX, foodRadiusY, foodColor) => {
+    if (ctx) {
+        ctx.beginPath();
+        ctx.ellipse(posX + oneBlockWidth / 2, posY + oneBlockHeight / 2, foodRadiusX, foodRadiusY, 0, 0, 2 * Math.PI);
+        ctx.fillStyle = foodColor;
+        ctx.fill();
+    }
+};
+const renderMap = () => {
+    for (let i = 0; i < currentMap.length; i++) {
+        for (let j = 0; j < currentMap[i].length; j++) {
+            if (currentMap[i][j] == 1) {
+                createBorder(j * oneBlockWidth, i * oneBlockHeight, oneBlockWidth, oneBlockHeight, oneBlockColor);
+            }
+        }
+    }
+};
+let levelDone = false;
+let vulnerableGhostIcon = new Image();
+const renderFoodOrSpecialAbility = () => {
+    let foods = 0;
+    let specialAbility = 0;
+    for (let i = 0; i < currentMap.length; i++) {
+        for (let j = 0; j < currentMap[i].length; j++) {
+            if (currentMap[i][j] === 2) {
+                foods++;
+                createFood(j * oneBlockWidth, i * oneBlockHeight, oneBlockWidth / 8, oneBlockHeight / 8, foodColor);
+            }
+            else if (currentMap[i][j] === 4) {
+                specialAbility++;
+                vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
+                if (ctx) {
+                    ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
+                }
+            }
+        }
+    }
+    if (foods === 0 && specialAbility === 0 && !levelDone) {
+        pacman.levelUp();
+        levelDone = true;
+        loadData();
+        render();
+        resetPacmanAndGhosts();
+        if (pacmanCurrentLevel !== null)
+            pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+    }
+    levelDone = false;
+};
+const renderMenu = () => {
+    if (game && win && loss && menu) {
+        game.style.display = "none";
+        win.style.display = "none";
+        loss.style.display = "none";
+        menu.style.display = "flex";
+    }
+};
+const render = () => {
+    renderMap();
+    renderFoodOrSpecialAbility();
+};
+export { render, renderMenu };
