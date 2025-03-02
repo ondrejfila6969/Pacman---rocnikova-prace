@@ -54,7 +54,7 @@ const gameStarts = async (): Promise<void> => {
         clearInterval(interval);
         if (loss && game && pacmanLives) {
           pacmanLives.innerText = `Lives: ${pacman.lives}`;
-          loss.style.display = "none";
+          loss.style.display = "flex";
           loss.style.textAlign = "center";
           loss.style.justifyContent = "center";
           loss.style.alignItems = "center";
