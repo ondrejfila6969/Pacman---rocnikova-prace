@@ -15,6 +15,8 @@ const pacmanUtills = () => {
             pacman.movement();
             pacman.eatFood();
             pacman.switchGhostsIntoFrightenedMode();
+            pacman.receiveExtraLife();
+            pacman.eatCherry();
         }
     }
 };

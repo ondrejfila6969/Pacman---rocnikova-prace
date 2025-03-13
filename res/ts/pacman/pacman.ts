@@ -169,8 +169,7 @@ class Pacman extends PacmanTemplate {
   public levelUp(): boolean {
     this.startMovement = false;
     this.currentLevel++;
-    if (pacmanCurrentLevel)
-      pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+    pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
     return true;
   }
 
@@ -179,8 +178,7 @@ class Pacman extends PacmanTemplate {
    */
   public loseLife(): void {
     this.lives--;
-    // console.log(this.lives);
-    if (pacmanLives) pacmanLives.innerText = `Lives: ${this.lives}`;
+    pacmanLives!.innerText = `Lives: ${this.lives}`;
   }
   /**
    * Problém s pohybem Pacmana byl ten, že když stiknete klávesu, tak se v mnoha případech stane, že změní směr ihned
@@ -236,7 +234,9 @@ class Pacman extends PacmanTemplate {
     }
   }
 
-
+  /**
+   * SPRÁVÁ JÍDLA + SPECIÁLNÍCH SCHOPNOSTÍ (BONUSOVÝ ŽIVOT, FRIGHTENED MODE DUCHŮ, CHERRY)
+   */
   public eatFood(): void {
     let foodEaten: boolean = false;
     if (this.currentDirection === "right") {
@@ -290,7 +290,7 @@ class Pacman extends PacmanTemplate {
 
     if (foodEaten) {
       this.score++;
-      if (pacmanScore !== null) pacmanScore.innerText = `Score: ${this.score}`;
+      pacmanScore!.innerText = `Score: ${this.score}`;
     }
   }
 
@@ -350,18 +350,121 @@ class Pacman extends PacmanTemplate {
       abilityEaten = true;
       changeGhosts();
     }
+  }
+
+  public receiveExtraLife(): void {
+    let abilityEaten = false;
+    if (
+      this.currentDirection === "right" &&
+      currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+      ] === 6
+    ) {
+      currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+      ] = 7;
+      abilityEaten = true;
+    }
+    if (
+      this.currentDirection === "left" &&
+      currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+      ] === 6
+    ) {
+      currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+      ] = 7;
+      abilityEaten = true;
+    }
+    if (
+      this.currentDirection === "up" &&
+      currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+      ] === 6
+    ) {
+      currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+      ] = 7;
+      abilityEaten = true;
+    }
+    if (
+      this.currentDirection === "down" &&
+      currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+      ] === 6
+    ) {
+      currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+        Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+      ] = 7;
+      abilityEaten = true;
+    }
 
     if (abilityEaten) {
-      this.score += 50; // Test
-      if (pacmanScore) pacmanScore.innerText = `Score: ${this.score}`;
+      pacman.lives++;
+      if(pacmanLives) pacmanLives.innerText = `Lives: ${pacman.lives}`;
     }
   }
 
+  public eatCherry(): void {
+    let foodEaten: boolean = false;
+    if (this.currentDirection === "right") {
+      if (
+        currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+        ] === 8
+      ) {
+        currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatRightDirection().posX / oneBlockWidth)
+        ] = 9;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "left") {
+      if (
+        currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+        ] === 8
+      ) {
+        currentMap[Math.floor(this.eatLeftDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatLeftDirection().posX / oneBlockWidth)
+        ] = 9;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "up") {
+      if (
+        currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+        ] === 8
+      ) {
+        currentMap[Math.floor(this.eatTopDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatTopDirection().posX / oneBlockWidth)
+        ] = 9;
+        foodEaten = true;
+      }
+    }
+    if (this.currentDirection === "down") {
+      if (
+        currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+        ] === 8
+      ) {
+        currentMap[Math.floor(this.eatBottomDirection().posY / oneBlockHeight)][
+          Math.floor(this.eatBottomDirection().posX / oneBlockWidth)
+        ] = 9;
+        foodEaten = true;
+      }
+    }
+
+    if (foodEaten) {
+      this.score += 100;
+      pacmanScore!.innerText = `Score: ${this.score}`;
+    }
+  }
+
+  
   /**
-   * Tyto 4 metody slouží pro získání souřadnic jednotlivých rohů
-   * Podle těchto rohů se budou kontrolovat kolize
-   * Readonly modifier slouží k tomu, že tyto souřadnice jsou třeba pouze pro "čtení", nikoliv pro změnu
-   * Číslo 1 slouží jako offset
+   * SOUŘADNICE BODŮ PRO KOLIZE (1 = OFFSET)
    */
   public getTopLeftPoint(): { readonly posX: number; readonly posY: number } {
     return {
@@ -398,8 +501,8 @@ class Pacman extends PacmanTemplate {
   }
 
   /**
-   * Tyto 4 metody slouží pro získání souřadnic bodů, pomocí kterých pacman sbírá skore
-   * Číslo 15 je offset, readonly je tam ze stejného důvodu jako u rohů
+   * SOUŘADNICE BODŮ, POMOCÍ KTERÝCH PACMAN JÍ JÍDLO A SPECIÁLNÍ SCHOPNOSTI
+   * (15 = OFFSET)
    */
   protected eatRightDirection(): {
     readonly posX: number;

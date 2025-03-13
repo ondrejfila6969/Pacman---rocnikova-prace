@@ -142,7 +142,8 @@ body {
   animation: glow 1.5s infinite alternate;
 }
 
-.result-button {
+.result-button,
+.return-to-menu {
   font-size: 1.2rem;
   margin: 1rem 0;
   padding: 0.5rem 2rem;
@@ -155,14 +156,90 @@ body {
   text-shadow: 2px 2px 8px black;
 }
 
-.result-button:hover {
+.result-button:hover,
+.return-to-menu:hover {
   background: #ffd700;
   color: black;
   transform: scale(1.1);
 }
 
-.result-button:active {
+.result-button:active,
+.return-to-menu:hover {
   transform: scale(0.95);
+}
+
+#instructions-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 500px;
+  background-color: black;
+  color: white;
+  border: 4px solid yellow;
+  border-radius: 50px;
+  z-index: 1;
+  padding: 20px;
+}
+
+#instructions-div h1 {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.container h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#instructions-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#instructions-div h2 {
+  text-align: justify;
+  font-size: 20px;
+}
+#instructions-div p {
+  text-align: justify;
+  font-size: 13px;
+}
+
+.instructions-text {
+  width: 700px;
+  height: 300px;
+}
+
+.intructions-text div p {
+  padding: 2px;
+  padding-right: 35px;
+  padding-left: 15px;
+}
+
+.instructions-text div {
+  height: 120px;
+  width: 100%;
+}
+.instructions-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.instructions-text .images {
+  flex-basis: 50%;
+  width: 50%;
+  height: 500px;
+}
+.instructions-title {
+  color: yellow;
 }
 
 /* RESPONZIVITA */
@@ -172,6 +249,24 @@ body {
     height: 400px;
     justify-content: center;
   }
+
+  .instructions-text {
+    width: 100%;
+  }
+  #instructions-div {
+    width: 700px;
+  }
+
+  .instructions-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .images img {
+    display: none;
+  }
+
   #pacmanCurrentLevel,
   #pacmanScore,
   #pacmanLives {
@@ -241,9 +336,16 @@ body {
   #pacmanLives {
     font-size: 1.1rem;
   }
+  #instructions-div {
+    width: 550px;
+  }
+
+  .instructions-text {
+    font-size: 12px;
+  }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 576px) {
   #pacmanLives {
     margin-bottom: 15px;
   }
@@ -284,5 +386,34 @@ body {
   }
   #pacmanLives {
     font-size: 0.8rem;
+  }
+  #instructions-div {
+    width: 310px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .instructions-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #instructions-div h1 {
+    font-size: 26px;
+  }
+  #instructions-div .instructions-title {
+    font-size: 12px;
+  }
+
+  #instructions-div p {
+    font-size: 10.75px;
+    padding-right: 20px;
+  }
+  .instructions-text {
+    width: 100%;
+  }
+  .return-to-menu {
+    margin-top: 25px;
   }
 }

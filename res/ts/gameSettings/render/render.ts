@@ -65,11 +65,11 @@ const renderMap = (): void => {
     for (let j = 0; j < currentMap[i].length; j++) {
       if (currentMap[i][j] == 1) {
         createBorder(
-          j * oneBlockWidth, 
-          i * oneBlockHeight, 
-          oneBlockWidth, 
-          oneBlockHeight, 
-          oneBlockColor 
+          j * oneBlockWidth,
+          i * oneBlockHeight,
+          oneBlockWidth,
+          oneBlockHeight,
+          oneBlockColor
         );
       }
     }
@@ -77,6 +77,8 @@ const renderMap = (): void => {
 };
 let levelDone = false;
 let vulnerableGhostIcon = new Image();
+let heartIcon = new Image();
+let cherryIcon = new Image();
 
 const renderFoodOrSpecialAbility = (): void => {
   let foods = 0;
@@ -94,10 +96,35 @@ const renderFoodOrSpecialAbility = (): void => {
         );
       } else if (currentMap[i][j] === 4) {
         specialAbility++;
-        vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
-        if(ctx) {
-          ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
-        }
+        vulnerableGhostIcon.src =
+          "../../../../res/assets/abilities/whitevulnerableghost.png";
+        ctx!.drawImage(
+          vulnerableGhostIcon,
+          j * oneBlockWidth + 4.25,
+          i * oneBlockHeight + 4.25,
+          oneBlockWidth / 1.5,
+          oneBlockHeight / 1.5
+        );
+      } else if (currentMap[i][j] === 6) {
+        specialAbility++;
+        heartIcon.src = "../../../../res/assets/abilities/heart.png";
+        ctx!.drawImage(
+          heartIcon,
+          j * oneBlockWidth + 4.25,
+          i * oneBlockHeight + 4.25,
+          oneBlockWidth / 1.5,
+          oneBlockHeight / 1.5
+        );
+      } else if (currentMap[i][j] === 8) {
+        specialAbility++;
+        cherryIcon.src = "../../../../res/assets/abilities/cherry.png";
+        ctx!.drawImage(
+          cherryIcon,
+          j * oneBlockWidth + 4.25,
+          i * oneBlockHeight + 4.25,
+          oneBlockWidth / 1.5,
+          oneBlockHeight / 1.5
+        );
       }
     }
   }
@@ -108,20 +135,16 @@ const renderFoodOrSpecialAbility = (): void => {
     loadData();
     render();
     resetPacmanAndGhosts();
-    if (pacmanCurrentLevel !== null)
-      pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+    pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
   }
   levelDone = false;
 };
 
-
 const renderMenu = () => {
-  if (game && win && loss && menu) {
-    game.style.display = "none";
-    win.style.display = "none";
-    loss.style.display = "none";
-    menu.style.display = "flex";
-  }
+  game!.style.display = "none";
+  win!.style.display = "none";
+  loss!.style.display = "none";
+  menu!.style.display = "flex";
 };
 
 const render = (): void => {

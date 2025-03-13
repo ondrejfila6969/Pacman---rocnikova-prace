@@ -23,6 +23,12 @@ const resetMap = () => {
       if(currentMap[i][j] === 5) {
         currentMap[i][j] = 4; // Vrátí abilitku zpět do mapy
       }
+      if(currentMap[i][j] === 7) {
+        currentMap[i][j] = 6; // Vrátí bonusový život zpět do mapy
+      }
+      if(currentMap[i][j] === 9) {
+        currentMap[i][j] = 8; // Vrátí třešeň zpět do mapy
+      }
     }
   }
 }

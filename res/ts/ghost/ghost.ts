@@ -4,7 +4,7 @@ import {
   oneBlockWidth,
   currentMap,
 } from "../gameSettings/map/map.js";
-import { ctx } from "../gameSettings/canvas/canvas.js";
+import { canvasHeight, canvasWidth, ctx } from "../gameSettings/canvas/canvas.js";
 import { pacman } from "../pacman/pacman.js";
 import {
   blinky,
@@ -13,11 +13,13 @@ import {
   clyde,
   loadGhostPositions,
 } from "../gameSettings/ghostSettings/ghostSettings.js";
+import { pacmanScore } from "../gameSettings/pacmanSettings/pacmanSettings.js";
 
 export class Ghost extends GhostTemplate {
   private chaseTimeout?: ReturnType<typeof setTimeout>;
   private startPosX: number;
   private startPosY: number;
+  private multiplePoints: number = 0;
 
   constructor(
     protected posX: number,
@@ -56,9 +58,9 @@ export class Ghost extends GhostTemplate {
 
     this.image.src = this.imagePaths[this.imageIndex];
     this.mode = "chase";
+    this.multiplePoints = 0;
     this.distance = 1.7;
     console.log(this.mode);
-
     this.drawGhost();
   }
 
@@ -107,8 +109,12 @@ export class Ghost extends GhostTemplate {
   private handleCollisionWithPacman(): void {
     if (this.isPacmanCatched()) {
       if (this.mode === "frightened") {
+        this.multiplePoints++;
+        pacman.score += 200 * this.multiplePoints;
         this.resetToStartPosition();
+        pacmanScore!.innerText = `Score ${pacman.score}`;
       } else if (this.mode === "chase") {
+        this.multiplePoints = 0;
         pacman.loseLife();
         if (pacman.lives !== 0) {
           pacman.resetPositions();
@@ -369,7 +375,7 @@ export class Ghost extends GhostTemplate {
       }
       graph.push(row);
     }
-    console.log(graph);
+    // console.log(graph);
     return graph;
   }
 

@@ -5,19 +5,20 @@ import {
   pinky,
   clyde,
   loadGhostPositions,
-  ghostUtills,
-  initializeGhosts
 } from "./ghostSettings/ghostSettings.js";
 import { loadData } from "./map/map.js";
 import { render } from "./render/render.js";
-import { resizeCanvas, clearCanvas } from "./canvas/canvas.js";
+import { resizeCanvas, clearCanvas, canvasWidth, canvasHeight } from "./canvas/canvas.js";
 import {
   pacmanCurrentLevel,
   pacmanLives,
   pacmanUtills,
 } from "./pacmanSettings/pacmanSettings.js";
-import { loss, win, game } from "../script.js";
-
+import {
+  ghostUtills,
+  initializeGhosts,
+} from "./ghostSettings/ghostSettings.js";
+import { loss, win, game, reachedScore1, reachedScore2} from "../script.js";
 const fps: number = 60;
 
 const gameStarts = async (): Promise<void> => {
@@ -45,6 +46,7 @@ const gameStarts = async (): Promise<void> => {
             win.style.textAlign = "center";
             win.style.justifyContent = "center";
             win.style.alignItems = "center";
+            reachedScore1!.innerText = `Highscore: ${pacman.score}`;
           }
         }
       }
@@ -52,12 +54,13 @@ const gameStarts = async (): Promise<void> => {
       if (pacman.lives <= 0) {
         pacman.lives = 0;
         clearInterval(interval);
-        if (loss && game && pacmanLives) {
+        if (loss && game && pacmanLives && win) {
           pacmanLives.innerText = `Lives: ${pacman.lives}`;
           loss.style.display = "flex";
           loss.style.textAlign = "center";
           loss.style.justifyContent = "center";
           loss.style.alignItems = "center";
+          reachedScore2!.innerText = `Highscore: ${pacman.score}`;
         }
       }
     }, 1000 / fps);

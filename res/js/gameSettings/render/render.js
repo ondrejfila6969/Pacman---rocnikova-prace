@@ -38,6 +38,8 @@ const renderMap = () => {
 };
 let levelDone = false;
 let vulnerableGhostIcon = new Image();
+let heartIcon = new Image();
+let cherryIcon = new Image();
 const renderFoodOrSpecialAbility = () => {
     let foods = 0;
     let specialAbility = 0;
@@ -49,10 +51,19 @@ const renderFoodOrSpecialAbility = () => {
             }
             else if (currentMap[i][j] === 4) {
                 specialAbility++;
-                vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
-                if (ctx) {
-                    ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
-                }
+                vulnerableGhostIcon.src =
+                    "../../../../res/assets/abilities/whitevulnerableghost.png";
+                ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
+            }
+            else if (currentMap[i][j] === 6) {
+                specialAbility++;
+                heartIcon.src = "../../../../res/assets/abilities/heart.png";
+                ctx.drawImage(heartIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
+            }
+            else if (currentMap[i][j] === 8) {
+                specialAbility++;
+                cherryIcon.src = "../../../../res/assets/abilities/cherry.png";
+                ctx.drawImage(cherryIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
             }
         }
     }
@@ -62,18 +73,15 @@ const renderFoodOrSpecialAbility = () => {
         loadData();
         render();
         resetPacmanAndGhosts();
-        if (pacmanCurrentLevel !== null)
-            pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+        pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
     }
     levelDone = false;
 };
 const renderMenu = () => {
-    if (game && win && loss && menu) {
-        game.style.display = "none";
-        win.style.display = "none";
-        loss.style.display = "none";
-        menu.style.display = "flex";
-    }
+    game.style.display = "none";
+    win.style.display = "none";
+    loss.style.display = "none";
+    menu.style.display = "flex";
 };
 const render = () => {
     renderMap();

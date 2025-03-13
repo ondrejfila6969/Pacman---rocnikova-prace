@@ -14,6 +14,11 @@ const playAgainButton = document.getElementById("play-again"); // výhra
 const tryAgainButton = document.getElementById("try-again"); // prohra
 const winReturnToMenu = document.getElementById("win-return-menu");
 const lossReturnToMenu = document.getElementById("loss-return-menu");
+const instructionButton = document.getElementById("intructions");
+const instructionDiv = document.getElementById("instructions-div");
+const returnToMenuButton = document.getElementById("return-to-menu-button");
+const reachedScore1 = document.getElementById("score1");
+const reachedScore2 = document.getElementById("score2");
 const restartGame = async () => {
     if (loss && win) {
         loss.style.display = "none";
@@ -37,6 +42,16 @@ if (startButton && menu && game) {
         restartGame();
     });
 }
+if (instructionButton && instructionDiv) {
+    instructionButton.addEventListener("click", () => {
+        instructionDiv.style.display = "block";
+    });
+}
+if (returnToMenuButton && instructionDiv) {
+    returnToMenuButton.addEventListener("click", () => {
+        instructionDiv.style.display = "none";
+    });
+}
 if (exitButton) {
     exitButton.addEventListener("click", () => {
         window.close();
@@ -50,4 +65,4 @@ if (winReturnToMenu && lossReturnToMenu) {
     winReturnToMenu.addEventListener("click", renderMenu);
     lossReturnToMenu.addEventListener("click", renderMenu);
 }
-export { loss, win, game, menu };
+export { loss, win, game, menu, reachedScore1, reachedScore2 };
