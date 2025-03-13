@@ -138,3 +138,13 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  - Dále bude potřeba vytvořit instructions pro uživatele
 ![menu](https://github.com/user-attachments/assets/a4da8876-2dcc-47ec-b1bf-63d4e7efe9fc)
 
+## 🗓️ 13.3.2025
+ - Instructions pro uživatele jsou hotové (jak HTML, tak CSS + napojení na TS)
+ - Vyobrazení na konci hry skore, kterého hráč dosáhl
+ - Úprava jednoho bodu zlomu v responzivitě (576px)
+ - Zítra bude třeba vytvořit vlastní grafické návrhy pro hru, ať se vyhnu citacím
+
+   ![dalsiukazka](https://github.com/user-attachments/assets/4a7a9069-b0b9-4240-9d66-f1249663bea3)
+   ![dalsiukazka2](https://github.com/user-attachments/assets/5c00da20-3b49-4bfe-b6e6-cf00317322d6)
+
+
