@@ -132,4 +132,9 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Předchystané HTML, později bude následovat CSS
 <img src="https://github.com/user-attachments/assets/cccad2d3-6434-4bc8-9f05-b4ab1cf45177" alt="structure" width="200" height="650">
 
+## 🗓️ 2.3.2025
+ - Hotové CSS + responzivita (možná bude třeba ještě responzivitu pozměnit)
+ - Přidání úvodního menu
+ - Dále bude potřeba vytvořit instructions pro uživatele
+![menu](https://github.com/user-attachments/assets/a4da8876-2dcc-47ec-b1bf-63d4e7efe9fc)
 
