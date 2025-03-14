@@ -149,6 +149,7 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 
 ## 🗓️ 14.3.2025
  - Assety pro hru už jsou vlastní a vypracované, použil jsem editor Piskel, který je dostupný na těchto stránkách `https://www.piskelapp.com/`
+ - Duchové mění obrázek podle směru, ve kterém se pohybují (chvílema se obrázky problikávaly, což bylo okem postřehnutelné, tento problém byl vyřešen intervalem, který běží každých 100 milisekund)
  - Zbývají už jenom tyto věci: Audio do pozadí (na tom se momentálně pracuje přes editor Suno, ale potřebuji si ještě něco ověřit)
  - Animace pusy pacmana, aby to bylo více fancy :)
  - A to je asi tak vše pro ročníkovou práci (DOUFÁM) <3 Pak už jenom psaníčko a prezentace k obhajobě
