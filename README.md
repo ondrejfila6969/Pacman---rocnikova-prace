@@ -147,4 +147,10 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
    ![dalsiukazka](https://github.com/user-attachments/assets/4a7a9069-b0b9-4240-9d66-f1249663bea3)
    ![dalsiukazka2](https://github.com/user-attachments/assets/5c00da20-3b49-4bfe-b6e6-cf00317322d6)
 
+## 🗓️ 14.3.2025
+ - Assety pro hru už jsou vlastní a vypracované, použil jsem editor Piskel, který je dostupný na těchto stránkách `https://www.piskelapp.com/`
+ - Zbývají už jenom tyto věci: Audio do pozadí (na tom se momentálně pracuje přes editor Suno, ale potřebuji si ještě něco ověřit)
+ - Animace pusy pacmana, aby to bylo více fancy :)
+ - A to je asi tak vše pro ročníkovou práci (DOUFÁM) <3 Pak už jenom psaníčko a prezentace k obhajobě
+
 
