@@ -10,6 +10,7 @@ export class GhostTemplate {
     distance; // vzdálenost, o kterou se duch pohybuje
     currentDirection;
     mode; // budou 2 mody duchů - chase nebo frightened
+    imageIndexDirection;
     constructor(posX, posY, imageIndex) {
         this.posX = posX;
         this.posY = posY;
@@ -19,15 +20,37 @@ export class GhostTemplate {
             height: oneBlockHeight,
         };
         this.image = new Image();
+        this.imageIndexDirection = 0;
         this.imagePaths = [
-            // cesty k obrázkům jsou uloženy zde
-            "../../res/assets/ghosts/blinky.png",
-            "../../res/assets/ghosts/clyde.png",
-            "../../res/assets/ghosts/inky.png",
-            "../../res/assets/ghosts/pinky.png",
-            "../../res/assets/ghosts/vulnerable.png"
+            [
+                "../../res/assets/ghosts/blinky/blinkydown.png",
+                "../../res/assets/ghosts/blinky/blinkyleft.png",
+                "../../res/assets/ghosts/blinky/blinkyright.png",
+                "../../res/assets/ghosts/blinky/blinkyup.png",
+            ],
+            [
+                "../../res/assets/ghosts/clyde/clydedown.png",
+                "../../res/assets/ghosts/clyde/clydeleft.png",
+                "../../res/assets/ghosts/clyde/clyderight.png",
+                "../../res/assets/ghosts/clyde/clydeup.png",
+            ],
+            [
+                "../../res/assets/ghosts/inky/inkydown.png",
+                "../../res/assets/ghosts/inky/inkyleft.png",
+                "../../res/assets/ghosts/inky/inkyright.png",
+                "../../res/assets/ghosts/inky/inkyup.png",
+            ],
+            [
+                "../../res/assets/ghosts/pinky/pinkydown.png",
+                "../../res/assets/ghosts/pinky/pinkyleft.png",
+                "../../res/assets/ghosts/pinky/pinkyright.png",
+                "../../res/assets/ghosts/pinky/pinkyup.png",
+            ],
+            [
+                "../../res/assets/ghosts/vulnerable.png"
+            ]
         ];
-        this.image.src = this.imagePaths[this.imageIndex];
+        this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
         this.image.onload = () => {
             this.imageLoaded = true;
         };

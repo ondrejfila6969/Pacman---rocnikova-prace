@@ -25,7 +25,7 @@ export class Ghost extends GhostTemplate {
         if (this.mode === "frightened")
             return;
         this.imageIndex = 4;
-        this.image.src = this.imagePaths[this.imageIndex];
+        this.image.src = this.imagePaths[this.imageIndex][0];
         this.mode = "frightened";
         this.distance = 1;
         console.log(this.mode);
@@ -45,12 +45,10 @@ export class Ghost extends GhostTemplate {
             this.imageIndex = 1;
         if (this === pinky)
             this.imageIndex = 3;
-        this.image.src = this.imagePaths[this.imageIndex];
+        this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
         this.mode = "chase";
-        this.multiplePoints = 0;
         this.distance = 1.7;
-        console.log(this.mode);
-        this.drawGhost();
+        this.switchImageByDirection();
     }
     /**
      * METODA PRO VYKRESLENÍ DUCHA
@@ -60,6 +58,29 @@ export class Ghost extends GhostTemplate {
             if (ctx !== null) {
                 ctx.drawImage(this.image, this.posX, this.posY, this.size.width, this.size.height);
             }
+        }
+    }
+    switchImageByDirection() {
+        if (this.mode !== "frightened") {
+            switch (this.currentDirection) {
+                case "down":
+                    this.imageIndexDirection = 0;
+                    break;
+                case "left":
+                    this.imageIndexDirection = 1;
+                    break;
+                case "right":
+                    this.imageIndexDirection = 2;
+                    break;
+                case "up":
+                    this.imageIndexDirection = 3;
+                    break;
+            }
+            this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
+        }
+        else {
+            this.imageIndex = 4;
+            this.imageIndexDirection = 0;
         }
     }
     /**
@@ -87,8 +108,7 @@ export class Ghost extends GhostTemplate {
     handleCollisionWithPacman() {
         if (this.isPacmanCatched()) {
             if (this.mode === "frightened") {
-                this.multiplePoints++;
-                pacman.score += 200 * this.multiplePoints;
+                pacman.score += 200;
                 this.resetToStartPosition();
                 pacmanScore.innerText = `Score ${pacman.score}`;
             }

@@ -36,7 +36,7 @@ export class Ghost extends GhostTemplate {
   public setFrightenedMode(): void {
     if (this.mode === "frightened") return;
     this.imageIndex = 4;
-    this.image.src = this.imagePaths[this.imageIndex];
+    this.image.src = this.imagePaths[this.imageIndex][0];
     this.mode = "frightened";
     this.distance = 1;
     console.log(this.mode);
@@ -56,12 +56,11 @@ export class Ghost extends GhostTemplate {
     if (this === clyde) this.imageIndex = 1;
     if (this === pinky) this.imageIndex = 3;
 
-    this.image.src = this.imagePaths[this.imageIndex];
+    this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
     this.mode = "chase";
-    this.multiplePoints = 0;
     this.distance = 1.7;
-    console.log(this.mode);
-    this.drawGhost();
+
+    this.switchImageByDirection();
   }
 
   /**
@@ -81,6 +80,30 @@ export class Ghost extends GhostTemplate {
       }
     }
   }
+
+  public switchImageByDirection(): void {
+    if(this.mode !== "frightened") {
+      switch (this.currentDirection) {
+        case "down":
+          this.imageIndexDirection = 0;
+          break;
+        case "left":
+          this.imageIndexDirection = 1;
+          break;
+        case "right":
+          this.imageIndexDirection = 2;
+          break;
+        case "up":
+          this.imageIndexDirection = 3;
+          break;
+      }
+      this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
+    } else {
+      this.imageIndex = 4;
+      this.imageIndexDirection = 0;
+    }
+  }
+
 
   /**
    * METODY PRO POHYB DUCHŮ
@@ -109,8 +132,7 @@ export class Ghost extends GhostTemplate {
   private handleCollisionWithPacman(): void {
     if (this.isPacmanCatched()) {
       if (this.mode === "frightened") {
-        this.multiplePoints++;
-        pacman.score += 200 * this.multiplePoints;
+        pacman.score += 200;
         this.resetToStartPosition();
         pacmanScore!.innerText = `Score ${pacman.score}`;
       } else if (this.mode === "chase") {

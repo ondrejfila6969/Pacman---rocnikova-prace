@@ -35,4 +35,10 @@ const initializeGhosts = (): void => {
   });
 };
 
+const imageGhostInterval = setInterval(() => {
+  [blinky, pinky, inky, clyde].forEach((ghost) => {
+    ghost.switchImageByDirection();
+  });
+}, 100);
+
 export {ghostUtills, initializeGhosts, blinky, pinky, inky, clyde, loadGhostPositions};
