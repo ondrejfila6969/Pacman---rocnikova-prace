@@ -15,6 +15,7 @@ class Pacman extends PacmanTemplate {
              * rotation - úhel rotace elipsy (v radiánech)
              * startAngle, endAngle - počáteční a koncový úhel (v radiánech)
              * counterclockwise - určuje směr kreslení proti směru hodinových ručiček, pokud je true (ve funkci je tento parametr volitelný - ?)
+             *
              */
             if (ctx !== null) {
                 ctx.fillStyle = color; // nastavení barvy
