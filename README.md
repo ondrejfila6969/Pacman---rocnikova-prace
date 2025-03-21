@@ -154,4 +154,8 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  - Animace pusy pacmana, aby to bylo více fancy :)
  - A to je asi tak vše pro ročníkovou práci (DOUFÁM) <3 Pak už jenom psaníčko a prezentace k obhajobě
 
+## 🗓️ 21.3.2025
+- Vytvoření animace pro pacmanovu pusu, vypadá to realisticky jako v originální hře
+- Do všeho musím dávat matiku pomooooc :( :( :(
+- Zítra přidám audio a asi už začnu psát, ať se nestresuji na poslední chvíli <3
 
