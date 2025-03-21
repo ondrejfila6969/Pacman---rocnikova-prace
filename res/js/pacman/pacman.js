@@ -25,18 +25,20 @@ class Pacman extends PacmanTemplate {
                 ctx.closePath(); // ukončí současnou cestu
             }
         }
+        const mouthSpeed = 0.003; // jak rychle se pusa pohybuje
+        const mouthOpenness = Math.abs(Math.sin(Date.now() * mouthSpeed)); // sinusoida jako funkce dosahuje maximálních hodnot 1 a -1, protože potřebuji pouze kladná čísla, hodnota je pod absolutní hodnotou, a zda je pusa otevřená nebo ne se řeší na základě aktuálního času
         if (this.currentDirection === "left" || this.currentDirection === "right") {
-            /* Tělo */
-            createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, this.currentDirection === "right" ? 0 : Math.PI, // Zkrácení zápisu, ternárním operátorem nemusím vytvářet 4 podmínky, ale stačí 2 a jestli se pacman dívá doleva nebo doprava, to řeší rotace
-            Math.PI / 5, (9 * Math.PI) / 5);
-            /* Pusa */
-            createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "right" ? 0 : Math.PI, Math.PI / 5, (9 * Math.PI) / 5, true);
+            const maxAngle = Math.PI / 5;
+            const currentAngle = maxAngle * (1 - mouthOpenness);
+            createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, this.currentDirection === "right" ? 0 : Math.PI, currentAngle, 2 * Math.PI - currentAngle);
+            createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "right" ? 0 : Math.PI, currentAngle, 2 * Math.PI - currentAngle, true);
         }
-        if (this.currentDirection === "up" || this.currentDirection === "down") {
-            /* Tělo */
-            createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, this.currentDirection === "down" ? 0 : Math.PI, (3 * Math.PI) / 10, (7 * Math.PI) / 10, true);
-            /* Pusa */
-            createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "down" ? 0 : Math.PI, (3 * Math.PI) / 10, (7 * Math.PI) / 10);
+        else if (this.currentDirection === "up" || this.currentDirection === "down") {
+            const maxAngle = (3 * Math.PI) / 10;
+            const currentAngle = maxAngle * (1 - mouthOpenness);
+            createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "down" ? 0 : Math.PI, // jestli míří pacman dolů, rotace bude 0, jinak o 180 stupňů (na druhou stranu)
+            Math.PI / 2 - currentAngle, Math.PI / 2 + currentAngle, false);
+            createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, this.currentDirection === "down" ? 0 : Math.PI, Math.PI / 2 - currentAngle, Math.PI / 2 + currentAngle, true);
         }
     }
     movement() {
