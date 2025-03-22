@@ -158,4 +158,9 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Vytvoření animace pro pacmanovu pusu, vypadá to realisticky jako v originální hře
 - Do všeho musím dávat matiku pomooooc :( :( :(
 - Zítra přidám audio a asi už začnu psát, ať se nestresuji na poslední chvíli <3
+  
+## 🗓️ 22.3.2025
+- Přidání audia pro hru pomocí editoru SUNO
+- Upravení jedné mapy a změna počátečních souřadnic pro jednoho ducha
+- Tím pádem asi poslední hlavní commit před psací částí
 
