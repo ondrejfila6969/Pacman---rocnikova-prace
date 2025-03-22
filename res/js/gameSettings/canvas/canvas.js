@@ -7,7 +7,6 @@ const resizeCanvas = () => {
     canvas.height = canvasHeight;
 };
 const clearCanvas = () => {
-    if (ctx)
-        return ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 };
 export { resizeCanvas, clearCanvas, canvas, ctx, canvasHeight, canvasWidth };

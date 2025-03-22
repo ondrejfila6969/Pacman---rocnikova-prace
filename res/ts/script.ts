@@ -5,8 +5,9 @@ import {
 } from "./gameSettings/gameSettings.js";
 import { resetPacmanStats } from "./gameSettings/pacmanSettings/pacmanSettings.js";
 import { loadData, resetMap } from "./gameSettings/map/map.js";
-import { loadGhostPositions } from  "./gameSettings/ghostSettings/ghostSettings.js";
+import { loadGhostPositions } from "./gameSettings/ghostSettings/ghostSettings.js";
 import { renderMenu } from "./gameSettings/render/render.js";
+import { playMusic } from "./gameSettings/audio/audio.js";
 
 const startButton: HTMLElement | null = document.getElementById("start-button");
 const exitButton: HTMLElement | null = document.getElementById("exit-button");
@@ -39,47 +40,36 @@ const restartGame = async (): Promise<void> => {
   resetPacmanStats();
   resetPacmanAndGhosts();
   await gameStarts();
+  playMusic();
 };
 
-if (startButton && menu && game) {
-  startButton.addEventListener("click", () => {
-    menu.style.display = "none";
-    game.style.display = "block";
-    game.style.textAlign = "center";
-    game.style.alignItems = "center";
-    game.style.justifyContent = "center";
-    document.body.appendChild(canvas);
-    restartGame();
-  });
-}
+startButton!.addEventListener("click", () => {
+  menu!.style.display = "none";
+  game!.style.display = "block";
+  game!.style.textAlign = "center";
+  game!.style.alignItems = "center";
+  game!.style.justifyContent = "center";
+  document.body.appendChild(canvas);
+  restartGame();
+  playMusic();
+});
 
-if (instructionButton && instructionDiv) {
-  instructionButton.addEventListener("click", () => {
-    instructionDiv.style.display = "block";
-  });
-}
+instructionButton!.addEventListener("click", () => {
+  instructionDiv!.style.display = "block";
+});
 
-if (returnToMenuButton && instructionDiv) {
-  returnToMenuButton.addEventListener("click", () => {
-    instructionDiv.style.display = "none";
-  });
-}
+returnToMenuButton!.addEventListener("click", () => {
+  instructionDiv!.style.display = "none";
+});
 
+exitButton!.addEventListener("click", () => {
+  window.close();
+});
 
-if (exitButton) {
-  exitButton.addEventListener("click", () => {
-    window.close();
-  });
-}
+tryAgainButton!.addEventListener("click", restartGame);
+playAgainButton!.addEventListener("click", restartGame);
 
-if (tryAgainButton && playAgainButton) {
-  tryAgainButton.addEventListener("click", restartGame);
-  playAgainButton.addEventListener("click", restartGame);
-}
+winReturnToMenu!.addEventListener("click", renderMenu);
+lossReturnToMenu!.addEventListener("click", renderMenu);
 
-if (winReturnToMenu && lossReturnToMenu) {
-  winReturnToMenu.addEventListener("click", renderMenu);
-  lossReturnToMenu.addEventListener("click", renderMenu);
-}
-
-export { loss, win, game, menu, reachedScore1, reachedScore2};
+export { loss, win, game, menu, reachedScore1, reachedScore2 };

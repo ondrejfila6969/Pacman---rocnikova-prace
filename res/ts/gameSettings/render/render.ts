@@ -9,6 +9,7 @@ import {
 import { pacman } from "../../pacman/pacman.js";
 import { pacmanCurrentLevel } from "../pacmanSettings/pacmanSettings.js";
 import { game, win, loss, menu } from "../../script.js";
+import { audio, playMusic } from "../audio/audio.js";
 
 const getRandomNumber = (min: number, max: number) =>
   Math.random() * (max - min) + min;
@@ -131,6 +132,8 @@ const renderFoodOrSpecialAbility = (): void => {
 
   if (foods === 0 && specialAbility === 0 && !levelDone) {
     pacman.levelUp();
+    audio.pause();
+    playMusic();
     levelDone = true;
     loadData();
     render();

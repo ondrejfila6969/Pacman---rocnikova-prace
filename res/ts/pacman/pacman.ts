@@ -18,7 +18,6 @@ import {
 } from "../gameSettings/ghostSettings/ghostSettings.js";
 
 class Pacman extends PacmanTemplate {
-
   constructor(posX: number, posY: number) {
     super(posX, posY);
   }
@@ -34,32 +33,30 @@ class Pacman extends PacmanTemplate {
       startAngle: number,
       endAngle: number,
       counterclockwise?: boolean
-    ) {
+    ): void {
       /**
        * posX, posY - souřadnice
        * width, height - šířka, výška
        * rotation - úhel rotace elipsy (v radiánech)
        * startAngle, endAngle - počáteční a koncový úhel (v radiánech)
        * counterclockwise - určuje směr kreslení proti směru hodinových ručiček, pokud je true (ve funkci je tento parametr volitelný - ?)
-       * 
+       *
        */
-      if (ctx !== null) {
-        ctx.fillStyle = color; // nastavení barvy
-        ctx.beginPath(); // začne novou cestu
-        ctx.ellipse(
-          posX,
-          posY,
-          width,
-          height,
-          rotation,
-          startAngle,
-          endAngle,
-          counterclockwise
-        );
-        ctx.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
-        ctx.fill(); // vyplní elipsu barvou
-        ctx.closePath(); // ukončí současnou cestu
-      }
+      ctx!.fillStyle = color; // nastavení barvy
+      ctx!.beginPath(); // začne novou cestu
+      ctx!.ellipse(
+        posX,
+        posY,
+        width,
+        height,
+        rotation,
+        startAngle,
+        endAngle,
+        counterclockwise
+      );
+      ctx!.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
+      ctx!.fill(); // vyplní elipsu barvou
+      ctx!.closePath(); // ukončí současnou cestu
     }
     const mouthSpeed = 0.003; // jak rychle se pusa pohybuje
     const mouthOpenness = Math.abs(Math.sin(Date.now() * mouthSpeed)); // sinusoida jako funkce dosahuje maximálních hodnot 1 a -1, protože potřebuji pouze kladná čísla, hodnota je pod absolutní hodnotou, a zda je pusa otevřená nebo ne se řeší na základě aktuálního času
@@ -90,7 +87,10 @@ class Pacman extends PacmanTemplate {
         2 * Math.PI - currentAngle,
         true
       );
-    } else if(this.currentDirection === "up" || this.currentDirection === "down") {
+    } else if (
+      this.currentDirection === "up" ||
+      this.currentDirection === "down"
+    ) {
       const maxAngle = (3 * Math.PI) / 10;
       const currentAngle = maxAngle * (1 - mouthOpenness);
 
@@ -101,9 +101,9 @@ class Pacman extends PacmanTemplate {
         this.size.width / 2,
         this.size.height / 2,
         this.currentDirection === "down" ? 0 : Math.PI, // jestli míří pacman dolů, rotace bude 0, jinak o 180 stupňů (na druhou stranu)
-        Math.PI / 2 - currentAngle,   
-        Math.PI / 2 + currentAngle,   
-        false 
+        Math.PI / 2 - currentAngle,
+        Math.PI / 2 + currentAngle,
+        false
       );
       createPacman(
         "yellow",
@@ -113,7 +113,7 @@ class Pacman extends PacmanTemplate {
         this.size.height / 2 - 0.6,
         this.currentDirection === "down" ? 0 : Math.PI,
         Math.PI / 2 - currentAngle,
-        Math.PI / 2 + currentAngle, 
+        Math.PI / 2 + currentAngle,
         true
       );
     }
@@ -162,7 +162,8 @@ class Pacman extends PacmanTemplate {
     }
   }
 
-  public resetPositions(): void { // nastaví pacmanovy souřadnice zpět do levého horního rohu a bude mít defaultní směr doprava
+  public resetPositions(): void {
+    // nastaví pacmanovy souřadnice zpět do levého horního rohu a bude mít defaultní směr doprava
     this.currentDirection = "right";
     this.posX = 1.5 * oneBlockWidth;
     this.posY = 1.5 * oneBlockHeight;
@@ -222,18 +223,19 @@ class Pacman extends PacmanTemplate {
       Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 ||
       Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21
     );
-    
   }
 
   private teleportPacman(): void {
-    if(
-      Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 && this.currentDirection === "left"
+    if (
+      Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 &&
+      this.currentDirection === "left"
     ) {
       this.posX = 20 * oneBlockWidth;
       this.drawPacman();
     }
-    if(
-      Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 && this.currentDirection === "right"
+    if (
+      Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 &&
+      this.currentDirection === "right"
     ) {
       this.posX = 1 * oneBlockWidth;
       this.drawPacman();
@@ -301,13 +303,12 @@ class Pacman extends PacmanTemplate {
   }
 
   public switchGhostsIntoFrightenedMode(): void {
+    let abilityEaten: boolean = false;
     const changeGhosts = () => {
       [blinky, pinky, inky, clyde].forEach((ghost) => {
         ghost.setFrightenedMode();
       });
     };
-
-    let abilityEaten = false;
     if (
       this.currentDirection === "right" &&
       currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][
@@ -407,7 +408,7 @@ class Pacman extends PacmanTemplate {
 
     if (abilityEaten) {
       pacman.lives++;
-      if(pacmanLives) pacmanLives.innerText = `Lives: ${pacman.lives}`;
+      pacmanLives!.innerText = `Lives: ${pacman.lives}`;
     }
   }
 
@@ -468,7 +469,6 @@ class Pacman extends PacmanTemplate {
     }
   }
 
-  
   /**
    * SOUŘADNICE BODŮ PRO KOLIZE (1 = OFFSET)
    */
@@ -520,14 +520,20 @@ class Pacman extends PacmanTemplate {
     };
   }
 
-  protected eatLeftDirection(): { readonly posX: number; readonly posY: number } {
+  protected eatLeftDirection(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
     return {
       posX: this.posX - this.size.width / 2 + 15,
       posY: this.posY,
     };
   }
 
-  protected eatTopDirection(): { readonly posX: number; readonly posY: number } {
+  protected eatTopDirection(): {
+    readonly posX: number;
+    readonly posY: number;
+  } {
     return {
       posX: this.posX,
       posY: this.posY - this.size.height / 2 + 15,
@@ -550,8 +556,8 @@ class Pacman extends PacmanTemplate {
   } {
     return {
       posX: this.posX,
-      posY: this.posY
-    }
+      posY: this.posY,
+    };
   }
 }
 

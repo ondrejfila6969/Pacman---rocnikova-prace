@@ -9,7 +9,7 @@
         "inky": {"posX": 13, "posY": 8},
         "pinky": {"posX": 17, "posY": 14},
         "blinky": {"posX": 9, "posY": 14},
-        "clyde": {"posX": 4, "posY": 20}
+        "clyde": {"posX": 3, "posY": 20}
     },
     {
         "inky": {"posX": 19, "posY": 17},

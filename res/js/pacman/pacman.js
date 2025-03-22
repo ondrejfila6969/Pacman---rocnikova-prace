@@ -17,14 +17,12 @@ class Pacman extends PacmanTemplate {
              * counterclockwise - určuje směr kreslení proti směru hodinových ručiček, pokud je true (ve funkci je tento parametr volitelný - ?)
              *
              */
-            if (ctx !== null) {
-                ctx.fillStyle = color; // nastavení barvy
-                ctx.beginPath(); // začne novou cestu
-                ctx.ellipse(posX, posY, width, height, rotation, startAngle, endAngle, counterclockwise);
-                ctx.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
-                ctx.fill(); // vyplní elipsu barvou
-                ctx.closePath(); // ukončí současnou cestu
-            }
+            ctx.fillStyle = color; // nastavení barvy
+            ctx.beginPath(); // začne novou cestu
+            ctx.ellipse(posX, posY, width, height, rotation, startAngle, endAngle, counterclockwise);
+            ctx.lineTo(posX, posY); // spojí poslední bod cesty se středem elipsy
+            ctx.fill(); // vyplní elipsu barvou
+            ctx.closePath(); // ukončí současnou cestu
         }
         const mouthSpeed = 0.003; // jak rychle se pusa pohybuje
         const mouthOpenness = Math.abs(Math.sin(Date.now() * mouthSpeed)); // sinusoida jako funkce dosahuje maximálních hodnot 1 a -1, protože potřebuji pouze kladná čísla, hodnota je pod absolutní hodnotou, a zda je pusa otevřená nebo ne se řeší na základě aktuálního času
@@ -34,7 +32,8 @@ class Pacman extends PacmanTemplate {
             createPacman("yellow", this.posX, this.posY, this.size.width / 2 - 0.6, this.size.height / 2 - 0.6, this.currentDirection === "right" ? 0 : Math.PI, currentAngle, 2 * Math.PI - currentAngle);
             createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "right" ? 0 : Math.PI, currentAngle, 2 * Math.PI - currentAngle, true);
         }
-        else if (this.currentDirection === "up" || this.currentDirection === "down") {
+        else if (this.currentDirection === "up" ||
+            this.currentDirection === "down") {
             const maxAngle = (3 * Math.PI) / 10;
             const currentAngle = maxAngle * (1 - mouthOpenness);
             createPacman("black", this.posX, this.posY, this.size.width / 2, this.size.height / 2, this.currentDirection === "down" ? 0 : Math.PI, // jestli míří pacman dolů, rotace bude 0, jinak o 180 stupňů (na druhou stranu)
@@ -83,6 +82,7 @@ class Pacman extends PacmanTemplate {
         }
     }
     resetPositions() {
+        // nastaví pacmanovy souřadnice zpět do levého horního rohu a bude mít defaultní směr doprava
         this.currentDirection = "right";
         this.posX = 1.5 * oneBlockWidth;
         this.posY = 1.5 * oneBlockHeight;
@@ -131,11 +131,13 @@ class Pacman extends PacmanTemplate {
             Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21);
     }
     teleportPacman() {
-        if (Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 && this.currentDirection === "left") {
+        if (Math.floor(this.getTopLeftPoint().posX / oneBlockWidth) < 0 &&
+            this.currentDirection === "left") {
             this.posX = 20 * oneBlockWidth;
             this.drawPacman();
         }
-        if (Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 && this.currentDirection === "right") {
+        if (Math.floor(this.getTopRightPoint().posX / oneBlockWidth) >= 21 &&
+            this.currentDirection === "right") {
             this.posX = 1 * oneBlockWidth;
             this.drawPacman();
         }
@@ -175,12 +177,12 @@ class Pacman extends PacmanTemplate {
         }
     }
     switchGhostsIntoFrightenedMode() {
+        let abilityEaten = false;
         const changeGhosts = () => {
             [blinky, pinky, inky, clyde].forEach((ghost) => {
                 ghost.setFrightenedMode();
             });
         };
-        let abilityEaten = false;
         if (this.currentDirection === "right" &&
             currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][Math.floor(this.eatRightDirection().posX / oneBlockWidth)] === 4) {
             currentMap[Math.floor(this.eatRightDirection().posY / oneBlockHeight)][Math.floor(this.eatRightDirection().posX / oneBlockWidth)] = 5;
@@ -230,8 +232,7 @@ class Pacman extends PacmanTemplate {
         }
         if (abilityEaten) {
             pacman.lives++;
-            if (pacmanLives)
-                pacmanLives.innerText = `Lives: ${pacman.lives}`;
+            pacmanLives.innerText = `Lives: ${pacman.lives}`;
         }
     }
     eatCherry() {
@@ -323,7 +324,7 @@ class Pacman extends PacmanTemplate {
     getPacmanPositions() {
         return {
             posX: this.posX,
-            posY: this.posY
+            posY: this.posY,
         };
     }
 }

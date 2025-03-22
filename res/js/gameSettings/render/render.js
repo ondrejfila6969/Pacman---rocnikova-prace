@@ -4,6 +4,7 @@ import { oneBlockHeight, oneBlockWidth, currentMap, loadData, } from "../map/map
 import { pacman } from "../../pacman/pacman.js";
 import { pacmanCurrentLevel } from "../pacmanSettings/pacmanSettings.js";
 import { game, win, loss, menu } from "../../script.js";
+import { audio, playMusic } from "../audio/audio.js";
 const getRandomNumber = (min, max) => Math.random() * (max - min) + min;
 let red = getRandomNumber(0, 255);
 let green = getRandomNumber(0, 255);
@@ -69,6 +70,8 @@ const renderFoodOrSpecialAbility = () => {
     }
     if (foods === 0 && specialAbility === 0 && !levelDone) {
         pacman.levelUp();
+        audio.pause();
+        playMusic();
         levelDone = true;
         loadData();
         render();

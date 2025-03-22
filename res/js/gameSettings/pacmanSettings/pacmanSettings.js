@@ -23,12 +23,10 @@ const pacmanUtills = () => {
 const resetPacmanStats = () => {
     pacman.currentLevel = 1;
     pacman.score = 0;
-    pacman.lives = 1;
+    pacman.lives = 1000;
     pacman.startMovement = false;
-    if (pacmanCurrentLevel && pacmanScore && pacmanLives) {
-        pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
-        pacmanScore.innerText = `Score: ${pacman.score}`;
-        pacmanLives.innerText = `Lives: ${pacman.lives}`;
-    }
+    pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+    pacmanScore.innerText = `Score: ${pacman.score}`;
+    pacmanLives.innerText = `Lives: ${pacman.lives}`;
 };
-export { pacmanScore, pacmanCurrentLevel, pacmanLives, pacmanUtills, resetPacmanStats };
+export { pacmanScore, pacmanCurrentLevel, pacmanLives, pacmanUtills, resetPacmanStats, };
