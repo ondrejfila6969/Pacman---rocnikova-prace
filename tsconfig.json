@@ -2,9 +2,19 @@
   "compilerOptions": {
   "outDir": "./res/js", // Kde se nachází zkompilované js soubory
   "rootDir": "./res/ts", // Kde se nachází ts soubory
-  "target": "ES2022",
-  "module": "ESNext",
-  "esModuleInterop": true,                      
-  "strict": true,
+  "target": "ES2022", // Verze JavaScriptu, do které se TypeScript kompiluje
+  "module": "ESNext", // Použitý systém modulů
+  "esModuleInterop": true, // Lepší kompatibilita s moduly CommonJS                     
+  "strict": true, // Povolení všech kontrol datových typů
   },
 }
+
+
+
+
+
+
+
+
+
+

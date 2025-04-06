@@ -283,6 +283,9 @@ body {
   .container .loss-title {
     font-size: 26px;
   }
+  #score1, #score2 {
+    font-size: 18px;
+  }
   .container .result-button {
     font-size: 0.8rem;
   }
@@ -321,6 +324,13 @@ body {
   .container .win-title,
   .container .loss-title {
     font-size: 22px;
+  }
+  
+  #score1, #score2 {
+    font-size: 16px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+
   }
   .container .result-button {
     font-size: 11px;
@@ -415,5 +425,10 @@ body {
   }
   .return-to-menu {
     margin-top: 25px;
+  }
+  #score1, #score2 {
+    font-size: 12px;
+    margin-top: -20px;
+    margin-bottom: 10px;
   }
 }

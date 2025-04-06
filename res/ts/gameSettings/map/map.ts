@@ -11,7 +11,6 @@ const loadData = async (): Promise<void> => {
   const file: Response = await fetch("../res/data/data.json");
   const data = await file.json();
   currentMap = data[pacman.currentLevel - 1].currentLevel;
-  // console.log(currentMap);
 };
 
 const resetMap = () => {
@@ -32,5 +31,6 @@ const resetMap = () => {
     }
   }
 }
+
 
 export {currentMap, oneBlockHeight, oneBlockWidth, loadData, resetMap};

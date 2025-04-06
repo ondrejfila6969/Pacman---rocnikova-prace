@@ -9,7 +9,6 @@ const loadData = async () => {
     const file = await fetch("../res/data/data.json");
     const data = await file.json();
     currentMap = data[pacman.currentLevel - 1].currentLevel;
-    // console.log(currentMap);
 };
 const resetMap = () => {
     for (let i = 0; i < currentMap.length; i++) {
