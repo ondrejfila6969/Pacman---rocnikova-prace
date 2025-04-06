@@ -248,6 +248,9 @@ span {
   padding-top: 8px;
   padding-bottom: 8px;
 }
+.container .loss-title {
+  font-size: 30px;
+}
 
 /* RESPONZIVITA */
 @media (max-width: 1024px) {
@@ -286,11 +289,14 @@ span {
     max-width: 360px;
     margin-top: -35px;
   }
-  .container .win-title,
-  .container .loss-title {
+  .container .win-title {
     font-size: 26px;
   }
-  #score1, #score2 {
+  .container .loss-title {
+    font-size: 22px;
+  }
+  #score1,
+  #score2 {
     font-size: 18px;
   }
   .container .result-button {
@@ -332,16 +338,18 @@ span {
     margin-bottom: auto;
     margin-top: 150px;
   }
-  .container .win-title,
-  .container .loss-title {
+  .container .win-title {
     font-size: 22px;
   }
-  
-  #score1, #score2 {
-    font-size: 16px;
+  .container .loss-title {
+    font-size: 17px;
+  }
+
+  #score1,
+  #score2 {
+    font-size: 14px;
     margin-top: -10px;
     padding-bottom: 10px;
-
   }
   .container .result-button {
     font-size: 11px;
@@ -393,9 +401,11 @@ span {
   #pacmanLives {
     text-align: center;
   }
-  .container .win-title,
-  .container .loss-title {
+  .container .win-title {
     font-size: 17.96px;
+  }
+  .container .loss-title {
+    font-size: 15px;
   }
   .container .result-button {
     font-size: 11px;
@@ -443,7 +453,8 @@ span {
   .return-to-menu {
     margin-top: 25px;
   }
-  #score1, #score2 {
+  #score1,
+  #score2 {
     font-size: 12px;
     margin-top: -20px;
     margin-bottom: 10px;

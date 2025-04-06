@@ -27,7 +27,7 @@ const pacmanUtills = (): void => {
 const resetPacmanStats = () => {
   pacman.currentLevel = 1;
   pacman.score = 0;
-  pacman.lives = 1000;
+  pacman.lives = 1;
   pacman.startMovement = false;
   pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
   pacmanScore!.innerText = `Score: ${pacman.score}`;
