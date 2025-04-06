@@ -241,6 +241,13 @@ body {
 .instructions-title {
   color: yellow;
 }
+span {
+  color: yellow;
+}
+#instructions-div p {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 
 /* RESPONZIVITA */
 @media (max-width: 1024px) {
@@ -298,6 +305,10 @@ body {
   #pacmanLives {
     font-size: 1.2rem;
   }
+  #instructions-div p {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -349,6 +360,10 @@ body {
   #instructions-div {
     width: 550px;
   }
+  #instructions-div p {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
   .instructions-text {
     font-size: 12px;
@@ -398,7 +413,7 @@ body {
     font-size: 0.8rem;
   }
   #instructions-div {
-    width: 310px;
+    width: 400px;
     justify-content: center;
     align-items: center;
   }
@@ -417,8 +432,10 @@ body {
   }
 
   #instructions-div p {
-    font-size: 10.75px;
+    font-size: 11px;
     padding-right: 20px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
   .instructions-text {
     width: 100%;
