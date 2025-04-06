@@ -164,3 +164,8 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Upravení jedné mapy a změna počátečních souřadnic pro jednoho ducha
 - Tím pádem asi poslední hlavní commit před psací částí
 
+## 🗓️ 6.4.2025
+- Na 99.9% poslední update před odevzdáním písemné části a prezentace
+- Změna fontu v projektu, čímž nyní neporušuji autorská práva
+- Přizpůsobení responzivity pro nový font§
+- Změněny 2 songy pro předposlední a poslední mapu
