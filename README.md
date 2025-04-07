@@ -169,3 +169,7 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Změna fontu v projektu, čímž nyní neporušuji autorská práva
 - Přizpůsobení responzivity pro nový font§
 - Změněny 2 songy pro předposlední a poslední mapu
+
+## 🗓️ 7.4.2025
+ - Druhý díl skládačky hotový - hotová dokumentac
+ - Teď už jen prezentace k obhajobě <3
