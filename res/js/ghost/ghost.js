@@ -33,6 +33,7 @@ export class Ghost extends GhostTemplate {
             clearTimeout(this.chaseTimeout);
         }
         this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
+        return this.chooseOppositeDirection();
     }
     setChaseMode() {
         if (this.mode === "chase")
@@ -146,6 +147,22 @@ export class Ghost extends GhostTemplate {
             this.posX = previousPosX;
             this.posY = previousPosY;
             this.randomDirection();
+        }
+    }
+    chooseOppositeDirection() {
+        switch (this.currentDirection) {
+            case "right":
+                this.currentDirection = "left";
+                break;
+            case "left":
+                this.currentDirection = "right";
+                break;
+            case "up":
+                this.currentDirection = "down";
+                break;
+            case "down":
+                this.currentDirection = "up";
+                break;
         }
     }
     moveTowards() {
