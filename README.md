@@ -171,5 +171,5 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
 - Změněny 2 songy pro předposlední a poslední mapu
 
 ## 🗓️ 7.4.2025
- - Druhý díl skládačky hotový - hotová dokumentac
+ - Druhý díl skládačky hotový - hotová dokumentace
  - Teď už jen prezentace k obhajobě <3
