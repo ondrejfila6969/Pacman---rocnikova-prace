@@ -2,7 +2,7 @@ import { pacman } from "../pacman/pacman.js";
 import { blinky, inky, pinky, clyde, loadGhostPositions, } from "./ghostSettings/ghostSettings.js";
 import { loadData } from "./map/map.js";
 import { render } from "./render/render.js";
-import { resizeCanvas, clearCanvas, } from "./canvas/canvas.js";
+import { resizeCanvas, } from "./canvas/canvas.js";
 import { pacmanCurrentLevel, pacmanLives, pacmanUtills, } from "./pacmanSettings/pacmanSettings.js";
 import { ghostUtills, initializeGhosts, } from "./ghostSettings/ghostSettings.js";
 import { loss, win, reachedScore1, reachedScore2 } from "../script.js";
@@ -14,7 +14,7 @@ const gameStarts = async () => {
     const gameLoop = () => {
         const interval = setInterval(() => {
             resizeCanvas();
-            clearCanvas();
+            // clearCanvas();
             render();
             pacmanUtills();
             ghostUtills();

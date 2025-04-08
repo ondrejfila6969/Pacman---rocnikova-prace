@@ -17,6 +17,7 @@ import { pacmanScore } from "../gameSettings/pacmanSettings/pacmanSettings.js";
 
 export class Ghost extends GhostTemplate {
   private chaseTimeout?: ReturnType<typeof setTimeout>;
+  private changeWhiteGhost?: ReturnType<typeof setTimeout>;
   private startPosX: number;
   private startPosY: number;
   private multiplePoints: number = 0;
@@ -44,7 +45,10 @@ export class Ghost extends GhostTemplate {
     if (this.chaseTimeout) {
       clearTimeout(this.chaseTimeout);
     }
-
+    this.changeWhiteGhost = setTimeout(() => {
+      this.image.src = this.imagePaths[this.imageIndex][1];
+      this.drawGhost();
+    }, 3750);
     this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
     return this.chooseOppositeDirection();
   }

@@ -33,7 +33,7 @@ const gameStarts = async (): Promise<void> => {
   const gameLoop = (): void => {
     const interval = setInterval(() => {
       resizeCanvas();
-      clearCanvas();
+      // clearCanvas();
       render();
       pacmanUtills();
       ghostUtills();

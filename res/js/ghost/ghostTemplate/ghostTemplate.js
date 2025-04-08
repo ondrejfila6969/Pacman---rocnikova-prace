@@ -47,7 +47,8 @@ export class GhostTemplate {
                 "../../res/assets/ghosts/pinky/pinkyup.png",
             ],
             [
-                "../../res/assets/ghosts/vulnerable.png"
+                "../../res/assets/ghosts/vulnerable.png",
+                "../../res/assets/abilities/whitevulnerableghost.png"
             ]
         ];
         this.image.src = this.imagePaths[this.imageIndex][this.imageIndexDirection];
