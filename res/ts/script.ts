@@ -7,7 +7,7 @@ import { resetPacmanStats } from "./gameSettings/pacmanSettings/pacmanSettings.j
 import { loadData, resetMap } from "./gameSettings/map/map.js";
 import { loadGhostPositions } from "./gameSettings/ghostSettings/ghostSettings.js";
 import { renderMenu } from "./gameSettings/render/render.js";
-import { playMusic } from "./gameSettings/audio/audio.js";
+import { playMusic, audio } from "./gameSettings/audio/audio.js";
 
 const startButton: HTMLElement | null = document.getElementById("start-button");
 const exitButton: HTMLElement | null = document.getElementById("exit-button");

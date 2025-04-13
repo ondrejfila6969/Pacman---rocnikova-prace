@@ -85,6 +85,7 @@ const renderMenu = () => {
     win.style.display = "none";
     loss.style.display = "none";
     menu.style.display = "flex";
+    audio.pause();
 };
 const render = () => {
     renderMap();
