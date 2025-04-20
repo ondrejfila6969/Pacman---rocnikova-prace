@@ -1,6 +1,6 @@
 import { GhostTemplate } from "./ghostTemplate/ghostTemplate.js";
 import { oneBlockHeight, oneBlockWidth, currentMap, } from "../gameSettings/map/map.js";
-import { ctx } from "../gameSettings/canvas/canvas.js";
+import { canvasHeight, canvasWidth, ctx } from "../gameSettings/canvas/canvas.js";
 import { pacman } from "../pacman/pacman.js";
 import { blinky, inky, pinky, clyde, loadGhostPositions, } from "../gameSettings/ghostSettings/ghostSettings.js";
 import { pacmanScore } from "../gameSettings/pacmanSettings/pacmanSettings.js";
@@ -36,6 +36,7 @@ export class Ghost extends GhostTemplate {
         this.changeWhiteGhost = setTimeout(() => {
             this.image.src = this.imagePaths[this.imageIndex][1];
             this.drawGhost();
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         }, 3750);
         this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
         return this.chooseOppositeDirection();

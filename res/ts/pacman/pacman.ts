@@ -4,7 +4,7 @@ import {
   oneBlockWidth,
   currentMap,
 } from "../gameSettings/map/map.js";
-import { ctx } from "../gameSettings/canvas/canvas.js";
+import { ctx, canvasWidth, canvasHeight } from "../gameSettings/canvas/canvas.js";
 import {
   pacmanScore,
   pacmanLives,
