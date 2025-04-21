@@ -47,8 +47,6 @@ export class Ghost extends GhostTemplate {
     }
     this.changeWhiteGhost = setTimeout(() => {
       this.image.src = this.imagePaths[this.imageIndex][1];
-      this.drawGhost();
-      ctx!.clearRect(0, 0, canvasWidth, canvasHeight);
     }, 3750);
     this.chaseTimeout = setTimeout(() => this.setChaseMode(), 5000);
     return this.chooseOppositeDirection();

@@ -2,7 +2,6 @@ import { Ghost } from "../../ghost/ghost.js";
 import { pacman } from "../../pacman/pacman.js";
 import { oneBlockWidth, oneBlockHeight } from "../map/map.js";
 
-
 let pinky: Ghost, clyde: Ghost, blinky: Ghost, inky: Ghost;
 
 const loadGhostPositions = async (): Promise<void> => {
