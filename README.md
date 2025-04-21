@@ -176,5 +176,5 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
    
  ## 🗓️ 21.4.2025
  - Týden do odevzdání, začíná se pracovat na prezentaci
- - Při kompletní analýze mého projektu jsem narazil na menší chybu: Když hráč sní speciální schopnost na konci dané úrovně, načte se nová mapa, začné nová úroveň, ale duchové nachviličku probliknou v canvasu
+ - Při kompletní analýze mého projektu jsem narazil na menší chybu: Když hráč sní speciální schopnost na konci dané úrovně, načte se nová mapa, začne nová úroveň, ale duchové nachviličku probliknou v canvasu
  - Tento problém byl odstraněn smazáním jediného řádku XDDDD
