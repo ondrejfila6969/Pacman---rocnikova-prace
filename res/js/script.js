@@ -41,7 +41,6 @@ startButton.addEventListener("click", () => {
     game.style.justifyContent = "center";
     document.body.appendChild(canvas);
     restartGame();
-    playMusic();
 });
 instructionButton.addEventListener("click", () => {
     instructionDiv.style.display = "block";

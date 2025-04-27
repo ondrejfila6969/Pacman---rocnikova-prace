@@ -132,7 +132,6 @@ const renderFoodOrSpecialAbility = (): void => {
 
   if (foods === 0 && specialAbility === 0 && !levelDone) {
     pacman.levelUp();
-    audio.pause();
     playMusic();
     levelDone = true;
     loadData();
