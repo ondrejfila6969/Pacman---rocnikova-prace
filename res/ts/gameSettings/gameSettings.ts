@@ -64,7 +64,7 @@ const gameStarts = async (): Promise<void> => {
     }, 1000 / fps);
   };
 
-  window.requestAnimationFrame(gameLoop);
+  gameLoop();
 
   let keyHeld = new Set<number>();
 

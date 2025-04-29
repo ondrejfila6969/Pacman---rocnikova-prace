@@ -43,7 +43,7 @@ const gameStarts = async () => {
             }
         }, 1000 / fps);
     };
-    window.requestAnimationFrame(gameLoop);
+    gameLoop();
     let keyHeld = new Set();
     document.addEventListener("keydown", (e) => {
         let key = e.keyCode;
