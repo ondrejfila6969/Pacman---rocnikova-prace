@@ -130,16 +130,18 @@ const renderFoodOrSpecialAbility = (): void => {
     }
   }
 
-  if (foods === 0 && specialAbility === 0 && !levelDone) {
-    pacman.levelUp();
-    playMusic();
-    levelDone = true;
-    loadData();
-    render();
-    resetPacmanAndGhosts();
-    pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
+  const levelUpCheck = () => {
+    if (foods === 0 && specialAbility === 0 && !levelDone) {
+      pacman.levelUp();
+      playMusic();
+      levelDone = true;
+      loadData();
+      render();
+      resetPacmanAndGhosts();
+      pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
+    }
   }
-  levelDone = false;
+  levelUpCheck();
 };
 
 const renderMenu = () => {
@@ -155,4 +157,4 @@ const render = (): void => {
   renderFoodOrSpecialAbility();
 };
 
-export { render, renderMenu };
+export { render, renderMenu};

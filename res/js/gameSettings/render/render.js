@@ -68,16 +68,18 @@ const renderFoodOrSpecialAbility = () => {
             }
         }
     }
-    if (foods === 0 && specialAbility === 0 && !levelDone) {
-        pacman.levelUp();
-        playMusic();
-        levelDone = true;
-        loadData();
-        render();
-        resetPacmanAndGhosts();
-        pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
-    }
-    levelDone = false;
+    const levelUpCheck = () => {
+        if (foods === 0 && specialAbility === 0 && !levelDone) {
+            pacman.levelUp();
+            playMusic();
+            levelDone = true;
+            loadData();
+            render();
+            resetPacmanAndGhosts();
+            pacmanCurrentLevel.innerText = `Current level: ${pacman.currentLevel}`;
+        }
+    };
+    levelUpCheck();
 };
 const renderMenu = () => {
     game.style.display = "none";

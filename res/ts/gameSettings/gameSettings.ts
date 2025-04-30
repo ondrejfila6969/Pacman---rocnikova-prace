@@ -22,6 +22,7 @@ import {
   initializeGhosts,
 } from "./ghostSettings/ghostSettings.js";
 import { loss, win, game, reachedScore1, reachedScore2 } from "../script.js";
+
 const fps: number = 60;
 
 const gameStarts = async (): Promise<void> => {
