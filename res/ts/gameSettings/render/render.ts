@@ -139,6 +139,7 @@ const renderFoodOrSpecialAbility = (): void => {
       render();
       resetPacmanAndGhosts();
       pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
+      levelDone = false;
     }
   }
   levelUpCheck();
