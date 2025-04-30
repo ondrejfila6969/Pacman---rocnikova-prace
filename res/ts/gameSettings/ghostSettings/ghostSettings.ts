@@ -24,7 +24,8 @@ const ghostUtills = (): void => {
     }
     ghost.drawGhost(); 
     ghost.ghostMovement(); 
-    ghost.isPacmanCatched();  
+    ghost.isPacmanCatched();
+    ghost.switchImageByDirection();
   });
 };
 
@@ -33,11 +34,5 @@ const initializeGhosts = (): void => {
     ghost.initializeMovement();
   });
 };
-
-const imageGhostInterval = setInterval(() => {
-  [blinky, pinky, inky, clyde].forEach((ghost) => {
-    ghost.switchImageByDirection();
-  });
-}, 100);
 
 export {ghostUtills, initializeGhosts, blinky, pinky, inky, clyde, loadGhostPositions};
