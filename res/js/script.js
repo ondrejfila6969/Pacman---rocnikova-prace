@@ -31,7 +31,7 @@ const restartGame = async () => {
     resetPacmanStats();
     resetPacmanAndGhosts();
     await gameStarts();
-    playMusic();
+    await playMusic();
 };
 startButton.addEventListener("click", () => {
     menu.style.display = "none";

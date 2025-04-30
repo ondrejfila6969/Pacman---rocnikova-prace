@@ -40,7 +40,7 @@ const restartGame = async (): Promise<void> => {
   resetPacmanStats();
   resetPacmanAndGhosts();
   await gameStarts();
-  playMusic();
+  await playMusic();
 };
 
 startButton!.addEventListener("click", () => {

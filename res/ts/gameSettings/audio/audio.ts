@@ -14,11 +14,9 @@ const playMusic = async () => {
   audio.src = musicArray[pacman.currentLevel - 1];
   audio.loop = true;
   audio.volume = 0.5;
-  
   await new Promise((resolve) => {
     audio.addEventListener('loadeddata', resolve, { once: true });
   });
-
   audio.play();
 };
 
