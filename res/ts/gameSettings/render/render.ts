@@ -8,8 +8,9 @@ import {
 } from "../map/map.js";
 import { pacman } from "../../pacman/pacman.js";
 import { pacmanCurrentLevel } from "../pacmanSettings/pacmanSettings.js";
-import { game, win, loss, menu } from "../../script.js";
+import { game, win, loss, menu, restartGame } from "../../script.js";
 import { audio, playMusic } from "../audio/audio.js";
+import { loadGhostPositions } from "../ghostSettings/ghostSettings.js";
 
 const getRandomNumber = (min: number, max: number) =>
   Math.random() * (max - min) + min;
@@ -81,7 +82,7 @@ let vulnerableGhostIcon = new Image();
 let heartIcon = new Image();
 let cherryIcon = new Image();
 
-const renderFoodOrSpecialAbility = (): void => {
+const renderFoodOrSpecialAbility = async () => {
   let foods = 0;
   let specialAbility = 0;
   for (let i = 0; i < currentMap.length; i++) {
@@ -130,19 +131,20 @@ const renderFoodOrSpecialAbility = (): void => {
     }
   }
 
-  const levelUpCheck = () => {
+  const levelUpCheck = async () => {
     if (foods === 0 && specialAbility === 0 && !levelDone) {
       pacman.levelUp();
-      playMusic();
       levelDone = true;
-      loadData();
-      render();
+      await loadData();
+      await loadGhostPositions()
       resetPacmanAndGhosts();
+      await playMusic();
       pacmanCurrentLevel!.innerText = `Current level: ${pacman.currentLevel}`;
       levelDone = false;
+      return;
     }
   }
-  levelUpCheck();
+  await levelUpCheck();
 };
 
 const renderMenu = () => {

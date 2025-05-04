@@ -55,4 +55,4 @@ tryAgainButton.addEventListener("click", restartGame);
 playAgainButton.addEventListener("click", restartGame);
 winReturnToMenu.addEventListener("click", renderMenu);
 lossReturnToMenu.addEventListener("click", renderMenu);
-export { loss, win, game, menu, reachedScore1, reachedScore2 };
+export { loss, win, game, menu, reachedScore1, reachedScore2, restartGame };
