@@ -186,4 +186,4 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  <p>Obhajoba - 1</p>
  <h5>Pravděpodobně dlouhodobka, ale ještě si nejsem jistý na 100%</h5>
 
- ![image](https://github.com/user-attachments/assets/8a862cfe-4e41-4252-947e-8fd05a8dba83)
+![wisers-slow-clap](https://github.com/user-attachments/assets/04402397-0901-467b-a0a2-d2eeb34ebf20)
