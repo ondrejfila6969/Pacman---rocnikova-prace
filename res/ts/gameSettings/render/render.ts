@@ -78,13 +78,19 @@ const renderMap = (): void => {
   }
 };
 let levelDone = false;
-let vulnerableGhostIcon = new Image();
-let heartIcon = new Image();
-let cherryIcon = new Image();
 
-vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
-heartIcon.src = "../../../../res/assets/abilities/heart.png";
-cherryIcon.src = "../../../../res/assets/abilities/cherry.png";
+const loadImage = (src: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+  });
+};
+
+const vulnerableGhostIcon = await loadImage("res/assets/abilities/whitevulnerableghost.png");
+const heartIcon = await loadImage("res/assets/abilities/heart.png");
+const cherryIcon = await loadImage("res/assets/abilities/cherry.png");
 
 const renderFoodOrSpecialAbility = async () => {
   let foods = 0;
