@@ -184,6 +184,7 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  <p>Praktická část - 1</p> 
  <p>Písemná část - 1</p>
  <p>Obhajoba - 1</p>
+ <h3>Celkově - 1 <3 </h3>
  <h5>Pravděpodobně dlouhodobka, ale ještě si nejsem jistý na 100%</h5>
 
 ![wisers-slow-clap](https://github.com/user-attachments/assets/04402397-0901-467b-a0a2-d2eeb34ebf20)
