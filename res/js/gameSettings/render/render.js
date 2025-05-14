@@ -42,6 +42,9 @@ let levelDone = false;
 let vulnerableGhostIcon = new Image();
 let heartIcon = new Image();
 let cherryIcon = new Image();
+vulnerableGhostIcon.src = "../../../../res/assets/abilities/whitevulnerableghost.png";
+heartIcon.src = "../../../../res/assets/abilities/heart.png";
+cherryIcon.src = "../../../../res/assets/abilities/cherry.png";
 const renderFoodOrSpecialAbility = async () => {
     let foods = 0;
     let specialAbility = 0;
@@ -53,18 +56,14 @@ const renderFoodOrSpecialAbility = async () => {
             }
             else if (currentMap[i][j] === 4) {
                 specialAbility++;
-                vulnerableGhostIcon.src =
-                    "../../../../res/assets/abilities/whitevulnerableghost.png";
                 ctx.drawImage(vulnerableGhostIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
             }
             else if (currentMap[i][j] === 6) {
                 specialAbility++;
-                heartIcon.src = "../../../../res/assets/abilities/heart.png";
                 ctx.drawImage(heartIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
             }
             else if (currentMap[i][j] === 8) {
                 specialAbility++;
-                cherryIcon.src = "../../../../res/assets/abilities/cherry.png";
                 ctx.drawImage(cherryIcon, j * oneBlockWidth + 4.25, i * oneBlockHeight + 4.25, oneBlockWidth / 1.5, oneBlockHeight / 1.5);
             }
         }
