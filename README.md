@@ -178,3 +178,12 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  - Týden do odevzdání, začíná se pracovat na prezentaci
  - Při kompletní analýze mého projektu jsem narazil na menší chybu: Když hráč sní speciální schopnost na konci dané úrovně, načte se nová mapa, začne nová úroveň, ale duchové nachviličku probliknou v canvasu
  - Tento problém byl odstraněn smazáním jediného řádku XDDDD
+
+ ## 🗓️ 14.5.2025
+ <h2>VÝSLEDNÉ HODNOCENÍ ROČNÍKOVKY</h2>
+ <p>Praktická část - 1</p> 
+ <p>Písemná část - 1</p>
+ <p>Obhajoba - 1</p>
+ <h5>Pravděpodobně dlouhodobka, ale ještě si nejsem jistý na 100%</h5>
+
+ ![image](https://github.com/user-attachments/assets/8a862cfe-4e41-4252-947e-8fd05a8dba83)
