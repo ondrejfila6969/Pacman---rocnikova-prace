@@ -6,7 +6,7 @@ const numberOfColumns = 21;
 const oneBlockWidth = Math.floor(canvasWidth / numberOfColumns);
 const oneBlockHeight = Math.floor(canvasHeight / numberOfRows);
 const loadData = async () => {
-    const file = await fetch("res/data/data.json");
+    const file = await fetch(`res/data/data.json`);
     const data = await file.json();
     currentMap = data[pacman.currentLevel - 1].currentLevel;
 };

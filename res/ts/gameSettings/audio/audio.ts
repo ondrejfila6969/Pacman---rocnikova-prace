@@ -1,11 +1,11 @@
 import { pacman } from "../../pacman/pacman.js";
 
 const musicArray = [
-  "/res/audio/song1.mp3",
-  "/res/audio/song2.mp3",
-  "/res/audio/song3.mp3",
-  "/res/audio/song4.mp3",
-  "/res/audio/song5.mp3",
+  "../../res/audio/song1.mp3",
+  "../../res/audio/song2.mp3",
+  "../../res/audio/song3.mp3",
+  "../../res/audio/song4.mp3",
+  "../../res/audio/song5.mp3",
 ];
 const audio = new Audio();
 
