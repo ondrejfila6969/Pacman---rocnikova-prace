@@ -5,7 +5,7 @@ import { oneBlockWidth, oneBlockHeight } from "../map/map.js";
 let pinky: Ghost, clyde: Ghost, blinky: Ghost, inky: Ghost;
 
 const loadGhostPositions = async (): Promise<void> => {
-    const file: Response = await fetch("../res/data/ghostPositions.json");
+    const file: Response = await fetch("/res/data/ghostPositions.json");
     const data = await file.json();
 
     blinky = new Ghost(Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight), 0);

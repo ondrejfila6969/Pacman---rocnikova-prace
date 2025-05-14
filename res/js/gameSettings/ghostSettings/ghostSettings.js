@@ -3,7 +3,7 @@ import { pacman } from "../../pacman/pacman.js";
 import { oneBlockWidth, oneBlockHeight } from "../map/map.js";
 let pinky, clyde, blinky, inky;
 const loadGhostPositions = async () => {
-    const file = await fetch("../res/data/ghostPositions.json");
+    const file = await fetch("/res/data/ghostPositions.json");
     const data = await file.json();
     blinky = new Ghost(Number(data[pacman.currentLevel - 1].blinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].blinky.posY * oneBlockHeight), 0);
     pinky = new Ghost(Number(data[pacman.currentLevel - 1].pinky.posX * oneBlockWidth), Number(data[pacman.currentLevel - 1].pinky.posY * oneBlockHeight), 3);

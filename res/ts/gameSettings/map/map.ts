@@ -8,7 +8,7 @@ const oneBlockWidth: number = Math.floor(canvasWidth / numberOfColumns);
 const oneBlockHeight: number = Math.floor(canvasHeight / numberOfRows);
 
 const loadData = async (): Promise<void> => {
-  const file: Response = await fetch("../res/data/data.json");
+  const file: Response = await fetch("/res/data/data.json");
   const data = await file.json();
   currentMap = data[pacman.currentLevel - 1].currentLevel;
 };
