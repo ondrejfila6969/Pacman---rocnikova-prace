@@ -174,17 +174,24 @@ P.S. Jestli v následující době dojde k jakémukoliv problému, tak na to ře
  - Druhý díl skládačky hotový - hotová dokumentace
  - Teď už jen prezentace k obhajobě <3
    
- ## 🗓️ 21.4.2025
+## 🗓️ 21.4.2025
  - Týden do odevzdání, začíná se pracovat na prezentaci
  - Při kompletní analýze mého projektu jsem narazil na menší chybu: Když hráč sní speciální schopnost na konci dané úrovně, načte se nová mapa, začne nová úroveň, ale duchové nachviličku probliknou v canvasu
  - Tento problém byl odstraněn smazáním jediného řádku XDDDD
 
- ## 🗓️ 14.5.2025
- <h2>VÝSLEDNÉ HODNOCENÍ ROČNÍKOVKY</h2>
- <p>Praktická část - 1</p> 
- <p>Písemná část - 1</p>
- <p>Obhajoba - 1</p>
- <h3>Celkově - 1 <3 </h3>
- <h5>Pravděpodobně dlouhodobka, ale ještě si nejsem jistý na 100%</h5>
+## 🗓️ 14.5.2025
+## 🏆 VÝSLEDNÉ HODNOCENÍ ROČNÍKOVÉ PRÁCE
+
+| Část hodnocení     | Známka |
+|---------------------|--------|
+| 🔧 Praktická část   | 1      |
+| 📝 Písemná část     | 1      |
+| 🎤 Obhajoba         | 1      |
+
+---
+
+### 📊 Celkové hodnocení: **1** ❤️
+
+> _„Pravděpodobně dlouhodobka, ale ještě si nejsem jistý na 100 %.”_
 
 ![wisers-slow-clap](https://github.com/user-attachments/assets/04402397-0901-467b-a0a2-d2eeb34ebf20)
